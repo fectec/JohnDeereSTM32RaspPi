@@ -1,0 +1,5 @@
+user.name=fectec151 user.email=fectec151@gmail.com 
+core.repositoryformatversion=0 core.filemode=true core.bare=false 
+core.logallrefupdates=true 
+remote.origin.url=https://github.com/fectec/JohnDeereSTM32RaspPi.git 
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*

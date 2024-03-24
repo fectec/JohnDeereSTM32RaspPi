@@ -1,6 +1,6 @@
 # Author: System Design On Chip Team 4
 # Description: This code generates random values for a tractor's parameters,
-# calculates its RPM and saves this data into a CSV file.
+# calculates its RPM, saves this data into a CSV file and plots it.
 
 import random
 import math
