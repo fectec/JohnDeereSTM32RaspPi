@@ -1,0 +1,2 @@
+../Src/uart.c:8:6:USER_USART1_Init	1
+../Src/uart.c:23:5:_write	3

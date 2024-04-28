@@ -63,15 +63,33 @@ typedef struct
 	volatile uint32_t DR;
 } ADC_TypeDef;
 
-#define RCC_BASE	0x40021000UL //	RCC base address
-#define GPIOA_BASE	0x40010800UL //	GPIO Port A base address
-#define ADC1_BASE	0x40010800UL //	ADCX base address
+/* USART Registers */
 
-#define RCC		(( RCC_TypeDef *) RCC_BASE)
+typedef struct
+{
+	volatile uint32_t SR;
+	volatile uint32_t DR;
+	volatile uint32_t BRR;
+	volatile uint32_t CR1;
+	volatile uint32_t CR2;
+	volatile uint32_t CR3;
+	volatile uint32_t GTPR;
+} USART_TypeDef;
+
+#define RCC_BASE	0x40021000UL	// RCC base address
+#define GPIOA_BASE	0x40010800UL	// GPIO Port A base address
+#define ADC1_BASE	0x40012400UL	// ADC1 base address
+#define USART1_BASE	0x40013800UL 	// USART1 base address
+
+#define RCC	(( RCC_TypeDef *) RCC_BASE)
 #define GPIOA	(( GPIO_TypeDef *) GPIOA_BASE)
 #define ADC1	(( ADC_TypeDef *) ADC1_BASE)
+#define USART1	(( USART_TypeDef *) USART1_BASE)
 
-#define RCC_APB2ENR_IOPAEN		( 0x1UL << 2U )
+#define RCC_APB2ENR_IOPAEN	( 0x1UL << 2U )
+
+#define GPIO_CRL_MODE1		( 0x3UL << 4U )
+#define GPIO_CRL_CNF1		( 0x3UL << 6U )
 
 void USER_RCC_ClockEnable( void );
 void USER_GPIO_Init( void );

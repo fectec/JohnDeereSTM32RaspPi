@@ -1,0 +1,2 @@
+../Src/ADC.c:8:6:USER_ADC_Init	4	static
+../Src/ADC.c:27:10:USER_ADC1_Convert	4	static
