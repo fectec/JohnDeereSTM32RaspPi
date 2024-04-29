@@ -94,6 +94,11 @@ typedef struct
 #define GPIO_CRL_MODE0		( 0x3UL << 0U )
 #define GPIO_CRL_CNF0		( 0x3UL << 2U )
 
+#define GPIO_CRH_CNF9_0		( 0x1UL <<  6U )
+#define GPIO_CRH_MODE9		( 0x2UL <<  4U )
+#define GPIO_CRH_CNF9		( 0x2UL <<  6U )
+#define GPIO_CRH_MODE9_0	( 0x1UL <<  4U )
+
 void USER_RCC_ClockEnable( void );
 void USER_GPIO_Init( void );
 

@@ -30,4 +30,5 @@ uint16_t USER_ADC1_Convert( void )
 
   while(!( ADC1->SR & ADC_SR_EOC ));		// Wait for end of conversion
   return ADC1->DR;
+
 }

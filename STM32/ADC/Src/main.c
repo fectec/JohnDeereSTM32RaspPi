@@ -61,9 +61,9 @@ void USER_GPIO_Init( void )
 
   // Pin PA9 (USART1_TX) as alternate function output push-pull, max speed 10MHz
 
-  GPIOA->CRH	&=	~( 0x1UL <<  6U )
-		&	~( 0x2UL <<  4U );
+  GPIOA->CRH	&=	~( GPIO_CRH_CNF9_0 )
+  		&	~( GPIO_CRH_MODE9 );
 
-  GPIOA->CRH	|=	 ( 0x2UL <<  6U )
-		|	 ( 0x1UL <<  4U );
+  GPIOA->CRH	|=	 ( GPIO_CRH_CNF9 )
+  		|	 ( GPIO_CRH_MODE9_0 );
 }
