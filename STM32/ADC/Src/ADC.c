@@ -19,7 +19,7 @@ void USER_ADC_Init( void )
 						//	conversion
   ADC1->CR2	|=	ADC_CR2_CAL;		// Step 6 - Perform a calibration after
 						// 	each power-up
-  while ( ADC1->CR2 & ADC_CR2_CAL );		// Step 7 - Wait until the bit is reset by
+  while (!( ADC1->CR2 & ADC_CR2_CAL ));		// Step 7 - Wait until the bit is reset by
 						//	hardware after calibration is complete
   ADC1->CR2	|=	ADC_CR2_ADON;		// Step 8 - Enable the ADC module
 }
@@ -27,10 +27,8 @@ void USER_ADC_Init( void )
 uint32_t USER_ADC1_Convert( void )
 {
 
-  if( ADC1->SR & ADC_SR_EOC ) // Wait for end of conversion
-  {
-      return ADC1->DR;
-  }
+  while( ADC1->SR & ADC_SR_EOC ); 		// Wait for end of conversion
+  ADC1->SR &= ~(ADC_SR_EOC);
+  return ADC1->DR;
 
-  return 0;
 }

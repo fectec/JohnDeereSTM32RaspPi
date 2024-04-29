@@ -87,6 +87,7 @@ typedef struct
 #define USART1	(( USART_TypeDef *) USART1_BASE)
 
 #define RCC_APB2ENR_IOPAEN	( 0x1UL << 2U )
+#define RCC_APB2ENR_USART1EN	( 0x1UL << 14U )
 
 #define GPIO_CRL_MODE1		( 0x3UL << 4U )
 #define GPIO_CRL_CNF1		( 0x3UL << 6U )
