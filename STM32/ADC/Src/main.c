@@ -8,7 +8,8 @@
 #include "ADC.h"
 #include "uart.h"
 
-volatile uint32_t ConversionData;
+volatile uint16_t ConversionData;
+volatile float Voltage;
 
 /* Function prototypes */
 
@@ -27,7 +28,9 @@ int main( void )
   for(;;)
   {
       ConversionData = USER_ADC1_Convert();
-      printf("Data: %d\n\r", (int)ConversionData);
+      Voltage = 0.00080586 * ConversionData;
+
+      printf("Voltage: %f\n\r", Voltage);
   }
 }
 
@@ -53,8 +56,8 @@ void USER_GPIO_Init( void )
 {
   // Pin PA1 as analog input
 
-  GPIOA->CRL	&=	~( GPIO_CRL_MODE1 )
-		&	~( GPIO_CRL_CNF1 );
+  GPIOA->CRL	&=	~( GPIO_CRL_MODE0 )
+		&	~( GPIO_CRL_CNF0 );
 
   // Pin PA9 (USART1_TX) as alternate function output push-pull, max speed 10MHz
 
