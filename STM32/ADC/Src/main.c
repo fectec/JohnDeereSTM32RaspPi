@@ -27,7 +27,7 @@ int main( void )
   for(;;)
   {
       ConversionData = USER_ADC1_Convert();
-      printf("%lu\n\r", (unsigned long)ConversionData);
+      printf("Data: %d\n\r", (int)ConversionData);
   }
 }
 
