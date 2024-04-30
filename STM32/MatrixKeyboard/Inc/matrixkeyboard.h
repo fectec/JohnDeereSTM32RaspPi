@@ -13,7 +13,7 @@
 #define C1	0x1UL << 1  // PB1
 #define C2	0x1UL << 15 // PB15
 #define C3	0x1UL << 14 // PB14
-#define c4	0x1UL << 13 // PB13
+#define C4	0x1UL << 13 // PB13
 
 void USER_MATRIX_KEYBOARD_Read( void );
 
