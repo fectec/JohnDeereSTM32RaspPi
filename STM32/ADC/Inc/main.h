@@ -86,18 +86,18 @@ typedef struct
 #define ADC1	(( ADC_TypeDef *) ADC1_BASE)
 #define USART1	(( USART_TypeDef *) USART1_BASE)
 
-#define RCC_APB2ENR_IOPAEN	( 0x1UL << 2U )
-#define RCC_APB2ENR_USART1EN	( 0x1UL << 14U )
-#define RCC_APB2ENR_ADC1EN	( 0x1UL << 9U )
-#define RCC_CFGR_ADCPRE		( 0x3UL << 14U )
+#define RCC_APB2ENR_IOPAEN	0x1UL << 2U
+#define RCC_APB2ENR_USART1EN	0x1UL << 14U
+#define RCC_APB2ENR_ADC1EN	0x1UL << 9U
+#define RCC_CFGR_ADCPRE		0x3UL << 14U
 
-#define GPIO_CRL_MODE0		( 0x3UL << 0U )
-#define GPIO_CRL_CNF0		( 0x3UL << 2U )
+#define GPIO_CRL_MODE0		0x3UL << 0U
+#define GPIO_CRL_CNF0		0x3UL << 2U
 
-#define GPIO_CRH_CNF9_0		( 0x1UL <<  6U )
-#define GPIO_CRH_MODE9		( 0x2UL <<  4U )
-#define GPIO_CRH_CNF9		( 0x2UL <<  6U )
-#define GPIO_CRH_MODE9_0	( 0x1UL <<  4U )
+#define GPIO_CRH_CNF9_0		0x1UL <<  6U
+#define GPIO_CRH_MODE9		0x2UL <<  4U
+#define GPIO_CRH_CNF9		0x2UL <<  6U
+#define GPIO_CRH_MODE9_0	0x1UL <<  4U
 
 void USER_RCC_ClockEnable( void );
 void USER_GPIO_Init( void );

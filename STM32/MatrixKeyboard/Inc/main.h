@@ -51,16 +51,15 @@ typedef struct
 } USART_TypeDef;
 
 #define RCC_BASE	0x40021000UL	// RCC base address
-#define GPIOA_BASE	0x40010800UL	// GPIO Port A base address
+#define GPIOB_BASE	0x40010C00UL	// GPIO Port B base address
 #define USART1_BASE	0x40013800L 	// USART1 base address
 
 #define RCC	(( RCC_TypeDef *) RCC_BASE)
-#define GPIOA	(( GPIO_TypeDef *) GPIOA_BASE)
+#define GPIOB	(( GPIO_TypeDef *) GPIOB_BASE)
 #define USART1	(( USART_TypeDef *) USART1_BASE)
 
-#define RCC_APB2ENR_IOPAEN	( 0x1UL << 2U )
-
-#define RCC_APB2ENR_USART1EN	( 0x1UL << 14U )
+#define RCC_APB2ENR_IOPBEN	0x1UL << 3U
+#define RCC_APB2ENR_USART1EN	0x1UL << 14U
 
 void USER_RCC_ClockEnable( void );
 void USER_GPIO_Init( void );
