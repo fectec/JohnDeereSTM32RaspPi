@@ -5,7 +5,10 @@
 /* Libraries, Definitions and Global Declarations */
 
 #include "main.h"
+#include "uart.h"
 #include "matrixkeyboard.h"
+
+unsigned short int value;
 
 /* Function prototypes */
 
@@ -18,10 +21,12 @@ int main( void )
 
   USER_RCC_ClockEnable( );
   USER_GPIO_Init( );
+  USER_USART1_Init();
 
   for(;;)
   {
-
+      value = USER_MATRIX_KEYBOARD_Read();
+      printf("%d", value);
   }
 }
 
