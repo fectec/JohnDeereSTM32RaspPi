@@ -9,7 +9,8 @@
 
 extern unsigned short int R_POSITIONS[NUMBER_OF_ELEMENTS];
 extern unsigned short int C_POSITIONS[NUMBER_OF_ELEMENTS];
+extern char keys[NUMBER_OF_ELEMENTS][NUMBER_OF_ELEMENTS];
 
-unsigned short int USER_MATRIX_KEYBOARD_Read(void);
+char USER_MATRIX_KEYBOARD_Read(void);
 
 #endif /* MATRIXKEYBOARD_H_ */
