@@ -1,7 +1,8 @@
 # Library imports
 
-import csv
 import numpy as np
+import csv
+import serial
 
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -38,42 +39,62 @@ axes[2].set_ylim(plot_settings.GEAR_BOUNDS[0] - plot_settings.GEAR_BOUNDS[0], pl
 
 # Create CSV file
 
-FILE_NAME = "tractor_data.csv"
-
-with open(FILE_NAME, mode = 'w', newline = '') as file:
+with open(plot_settings.FILE_NAME, mode = 'w', newline = '') as file:
     writer = csv.writer(file)
     writer.writerow(['Engine Speed', 'Vehicle Speed', 'Gear'])
 
-# Read values
+# Instantiate Serial object
+
+ser = serial.Serial(plot_settings.SERIAL_PORT, baudrate=plot_settings.BAUDRATE, 
+                    parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
+                    bytesize=serial.EIGHTBITS, timeout=1)
 
 def run_plot(frame):
 
-    global parameters_values, transmission_ratio
+  global parameters_values
 
-    # Assign random value to angular velocity and wheel radius variables
+  # Read values, decode bytes to string and remove leading/trailing whitespaces
 
-    engine_speed = 0.5
-    vehicle_speed = 1
-    gear = 2
+  rx_data = ser.readline().decode().strip
+  
+  # Split the received string by commas
 
-    # Write values to CSV
+  values = rx_data.split(',')
 
-    with open(FILE_NAME, mode = 'a', newline = '') as file:
-      writer = csv.writer(file)
-      writer.writerow([engine_speed, vehicle_speed, gear])
+  # Check if all values are received
 
-    # Add new values to parameters values matrix
+  if len(values) == 3:
+      
+      # Assign values to variables
 
-    new_row = np.array([engine_speed, vehicle_speed, gear])
-    parameters_values = np.vstack([parameters_values, new_row])
+      engine_speed = float(values[0])
+      vehicle_speed = float(values[1])
+      gear = int(values[2])
 
-    # Limit parameters values matrix to set number of items
+  else:
+      
+      # Handle the case when all values are not received properly
 
-    parameters_values = parameters_values[-plot_settings.X_RANGE : , :]
+      print("Incomplete data received: ", rx_data)
 
-    # Update lines with new values
+  # Write values to CSV
 
-    for j, scatter_plot in enumerate(scatter_plots):
-      scatter_plot.set_ydata(parameters_values[:, j])
+  with open(plot_settings.FILE_NAME, mode = 'a', newline = '') as file:
+    writer = csv.writer(file)
+    writer.writerow([engine_speed, vehicle_speed, gear])
 
-    return fig
+  # Add new values to parameters values matrix
+
+  new_row = np.array([engine_speed, vehicle_speed, gear])
+  parameters_values = np.vstack([parameters_values, new_row])
+
+  # Limit parameters values matrix to set number of items
+
+  parameters_values = parameters_values[-plot_settings.X_RANGE : , :]
+
+  # Update lines with new values
+
+  for j, scatter_plot in enumerate(scatter_plots):
+    scatter_plot.set_ydata(parameters_values[:, j])
+
+  return fig
