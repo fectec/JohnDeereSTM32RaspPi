@@ -55,7 +55,7 @@ def run_plot(frame):
 
   # Read values, decode bytes to string and remove leading/trailing whitespaces
 
-  rx_data = ser.readline().decode().strip
+  rx_data = ser.readline().decode().strip()
   
   # Split the received string by commas
 
@@ -65,36 +65,40 @@ def run_plot(frame):
 
   if len(values) == 3:
       
-      # Assign values to variables
+    # Assign values to variables
 
-      engine_speed = float(values[0])
-      vehicle_speed = float(values[1])
-      gear = int(values[2])
+    engine_speed = float(values[0])
+    vehicle_speed = float(values[1])
+    gear = int(values[2])
+
+    # Write values to CSV
+
+    with open(plot_settings.FILE_NAME, mode = 'a', newline = '') as file:
+      writer = csv.writer(file)
+      writer.writerow([engine_speed, vehicle_speed, gear])
+
+    # Add new values to parameters values matrix
+
+    new_row = np.array([engine_speed, vehicle_speed, gear])
+    parameters_values = np.vstack([parameters_values, new_row])
+
+    # Limit parameters values matrix to set number of items
+
+    parameters_values = parameters_values[-plot_settings.X_RANGE : , :]
+
+    # Update lines with new values
+
+    for j, scatter_plot in enumerate(scatter_plots):
+      scatter_plot.set_ydata(parameters_values[:, j])
 
   else:
       
-      # Handle the case when all values are not received properly
+    # Handle the case when all values are not received properly
 
-      print("Incomplete data received: ", rx_data)
+    print("Incomplete data received: ", rx_data)
 
-  # Write values to CSV
-
-  with open(plot_settings.FILE_NAME, mode = 'a', newline = '') as file:
-    writer = csv.writer(file)
-    writer.writerow([engine_speed, vehicle_speed, gear])
-
-  # Add new values to parameters values matrix
-
-  new_row = np.array([engine_speed, vehicle_speed, gear])
-  parameters_values = np.vstack([parameters_values, new_row])
-
-  # Limit parameters values matrix to set number of items
-
-  parameters_values = parameters_values[-plot_settings.X_RANGE : , :]
-
-  # Update lines with new values
-
-  for j, scatter_plot in enumerate(scatter_plots):
-    scatter_plot.set_ydata(parameters_values[:, j])
+    engine_speed = 0
+    vehicle_speed = 0
+    gear = 0
 
   return fig

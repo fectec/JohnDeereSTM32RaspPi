@@ -21,5 +21,5 @@ FILE_NAME = "tractor_data.csv"
 
 # Serial
 
-SERIAL_PORT = "/dev/ttyS0"
+SERIAL_PORT = "COM6"
 BAUDRATE = 115200
