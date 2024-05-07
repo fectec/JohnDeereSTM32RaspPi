@@ -5,7 +5,7 @@ import sys
 
 # Game imports
 
-import settings as settings
+import settings
 
 # Start pygame module
 
