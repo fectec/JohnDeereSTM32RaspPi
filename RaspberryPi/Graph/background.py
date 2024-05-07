@@ -1,6 +1,6 @@
 # Game imports
 
-import settings as settings
+import game_settings
 
 # Definition of the Background class
 
@@ -16,12 +16,12 @@ class Background :
 
     def draw(self) :
          
-        settings.SCREEN.blit(self.sprite, (self.x_pos, self.y_pos))
-        settings.SCREEN.blit(self.sprite, (self.x_pos, self.y_pos - self.sprite_height))
+        game_settings.SCREEN.blit(self.sprite, (self.x_pos, self.y_pos))
+        game_settings.SCREEN.blit(self.sprite, (self.x_pos, self.y_pos - self.sprite_height))
 
         if self.y_pos >= self.sprite_height :
             
-            settings.SCREEN.blit(self.sprite, (self.x_pos, self.y_pos - self.sprite_height))
+            game_settings.SCREEN.blit(self.sprite, (self.x_pos, self.y_pos - self.sprite_height))
             self.y_pos = 0
 
-        self.y_pos += settings.GAME_SPEED
+        self.y_pos += game_settings.GAME_SPEED

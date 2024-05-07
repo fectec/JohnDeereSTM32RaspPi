@@ -4,7 +4,7 @@ import pygame as pg
 
 # Game imports
 
-import settings as settings
+import game_settings
 
 # Definition of the Button class
 
@@ -34,4 +34,4 @@ class Button:
         if pg.mouse.get_pressed()[0] == 0:
                 self.clicked = False
 
-        settings.SCREEN.blit(self.image, (self.rect.x, self.rect.y))
+        game_settings.SCREEN.blit(self.image, (self.rect.x, self.rect.y))

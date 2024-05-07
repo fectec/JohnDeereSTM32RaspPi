@@ -1,10 +1,10 @@
-# Description: This code generates random values for a tractor's parameters,
-# calculates its RPM, saves this data into a CSV file and plots it.
+# Library imports
 
 import random
 import math
 import csv
 import numpy as np
+
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
@@ -41,7 +41,8 @@ def generate_random_value(lower_bound, upper_bound, decimal=True):
 
 fig, axes = plt.subplots(4, 1, figsize=(8, 10))
 fig.subplots_adjust(hspace=0.5)
-scatter_plots = [ax.plot(x_values, parameters_values[:, i], 'b-')[0] for i, ax in enumerate(axes)]
+scatter_plots = [ax.plot(x_values, parameters_values[:, i], 'g-')[0] for i, ax in enumerate(axes)]
+fig.set_size_inches(6, 8)
 
 for i in range(4):
   axes[i].set_xlabel('Samples')
@@ -111,10 +112,12 @@ def animate(frame):
 
     return scatter_plots
 
-# Create animation
+def run_plot() :
 
-ani = FuncAnimation(fig, animate, frames=range(X_RANGE), blit=True)
+  # Create animation
 
-# Keep plot window open
+  ani = FuncAnimation(fig, animate, frames=range(X_RANGE), blit=True)
+  return ani
 
-plt.show()
+if __name__ == "__main__" :
+  run_plot()

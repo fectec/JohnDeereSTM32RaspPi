@@ -6,10 +6,10 @@ import types
 
 # Game imports
 
-import player
 import background
 import menu
 import button
+import player
 
 # Start pygame module
 
@@ -26,6 +26,7 @@ SCREEN_HEIGHT = 720
 CAPTION = 'John Deere Tractor Driving Simulator'
 
 SCREEN = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pg.display.init()
 
 # Assets
 

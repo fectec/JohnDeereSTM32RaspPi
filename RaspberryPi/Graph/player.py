@@ -1,6 +1,6 @@
 # Game imports
 
-import settings as settings
+import game_settings
 
 # Definition of the Player class
 
@@ -17,7 +17,7 @@ class Player :
 
     def draw(self) :
          
-        settings.SCREEN.blit(self.sprite, (self.rect.x, self.rect.y))
+        game_settings.SCREEN.blit(self.sprite, (self.rect.x, self.rect.y))
 
 
 
