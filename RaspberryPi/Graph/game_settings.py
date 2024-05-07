@@ -4,7 +4,7 @@ import pygame as pg
 import os
 import types
 
-# Game imports
+# Code imports
 
 import background
 import menu
@@ -67,7 +67,12 @@ BACKGROUND_SPRITES = [pg.image.load(os.path.join(BASE_PATH, "assets/Game", "game
 PLAYER_MOVING_SPRITES = [pg.image.load(os.path.join(BASE_PATH, "assets/Player", "player_moving_1.png")), 
                         pg.image.load(os.path.join(BASE_PATH, "assets/Player", "player_moving_2.png"))]
 
-PLAYER_INITIAL_POS = (SCREEN_WIDTH // 2 - PLAYER_MOVING_SPRITES[0].get_width() // 2, SCREEN_HEIGHT // 2 - PLAYER_MOVING_SPRITES[0].get_height() // 2)
+PLAYER_INITIAL_POS = (SCREEN_WIDTH // 4 - PLAYER_MOVING_SPRITES[0].get_width() // 2, SCREEN_HEIGHT // 2 - PLAYER_MOVING_SPRITES[0].get_height() // 2)
+
+# Plot
+
+PLOT_SIZE = (600, 700)
+PLOT_POS = (SCREEN_WIDTH // 2 , SCREEN_HEIGHT // 2 - PLOT_SIZE[1] // 2)
 
 # Game instances
 

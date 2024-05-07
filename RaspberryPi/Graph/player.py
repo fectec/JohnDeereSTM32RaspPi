@@ -1,4 +1,4 @@
-# Game imports
+# Code imports
 
 import game_settings
 
