@@ -70,6 +70,8 @@ PLAYER_MOVING_SPRITES = [pg.image.load(os.path.join(BASE_PATH, "assets/Player", 
 
 PLAYER_INITIAL_POS = (SCREEN_WIDTH // 4 - PLAYER_MOVING_SPRITES[0].get_width() // 2, SCREEN_HEIGHT // 2 - PLAYER_MOVING_SPRITES[0].get_height() // 2)
 
+PLAYER_SOUND_EFFECT = os.path.join(BASE_PATH, "assets/SoundEffects", "tractor_engine.wav")
+
 # Plot
 
 GAME_PLOT_SIZE = tuple(element * 100 for element in PLOT_SIZE)

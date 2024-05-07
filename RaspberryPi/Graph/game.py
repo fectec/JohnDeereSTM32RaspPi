@@ -18,7 +18,7 @@ def menu() :
     run = True
     clock = game_settings.pg.time.Clock()
 
-    game_settings.pg.mixer.Channel(1).play(game_settings.pg.mixer.Sound(game_settings.MENU_MUSIC))
+    game_settings.pg.mixer.Channel(1).play(game_settings.pg.mixer.Sound(game_settings.MENU_MUSIC), loops=-1)
 
     while run :
         
@@ -63,7 +63,11 @@ def game() :
     renderer = canvas.get_renderer()
     raw_data = renderer.buffer_rgba()
 
-    game_settings.pg.mixer.Channel(1).play(game_settings.pg.mixer.Sound(game_settings.GAME_MUSIC))
+    game_settings.pg.mixer.Channel(0).play(game_settings.pg.mixer.Sound(game_settings.PLAYER_SOUND_EFFECT), loops=-1, fade_ms=0)
+    game_settings.pg.mixer.Channel(0).set_volume(0.5)
+
+    game_settings.pg.mixer.Channel(1).play(game_settings.pg.mixer.Sound(game_settings.GAME_MUSIC), loops=-1)
+    game_settings.pg.mixer.Channel(1).set_volume(1.0)
 
     while run :
         
