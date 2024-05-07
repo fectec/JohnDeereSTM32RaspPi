@@ -10,6 +10,7 @@ import background
 import menu
 import button
 import player
+from plot_settings import PLOT_SIZE
 
 # Start pygame module
 
@@ -71,8 +72,8 @@ PLAYER_INITIAL_POS = (SCREEN_WIDTH // 4 - PLAYER_MOVING_SPRITES[0].get_width() /
 
 # Plot
 
-PLOT_SIZE = (600, 700)
-PLOT_POS = (SCREEN_WIDTH // 2 , SCREEN_HEIGHT // 2 - PLOT_SIZE[1] // 2)
+GAME_PLOT_SIZE = tuple(element * 100 for element in PLOT_SIZE)
+PLOT_POS = (SCREEN_WIDTH // 2 , SCREEN_HEIGHT // 2 - GAME_PLOT_SIZE[1] // 2)
 
 # Game instances
 

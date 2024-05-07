@@ -57,7 +57,7 @@ def game() :
     # Transform fig into canvas and get its raw data
 
     canvas = FigureCanvasAgg(fig)
-    size = game_settings.PLOT_SIZE
+    size = game_settings.GAME_PLOT_SIZE
     renderer = canvas.get_renderer()
     raw_data = renderer.buffer_rgba()
 

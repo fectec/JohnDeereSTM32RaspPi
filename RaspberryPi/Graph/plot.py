@@ -18,7 +18,6 @@ wheel_radius = 0.5 # m
 transmission_ratio = 4 # no unit
 RPM = 0 # revolutions per minute
 
-
 # List and matrix for live plotting
 
 x_values = list(range(0, plot_settings.X_RANGE))
@@ -34,7 +33,7 @@ def generate_random_value(lower_bound, upper_bound, decimal=True):
 
 # Figure and axes declaration
 
-fig, axes = plt.subplots(4, 1, figsize=(6, 7))
+fig, axes = plt.subplots(4, 1, figsize=plot_settings.PLOT_SIZE)
 fig.subplots_adjust(hspace=0.5)
 scatter_plots = [ax.plot(x_values, parameters_values[:, i], 'g-')[0] for i, ax in enumerate(axes)]
 
