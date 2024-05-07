@@ -1,6 +1,5 @@
 # Library imports
 
-import random
 import csv
 import numpy as np
 
@@ -11,49 +10,31 @@ from matplotlib.animation import FuncAnimation
 
 import plot_settings
 
-# Tractor's parameters variables
-
-angular_velocity = 0 # rad/s
-wheel_radius = 0.5 # m
-transmission_ratio = 4 # no unit
-RPM = 0 # revolutions per minute
-
 # List and matrix for live plotting
 
 x_values = list(range(0, plot_settings.X_RANGE))
-parameters_values = np.zeros((plot_settings.X_RANGE, 4))
-
-# Function for generating random values
-
-def generate_random_value(lower_bound, upper_bound, decimal=True):
-  if(decimal == True):
-    return random.uniform(lower_bound, upper_bound)
-  else:
-    return random.randint(lower_bound, upper_bound)
+parameters_values = np.zeros((plot_settings.X_RANGE, plot_settings.NUMBER_OF_VARIABLES))
 
 # Figure and axes declaration
 
-fig, axes = plt.subplots(4, 1, figsize=plot_settings.PLOT_SIZE)
+fig, axes = plt.subplots(plot_settings.NUMBER_OF_VARIABLES, 1, figsize=plot_settings.PLOT_SIZE)
 fig.subplots_adjust(hspace=0.5)
 scatter_plots = [ax.plot(x_values, parameters_values[:, i], 'g-')[0] for i, ax in enumerate(axes)]
 
-for i in range(4):
+for i in range(plot_settings.NUMBER_OF_VARIABLES):
   axes[i].set_xlabel('Samples')
 
-for i in range(4):
+for i in range(plot_settings.NUMBER_OF_VARIABLES):
   axes[i].set_xlim(0, plot_settings.X_RANGE)
 
-axes[0].set_ylabel('Angular Velocity (rad/s)')
-axes[0].set_ylim(plot_settings.ANGULAR_VELOCITY_BOUNDS[0] - plot_settings.ANGULAR_VELOCITY_BOUNDS[0], plot_settings.ANGULAR_VELOCITY_BOUNDS[1] + plot_settings.ANGULAR_VELOCITY_BOUNDS[0])
+axes[0].set_ylabel('Engine Speed')
+axes[0].set_ylim(plot_settings.ENGINE_SPEED_BOUNDS[0] - plot_settings.ENGINE_SPEED_BOUNDS[0], plot_settings.ENGINE_SPEED_BOUNDS[1] + plot_settings.ENGINE_SPEED_BOUNDS[0])
 
-axes[1].set_ylabel('Wheel Radius (m)')
-axes[1].set_ylim(plot_settings.WHEEL_RADIUS_BOUNDS[0] - plot_settings.WHEEL_RADIUS_BOUNDS[0], plot_settings.WHEEL_RADIUS_BOUNDS[1] + plot_settings.WHEEL_RADIUS_BOUNDS[0])
+axes[1].set_ylabel('Vehicle Speed')
+axes[1].set_ylim(plot_settings.VEHICLE_SPEED_BOUNDS[0] - plot_settings.VEHICLE_SPEED_BOUNDS[0], plot_settings.VEHICLE_SPEED_BOUNDS[1] + plot_settings.VEHICLE_SPEED_BOUNDS[0])
 
-axes[2].set_ylabel('Transmission Ratio')
-axes[2].set_ylim(plot_settings.TRANSMISSION_RATIO_BOUNDS[0] - plot_settings.TRANSMISSION_RATIO_BOUNDS[0], plot_settings.TRANSMISSION_RATIO_BOUNDS[1] + plot_settings.TRANSMISSION_RATIO_BOUNDS[0])
-
-axes[3].set_ylabel('RPM (rpm)')
-axes[3].set_ylim(plot_settings.RPM_BOUNDS[0] - plot_settings.RPM_BOUNDS[0], plot_settings.RPM_BOUNDS[1] + plot_settings.RPM_BOUNDS[0])
+axes[2].set_ylabel('Gear')
+axes[2].set_ylim(plot_settings.GEAR_BOUNDS[0] - plot_settings.GEAR_BOUNDS[0], plot_settings.GEAR_BOUNDS[1] + plot_settings.GEAR_BOUNDS[0])
 
 # Create CSV file
 
@@ -61,9 +42,9 @@ FILE_NAME = "tractor_data.csv"
 
 with open(FILE_NAME, mode = 'w', newline = '') as file:
     writer = csv.writer(file)
-    writer.writerow(['Angular Velocity (rad/s)', 'Wheel Radius (m)', 'Transmission Ratio (No Unit)', 'RPM (rpm)'])
+    writer.writerow(['Engine Speed', 'Vehicle Speed', 'Gear'])
 
-# Generate random values
+# Read values
 
 def run_plot(frame):
 
@@ -71,27 +52,19 @@ def run_plot(frame):
 
     # Assign random value to angular velocity and wheel radius variables
 
-    angular_velocity = generate_random_value(plot_settings.ANGULAR_VELOCITY_BOUNDS[0], plot_settings.ANGULAR_VELOCITY_BOUNDS[1])
-    wheel_radius = generate_random_value(plot_settings.WHEEL_RADIUS_BOUNDS[0], plot_settings.WHEEL_RADIUS_BOUNDS[1])
-
-    # Transmission ratio variable is changed as well, not as usual as the other two
-
-    if(frame % 10 == 0):
-      transmission_ratio = generate_random_value(plot_settings.TRANSMISSION_RATIO_BOUNDS[0], plot_settings.TRANSMISSION_RATIO_BOUNDS[1], False)
-
-    # Calculate RPM
-
-    RPM = (angular_velocity * 60) / (2 * plot_settings.math.pi * wheel_radius * transmission_ratio)
+    engine_speed = 0.5
+    vehicle_speed = 1
+    gear = 2
 
     # Write values to CSV
 
     with open(FILE_NAME, mode = 'a', newline = '') as file:
       writer = csv.writer(file)
-      writer.writerow([angular_velocity, wheel_radius, transmission_ratio, RPM])
+      writer.writerow([engine_speed, vehicle_speed, gear])
 
     # Add new values to parameters values matrix
 
-    new_row = np.array([angular_velocity, wheel_radius, transmission_ratio, RPM])
+    new_row = np.array([engine_speed, vehicle_speed, gear])
     parameters_values = np.vstack([parameters_values, new_row])
 
     # Limit parameters values matrix to set number of items

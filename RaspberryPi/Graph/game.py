@@ -7,7 +7,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 # Code imports
 
 import game_settings
-from plot import run_plot
+from plot_random import run_plot
 
 # Menu
 
