@@ -26,7 +26,6 @@ SCREEN_HEIGHT = 720
 CAPTION = 'John Deere Tractor Driving Simulator'
 
 SCREEN = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pg.display.init()
 
 # Assets
 

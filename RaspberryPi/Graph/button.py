@@ -1,7 +1,3 @@
-# Library imports
-
-import pygame as pg
-
 # Game imports
 
 import game_settings
@@ -24,14 +20,14 @@ class Button:
 
     def draw(self):
 
-        pos = pg.mouse.get_pos()
+        pos = game_settings.pg.mouse.get_pos()
 
         if self.rect.collidepoint(pos):
-            if pg.mouse.get_pressed()[0] == 1 and self.clicked == False:
+            if game_settings.pg.mouse.get_pressed()[0] == 1 and self.clicked == False:
 
                 self.clicked = True
 
-        if pg.mouse.get_pressed()[0] == 0:
+        if game_settings.pg.mouse.get_pressed()[0] == 0:
                 self.clicked = False
 
         game_settings.SCREEN.blit(self.image, (self.rect.x, self.rect.y))

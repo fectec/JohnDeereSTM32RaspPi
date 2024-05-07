@@ -1,14 +1,19 @@
-import threading
+import multiprocessing
 
 from app import run_app
 from game import run_game
 
-def main() :
+def main():
 
-    app_thread = threading.Thread(target=run_app)
-    app_thread.start()
+    # Create separate processes for the Tkinter app and the Pygame game
+
+    app_process = multiprocessing.Process(target=run_app)
+    game_process = multiprocessing.Process(target=run_game)
     
-    run_game()
+    # Start the Tkinter app process
+
+    app_process.start()
+    game_process.start()
 
 if __name__ == "__main__":
     main()

@@ -26,7 +26,7 @@ def run_app() :
   # Create canvas
 
   canvas = FigureCanvasTkAgg(ani._fig, master=embed_plot)  
-  canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH)
+  canvas.get_tk_widget().pack(side=tk.TOP)
   
   canvas.draw()
   root.mainloop()

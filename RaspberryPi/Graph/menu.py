@@ -1,7 +1,3 @@
-# Library imports
-
-import pygame as pg
-
 # Game imports
 
 import game_settings

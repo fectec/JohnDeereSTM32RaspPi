@@ -1,6 +1,5 @@
 # Library imports
 
-import pygame as pg
 import sys
 
 # Game imports
@@ -12,9 +11,9 @@ import game_settings
 def menu() :
 
     run = True
-    clock = pg.time.Clock()
+    clock = game_settings.pg.time.Clock()
 
-    pg.mixer.Channel(1).play(pg.mixer.Sound(game_settings.MENU_MUSIC))
+    game_settings.pg.mixer.Channel(1).play(game_settings.pg.mixer.Sound(game_settings.MENU_MUSIC))
 
     while run :
         
@@ -24,8 +23,8 @@ def menu() :
 
         # If close window button is pressed, execution stops
 
-        for event in pg.event.get() :
-            if event.type == pg.QUIT :
+        for event in game_settings.pg.event.get() :
+            if event.type == game_settings.pg.QUIT :
                 sys.exit()
         
         if game_settings.MENU_START_BUTTON.clicked == True :
@@ -35,16 +34,16 @@ def menu() :
         game_settings.MENU_BG.draw()
         game_settings.MENU_START_BUTTON.draw()
 
-        pg.display.update()
+        game_settings.pg.display.update()
 
 # Game loop
 
 def game() :
 
     run = True
-    clock = pg.time.Clock()
+    clock = game_settings.pg.time.Clock()
 
-    pg.mixer.Channel(1).play(pg.mixer.Sound(game_settings.GAME_MUSIC))
+    game_settings.pg.mixer.Channel(1).play(pg.mixer.Sound(game_settings.GAME_MUSIC))
 
     while run :
         
@@ -54,25 +53,21 @@ def game() :
 
         # If close window button is pressed, execution stops
 
-        for event in pg.event.get() :
-            if event.type == pg.QUIT :
+        for event in game_settings.pg.event.get() :
+            if event.type == game_settings.pg.QUIT :
                 sys.exit()
         
         game_settings.GAME_BG.draw()
         game_settings.TRACTOR.draw()
 
-        pg.display.update()
+        game_settings.pg.display.update()
 
 def run_game() :
 
-    # Start pygame module
-
-    pg.init()
-
     # Set game window
 
-    pg.display.set_caption(game_settings.CAPTION)
-    pg.display.set_icon(game_settings.GAME_ICON)
+    game_settings.pg.display.set_caption(game_settings.CAPTION)
+    game_settings.pg.display.set_icon(game_settings.GAME_ICON)
 
     # Call menu method
 
@@ -80,7 +75,7 @@ def run_game() :
 
     # Quit game
 
-    pg.quit()
+    game_settings.pg.quit()
 
 if __name__ == "__main__":
     run_game()
