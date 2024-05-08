@@ -12,8 +12,8 @@
 
 // ADC1
 
-volatile uint16_t conversionData;
-volatile float voltageValue, normalizedVoltageValue;
+volatile uint16_t conversionData = 0;
+volatile float voltageValue = 0, normalizedVoltageValue = 0;
 
 // Matrix Keyboard
 
@@ -40,11 +40,11 @@ int main( void )
 
   for(;;)
   {
+
     // ADC1
 
     conversionData = USER_ADC1_Convert();
     voltageValue = 0.00080586 * conversionData;
-    normalizedVoltageValue = scaleVoltageValue(voltageValue, 0, 100);
 
     // Matrix Keyboard
 
@@ -52,12 +52,18 @@ int main( void )
 
     if(selectedKey == '5')
     {
-      keyBrakeTorque = 100.0;
+	keyBrakeTorque = 100.0;
+    }
+    else if(selectedKey == '4' || selectedKey == '6')
+    {
+	voltageValue -= 1;
     }
     else
     {
-      keyBrakeTorque = 0.0;
+	keyBrakeTorque = 0.0;
     }
+
+    normalizedVoltageValue = scaleVoltageValue(voltageValue, 0, 100);
 
     // Update the values for the Throttle and Brake commands
 
