@@ -23,7 +23,7 @@ void USER_USART1_Init( void )
  * It redirects standard output stream in C to USART peripheral
  * device */
 
-int _write(int file, char *ptr, int len) 
+int _write( int file, char *ptr, int len )
 {
 
   int DataIdx;

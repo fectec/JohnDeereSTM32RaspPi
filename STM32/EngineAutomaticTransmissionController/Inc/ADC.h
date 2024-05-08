@@ -17,5 +17,6 @@
 
 void USER_ADC1_Init( void );
 uint16_t USER_ADC1_Convert( void );
+float scaleVoltageValue( float, float, float );
 
 #endif /* ADC_H_ */
