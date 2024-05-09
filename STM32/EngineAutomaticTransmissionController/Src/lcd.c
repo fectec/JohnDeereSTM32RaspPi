@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lcd.h"
+#include "timer.h"
 
 // User-defined character to load into the CGRAM memory of the LCD
 
@@ -22,8 +23,6 @@ void LCD_Init(void){
 	int8_t const *p;
 
 	// Configuration of all pins to the LCD as general-purpose output push-pull, 10 MHz speed
-
-	RCC->APB2ENR	|=	 ( 0x1UL <<  4U );		//	IO port C clock enable
 
 	GPIOC->CRL	&=	~( 0x3UL << 30U ) & ~( 0x2UL << 28U )
 			& 	~( 0x3UL << 26U ) & ~( 0x2UL << 24U );
@@ -54,7 +53,7 @@ void LCD_Init(void){
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 
-	USER_TIM_Delay();					//	50ms
+	USER_TIM2_Delay(TIM_PSC_50MS, TIM_CNT_50MS);		//	50 ms
 
 	/* Special case of 'Function Set'	*/
 
@@ -63,7 +62,8 @@ void LCD_Init(void){
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
-	USER_TIM_Delay();					//	5ms
+
+	USER_TIM2_Delay(TIM_PSC_5MS, TIM_CNT_5MS);		//	5 ms
 
 	/* Special case of 'Function Set'	*/
 
@@ -72,7 +72,8 @@ void LCD_Init(void){
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
-	USER_TIM_Delay();					//	100us
+
+	USER_TIM2_Delay(TIM_PSC_100US, TIM_CNT_100US);		//	100 us
 
 	/* Special case of 'Function Set'	*/
 
@@ -233,7 +234,7 @@ char LCD_Busy( void )
 	GPIOC->BSRR	 =	 LCD_RW_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_EN_PIN_HIGH;
 
-	USER_TIM_Delay();					//	100 us
+	USER_TIM2_Delay(TIM_PSC_100US, TIM_CNT_100US);		//	100 us
 
 	if(( GPIOC->IDR	& LCD_D7_PIN_HIGH )) 			//	If D7 is set, then
 	{
@@ -266,11 +267,16 @@ char LCD_Busy( void )
 void LCD_Pulse_EN( void )
 {
 	GPIOC->BSRR	=	LCD_EN_PIN_LOW;
-	USER_TIM_Delay();					//	10 us
+
+	USER_TIM2_Delay(TIM_PSC_10US, TIM_CNT_10US);		//	10 us
+
 	GPIOC->BSRR	=	LCD_EN_PIN_HIGH;		//	Enable pin EN ON
-	USER_TIM_Delay();					//	10 us
+
+	USER_TIM2_Delay(TIM_PSC_10US, TIM_CNT_10US);		//	10 us
+
 	GPIOC->BSRR	=	LCD_EN_PIN_LOW;			//	Enable pin EN OFF
-	USER_TIM_Delay();					//	1 ms
+
+	USER_TIM2_Delay(TIM_PSC_1MS, TIM_CNT_1MS);		//	1 ms
 }
 
 /*

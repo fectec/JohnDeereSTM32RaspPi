@@ -8,6 +8,7 @@ C_SRCS += \
 ../Src/ADC.c \
 ../Src/EngTrModel.c \
 ../Src/EngTrModel_data.c \
+../Src/lcd.c \
 ../Src/main.c \
 ../Src/matrixkeyboard.c \
 ../Src/rtGetInf.c \
@@ -22,6 +23,7 @@ OBJS += \
 ./Src/ADC.o \
 ./Src/EngTrModel.o \
 ./Src/EngTrModel_data.o \
+./Src/lcd.o \
 ./Src/main.o \
 ./Src/matrixkeyboard.o \
 ./Src/rtGetInf.o \
@@ -36,6 +38,7 @@ C_DEPS += \
 ./Src/ADC.d \
 ./Src/EngTrModel.d \
 ./Src/EngTrModel_data.d \
+./Src/lcd.d \
 ./Src/main.d \
 ./Src/matrixkeyboard.d \
 ./Src/rtGetInf.d \
@@ -54,7 +57,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/ADC.cyclo ./Src/ADC.d ./Src/ADC.o ./Src/ADC.su ./Src/EngTrModel.cyclo ./Src/EngTrModel.d ./Src/EngTrModel.o ./Src/EngTrModel.su ./Src/EngTrModel_data.cyclo ./Src/EngTrModel_data.d ./Src/EngTrModel_data.o ./Src/EngTrModel_data.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/matrixkeyboard.cyclo ./Src/matrixkeyboard.d ./Src/matrixkeyboard.o ./Src/matrixkeyboard.su ./Src/rtGetInf.cyclo ./Src/rtGetInf.d ./Src/rtGetInf.o ./Src/rtGetInf.su ./Src/rtGetNaN.cyclo ./Src/rtGetNaN.d ./Src/rtGetNaN.o ./Src/rtGetNaN.su ./Src/rt_nonfinite.cyclo ./Src/rt_nonfinite.d ./Src/rt_nonfinite.o ./Src/rt_nonfinite.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/timer.cyclo ./Src/timer.d ./Src/timer.o ./Src/timer.su ./Src/uart.cyclo ./Src/uart.d ./Src/uart.o ./Src/uart.su
+	-$(RM) ./Src/ADC.cyclo ./Src/ADC.d ./Src/ADC.o ./Src/ADC.su ./Src/EngTrModel.cyclo ./Src/EngTrModel.d ./Src/EngTrModel.o ./Src/EngTrModel.su ./Src/EngTrModel_data.cyclo ./Src/EngTrModel_data.d ./Src/EngTrModel_data.o ./Src/EngTrModel_data.su ./Src/lcd.cyclo ./Src/lcd.d ./Src/lcd.o ./Src/lcd.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/matrixkeyboard.cyclo ./Src/matrixkeyboard.d ./Src/matrixkeyboard.o ./Src/matrixkeyboard.su ./Src/rtGetInf.cyclo ./Src/rtGetInf.d ./Src/rtGetInf.o ./Src/rtGetInf.su ./Src/rtGetNaN.cyclo ./Src/rtGetNaN.d ./Src/rtGetNaN.o ./Src/rtGetNaN.su ./Src/rt_nonfinite.cyclo ./Src/rt_nonfinite.d ./Src/rt_nonfinite.o ./Src/rt_nonfinite.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/timer.cyclo ./Src/timer.d ./Src/timer.o ./Src/timer.su ./Src/uart.cyclo ./Src/uart.d ./Src/uart.o ./Src/uart.su
 
 .PHONY: clean-Src
 

@@ -1,6 +1,7 @@
 "./Src/ADC.o"
 "./Src/EngTrModel.o"
 "./Src/EngTrModel_data.o"
+"./Src/lcd.o"
 "./Src/main.o"
 "./Src/matrixkeyboard.o"
 "./Src/rtGetInf.o"

@@ -9,6 +9,7 @@
 #include "ADC.h"
 #include "uart.h"
 #include "matrixkeyboard.h"
+#include "lcd.h"
 
 // ADC1
 
@@ -84,8 +85,7 @@ int main( void )
 
     // 200 ms delay
 
-    USER_TIM2_Delay();
-
+    USER_TIM2_Delay(TIM_PSC_200MS, TIM_CNT_200MS);
   }
 
 }
@@ -100,6 +100,10 @@ void USER_RCC_ClockEnable( void )
   // RCC_APB2ENR modified to IO port B clock enable
 
   RCC->APB2ENR |= 	RCC_APB2ENR_IOPBEN;	// To set IOPBEN bit
+
+  // RCC_APB2ENR modified to IO port C clock enable
+
+  RCC->APB2ENR	|=	RCC_APB2ENR_IOPCEN;	// To set IOPCEN bit
 
   // RCC_APB1ENR modified to enable the clock for TIM2
 
@@ -151,7 +155,6 @@ void USER_RCC_ClockEnable( void )
 
 void USER_GPIO_Init( void )
 {
-
   // Pin PA0 as analog input
 
   GPIOA->CRL	&=	~( GPIO_CRL_MODE0 )
@@ -228,5 +231,4 @@ void USER_GPIO_Init( void )
 
   GPIOB->CRH	|= 	 ( GPIO_CRH_CNF13_1 );
   GPIOB->ODR	|=	 ( GPIO_ODR13 );
-    		
 }

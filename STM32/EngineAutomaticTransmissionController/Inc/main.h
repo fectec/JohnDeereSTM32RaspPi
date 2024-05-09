@@ -144,6 +144,7 @@ typedef struct
 
 #define RCC_APB2ENR_IOPAEN	0x1UL << 2U
 #define RCC_APB2ENR_IOPBEN	0x1UL << 3U
+#define RCC_APB2ENR_IOPCEN	0x1UL << 4U
 #define RCC_APB1ENR_TIM2EN	0x1UL << 0U
 #define RCC_APB2ENR_ADC1EN	0x1UL << 9U
 #define RCC_CFGR_ADCPRE		0x3UL << 14U

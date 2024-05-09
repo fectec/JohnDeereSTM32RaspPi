@@ -14,21 +14,32 @@
 #define TIM_SR_UIF	( 0x1UL << 0U )
 #define TIM_CR1_CEN	( 0x1UL << 0U )
 
-/*
- * For Time = 200 ms, Fosc = 64 MHz and Tosc = 15.625 ns
- * CNT = 230
- * PSC = 195
- */
+// Prescaler / count register values
 
+#define TIM_PSC_500MS	0X1E8
+#define TIM_CNT_500MS	0X60
 
-// counter / prescaler register values
-
-#define TIM_CNT_200MS	0xE6
 #define TIM_PSC_200MS	0xC3
+#define TIM_CNT_200MS	0xE6
+
+#define TIM_PSC_50MS	0X30
+#define TIM_CNT_50MS	0XE6
+
+#define TIM_PSC_5MS	0X4
+#define TIM_CNT_5MS	0X600
+
+#define TIM_PSC_1MS	0X0
+#define TIM_CNT_1MS	0X600
+
+#define TIM_PSC_10US	0X0
+#define TIM_CNT_10US	0XFD80
+
+#define TIM_PSC_100US	0X0
+#define TIM_CNT_100US	0XE700
 
 // Function prototypes for TIM2 timer
 
-void USER_TIM2_Init( void );	// Initialize TIM2 timer
-void USER_TIM2_Delay( void );	// Function to generate delay via TIM2 timer
+void USER_TIM2_Init( void );			// Initialize TIM2 timer
+void USER_TIM2_Delay( uint16_t, uint16_t );	// Function to generate delay via TIM2 timer
 
 #endif /* TIMER_H_ */

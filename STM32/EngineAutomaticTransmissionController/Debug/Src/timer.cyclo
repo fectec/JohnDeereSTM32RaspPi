@@ -1,2 +1,2 @@
 ../Src/timer.c:8:6:USER_TIM2_Init	1
-../Src/timer.c:19:6:USER_TIM2_Delay	2
+../Src/timer.c:17:6:USER_TIM2_Delay	2
