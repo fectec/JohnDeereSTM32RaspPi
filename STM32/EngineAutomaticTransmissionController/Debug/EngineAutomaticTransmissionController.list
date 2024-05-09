@@ -3558,11 +3558,11 @@ int main( void )
 
     // Send the output values
 
-    printf("%f,%f,%f\n\r", EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
+    printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
  8002158:	4b15      	ldr	r3, [pc, #84]	; (80021b0 <main+0x138>)
- 800215a:	e9d3 4502 	ldrd	r4, r5, [r3, #8]
+ 800215a:	e9d3 4500 	ldrd	r4, r5, [r3]
  800215e:	4b14      	ldr	r3, [pc, #80]	; (80021b0 <main+0x138>)
- 8002160:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8002160:	e9d3 2302 	ldrd	r2, r3, [r3, #8]
  8002164:	4912      	ldr	r1, [pc, #72]	; (80021b0 <main+0x138>)
  8002166:	e9d1 0104 	ldrd	r0, r1, [r1, #16]
  800216a:	e9cd 0102 	strd	r0, r1, [sp, #8]

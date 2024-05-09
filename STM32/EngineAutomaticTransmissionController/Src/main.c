@@ -80,7 +80,7 @@ int main( void )
 
     // Send the output values
 
-    printf("%f,%f,%f\n\r", EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
+    printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
 
     // 200 ms delay
 

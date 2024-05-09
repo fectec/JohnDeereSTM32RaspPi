@@ -65,11 +65,13 @@ def run_plot(frame):
 
   if len(values) == 3:
       
+    print("Data received: ", rx_data)
+
     # Assign values to variables
 
     engine_speed = float(values[0])
     vehicle_speed = float(values[1])
-    gear = int(values[2])
+    gear = float(values[2])
 
     # Write values to CSV
 
