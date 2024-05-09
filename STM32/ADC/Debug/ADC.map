@@ -905,9 +905,9 @@ LOAD C:/ST/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
                 0x0000000008000bbc                __fixunsdfdi
                 0x0000000008000bbc                __aeabi_d2ulz
  *(.text*)
- .text.USER_ADC_Init
+ .text.USER_ADC1_Init
                 0x0000000008000bf8       0x8c ./Src/ADC.o
-                0x0000000008000bf8                USER_ADC_Init
+                0x0000000008000bf8                USER_ADC1_Init
  .text.USER_ADC1_Convert
                 0x0000000008000c84       0x24 ./Src/ADC.o
                 0x0000000008000c84                USER_ADC1_Convert
@@ -1774,18 +1774,18 @@ LOAD C:/ST/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_line    0x00000000000019f3      0x5ee ./Src/uart.o
  .debug_line    0x0000000000001fe1       0x7b ./Startup/startup_stm32f103rbtx.o
 
-.debug_str      0x0000000000000000     0x9bb0
- .debug_str     0x0000000000000000     0x78ac ./Src/ADC.o
-                                       0x7aab (size before relaxing)
- .debug_str     0x00000000000078ac      0x154 ./Src/main.o
-                                       0x7ba0 (size before relaxing)
- .debug_str     0x0000000000007a00     0x20f0 ./Src/syscalls.o
+.debug_str      0x0000000000000000     0x9bb1
+ .debug_str     0x0000000000000000     0x78ad ./Src/ADC.o
+                                       0x7aac (size before relaxing)
+ .debug_str     0x00000000000078ad      0x154 ./Src/main.o
+                                       0x7ba1 (size before relaxing)
+ .debug_str     0x0000000000007a01     0x20f0 ./Src/syscalls.o
                                        0x9868 (size before relaxing)
- .debug_str     0x0000000000009af0       0x70 ./Src/sysmem.o
+ .debug_str     0x0000000000009af1       0x70 ./Src/sysmem.o
                                        0x601f (size before relaxing)
- .debug_str     0x0000000000009b60       0x21 ./Src/uart.o
+ .debug_str     0x0000000000009b61       0x21 ./Src/uart.o
                                        0x7a02 (size before relaxing)
- .debug_str     0x0000000000009b81       0x2f ./Startup/startup_stm32f103rbtx.o
+ .debug_str     0x0000000000009b82       0x2f ./Startup/startup_stm32f103rbtx.o
                                          0x76 (size before relaxing)
 
 .debug_frame    0x0000000000000000     0x19ac

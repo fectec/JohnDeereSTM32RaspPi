@@ -5,7 +5,7 @@
 #include "main.h"
 #include "ADC.h"
 
-void USER_ADC_Init( void )
+void USER_ADC1_Init( void )
 {
 
   ADC1->CR1	&=	~(ADC_CR1_DUALMOD);	// Step 1 - Select independent mode

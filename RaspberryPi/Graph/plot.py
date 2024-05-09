@@ -55,7 +55,7 @@ def run_plot(frame):
 
   # Read values, decode bytes to string and remove leading/trailing whitespaces
 
-  rx_data = ser.readline().decode().strip()
+  rx_data = ser.readline().decode('utf_8', 'strict').strip()
   
   # Split the received string by commas
 

@@ -23,7 +23,7 @@ int main( void )
   USER_RCC_ClockEnable( );
   USER_GPIO_Init( );
   USER_USART1_Init( );
-  USER_ADC_Init();
+  USER_ADC1_Init();
 
   for(;;)
   {

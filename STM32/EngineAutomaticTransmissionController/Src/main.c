@@ -33,8 +33,8 @@ int main( void )
   USER_RCC_ClockEnable();
   USER_GPIO_Init();
   USER_TIM2_Init( );
-  USER_USART1_Init();
   USER_ADC1_Init();
+  USER_USART1_Init();
 
   EngTrModel_initialize();
 
@@ -50,6 +50,8 @@ int main( void )
 
     selectedKey = USER_MATRIX_KEYBOARD_Read();
 
+    // printf("%f_%c\n\r", voltageValue, selectedKey); // Debug ADC1 and Matrix Keyboard
+
     if(selectedKey == '5')
     {
 	keyBrakeTorque = 100.0;
@@ -63,11 +65,11 @@ int main( void )
 	keyBrakeTorque = 0.0;
     }
 
-    normalizedVoltageValue = scaleVoltageValue(voltageValue, 0, 100);
+    normalizedVoltageValue = scaleVoltageValue(voltageValue, 0, 3.3);
+
+    //printf("%f_%f\n\r", normalizedVoltageValue, keyBrakeTorque); // Debug normalizedVoltageValue and keyBrakeTorque
 
     // Update the values for the Throttle and Brake commands
-
-    USER_TIM2_Delay();
 
     EngTrModel_U.Throttle = normalizedVoltageValue;
     EngTrModel_U.BrakeTorque = keyBrakeTorque;
@@ -78,9 +80,12 @@ int main( void )
 
     // Send the output values
 
-    printf("%f,%f,%f", EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
+    printf("%f,%f,%f\n\r", EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
 
-    USER_TIM2_Delay();        //  1 s
+    // 200 ms delay
+
+    USER_TIM2_Delay();
+
   }
 
 }
@@ -90,15 +95,15 @@ void USER_RCC_ClockEnable( void )
 
   // RCC_APB2ENR modified to IO port A clock enable
 
-  RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;		// To set IOPAEN bit
+  RCC->APB2ENR |= 	RCC_APB2ENR_IOPAEN;	// To set IOPAEN bit
 
   // RCC_APB2ENR modified to IO port B clock enable
 
-  RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;		// To set IOPBEN bit
+  RCC->APB2ENR |= 	RCC_APB2ENR_IOPBEN;	// To set IOPBEN bit
 
   // RCC_APB1ENR modified to enable the clock for TIM2
 
-  RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;		// To set TIM2EN bit
+  RCC->APB1ENR |= 	RCC_APB1ENR_TIM2EN;	// To set TIM2EN bit
 
   // RCC_APB2ENR and RCC_CFGR modified to enable and adjust the clock for ADC1
 
@@ -109,23 +114,39 @@ void USER_RCC_ClockEnable( void )
 
   RCC->APB2ENR |= RCC_APB2ENR_USART1EN;		// To set USART1EN bit
 
+  /* System Clock (SYSCLK) configuration for 64 MHz */
+
+  FLASH->ACR	&=	~( 0x5UL << 0U );	// Two wait states latency, if SYSCLK > 48 MHz
+  FLASH->ACR	|=	( 0x2UL << 0U );	// Two wait states latency, if SYSCLK > 48 MHz
+  RCC->CFGR	&=	~( 0x1UL << 16U )	// PLL HSI clock /2 selected as PLL input clock
+		&	~( 0x7UL << 11U )	// APB2 pre-scaler /1
+		&	~( 0x3UL << 8U )	// APB1 pre-scaler /2 (APB1 must not exceed 36 MHz)
+		&	~( 0xFUL << 4U );	// AHB pre-scaler /1
+  RCC->CFGR	|=	( 0xFUL << 18U )	// PLL input clock x 16 (PLLMUL bits)
+		|	( 0X4UL << 8U );	// APB1 pre-scaler /2
+  RCC->CR	|=	( 0x1UL << 24U );	// PLL2 ON
+  while( !(RCC->CR & ~( 0x1UL << 25U )));	// Wait until PLL is locked
+  RCC->CFGR	&=	~( 0x1UL << 0U );	// PLL used as system clock (SW bits)
+  RCC->CFGR	|=	( 0x2UL << 0U );	// PLL used as system clock (SW bits)
+  while( 0x8UL != ( RCC->CFGR & 0xCUL ));	// Wait until PLL is switched
+
 }
 
 void USER_GPIO_Init( void )
 {
 
-  // Pin PA1 (ADC1 Input) as analog input
+  // Pin PA1 as analog input
 
   GPIOA->CRL	&=	~( GPIO_CRL_MODE0 )
 		&	~( GPIO_CRL_CNF0 );
-		
+
   // Pin PA9 (USART1_TX) as alternate function output push-pull, max speed 10MHz
 
   GPIOA->CRH	&=	~( GPIO_CRH_CNF9_0 )
-   		&	~( GPIO_CRH_MODE9 );
+  		&	~( GPIO_CRH_MODE9 );
 
   GPIOA->CRH	|=	 ( GPIO_CRH_CNF9 )
-   		|	 ( GPIO_CRH_MODE9_0 );	
+  		|	 ( GPIO_CRH_MODE9_0 );
    		
   // Pin PB10 (Row 1) as output
 

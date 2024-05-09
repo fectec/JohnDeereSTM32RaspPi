@@ -1,3 +1,3 @@
 ../Src/ADC.c:8:6:USER_ADC1_Init	4	static
-../Src/ADC.c:29:10:USER_ADC1_Convert	4	static
-../Src/ADC.c:37:7:scaleVoltageValue	40	static
+../Src/ADC.c:28:10:USER_ADC1_Convert	4	static
+../Src/ADC.c:36:7:scaleVoltageValue	40	static

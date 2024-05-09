@@ -23,7 +23,6 @@ void USER_ADC1_Init( void )
   while ( ADC1->CR2 & ADC_CR2_CAL );		// Step 8 - Wait until the bit is reset by
 						//	hardware after calibration is complete
   ADC1->CR2	|=	ADC_CR2_ADON;		// Step 9 - Start conversion
-  
 }
 
 uint16_t USER_ADC1_Convert( void )
@@ -36,6 +35,8 @@ uint16_t USER_ADC1_Convert( void )
 
 float scaleVoltageValue( float voltageValue, float min, float max )
 { 
-  float normalizedVoltageValue = (voltageValue - min) / (max - min);
+
+  float normalizedVoltageValue = (voltageValue - min) / (max - min) * 100;
   return normalizedVoltageValue;
+
 }

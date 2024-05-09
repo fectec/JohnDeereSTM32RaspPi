@@ -6,11 +6,11 @@
 #define UART_H_
 
 /*	USARTDIV = F_PCLK / (16 X DESIRED BAUD RATE)
- * 	USARTDIV = 8 MHz /	(16 X 115200 bps)
- * 	USARTDIV = 4.340277778
- * 	DIV_Mantissa = 0d4 = 0x4
- * 	DIV_Fraction = 16 X 0d0.340277778 = 0d5.444444444 = 0x5
- * 	USARTDIV = 0x45
+ * 	USARTDIV = 64 MHz / (16 X 115200 bps)
+ * 	USARTDIV = 34.72222222
+ * 	DIV_Mantissa = 0d34 = 0x22
+ * 	DIV_Fraction = 16 X 0d0.340277778 = 0d11.55555556 = 0xC
+ * 	USARTDIV = 0x22B
 */
 
 // USART peripheral configuration bits and baud rate register value
@@ -18,7 +18,7 @@
 #define USART_CR1_UE     0x1UL << 13U 		// USART enable bit
 #define USART_CR1_M      0x1UL << 12U  		// Word length (8 bits)
 #define USART_CR2_STOP   0x3UL << 12U  		// Number of stop bits (1 stop bit)
-#define USARTDIV         0x45			// Baud rate divisor for desired baud rate
+#define USARTDIV         0x22B			// Baud rate divisor for desired baud rate
 
 // Transmitter bits
 

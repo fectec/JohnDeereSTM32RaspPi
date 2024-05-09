@@ -44,6 +44,7 @@ typedef struct
 } GPIO_TypeDef;
 
 /* Timer registers */
+
 typedef struct
 {
   volatile uint32_t CR1;
@@ -107,12 +108,29 @@ typedef struct
   volatile uint32_t GTPR;
 } USART_TypeDef;
 
+/* Flash memory interface registers */
+
+typedef struct
+{
+  volatile uint32_t ACR;
+  volatile uint32_t KEYR;
+  volatile uint32_t OPTKEYR;
+  volatile uint32_t SR;
+  volatile uint32_t CR;
+  volatile uint32_t AR;
+  volatile uint32_t reserved;
+  volatile uint32_t OBR;
+  volatile uint32_t WRPR;
+} FLASH_TypeDef;
+
+
 #define RCC_BASE	0x40021000UL	// RCC base address
 #define GPIOA_BASE	0x40010800UL	// GPIO Port A base address
 #define GPIOB_BASE	0x40010C00UL	// GPIO Port B base address
-#define TIM2_BASE 	0x40000000UL 	// TIM2 timer base address
+#define TIM2_BASE	0x40000000UL 	// TIM2 timer base address
 #define ADC1_BASE	0x40012400UL	// ADC1 base address
 #define USART1_BASE	0x40013800UL 	// USART1 base address
+#define FLASH_BASE	0x40022000UL	// FLASH base address
 
 #define RCC	(( RCC_TypeDef *) RCC_BASE)
 #define GPIOA	(( GPIO_TypeDef *) GPIOA_BASE)
@@ -120,13 +138,14 @@ typedef struct
 #define TIM2	(( TIM_TypeDef *) TIM2_BASE)
 #define ADC1	(( ADC_TypeDef *) ADC1_BASE)
 #define USART1	(( USART_TypeDef *) USART1_BASE)
+#define FLASH	(( FLASH_TypeDef *) FLASH_BASE )
 
 #define RCC_APB2ENR_IOPAEN	0x1UL << 2U
 #define RCC_APB2ENR_IOPBEN	0x1UL << 3U
 #define RCC_APB1ENR_TIM2EN	0x1UL << 0U
-#define RCC_APB2ENR_USART1EN	0x1UL << 14U
 #define RCC_APB2ENR_ADC1EN	0x1UL << 9U
 #define RCC_CFGR_ADCPRE		0x3UL << 14U
+#define RCC_APB2ENR_USART1EN	0x1UL << 14U
 
 // PA1 (ADC1 Input)
 
