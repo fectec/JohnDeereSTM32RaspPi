@@ -57,7 +57,7 @@ axes[3].set_ylim(plot_random_settings.RPM_BOUNDS[0] - plot_random_settings.RPM_B
 
 # Create CSV file
 
-with open(plot_random_settings.FILE_NAME, mode = 'w', newline = '') as file:
+with open(plot_random_settings.CSV_FILE_PATH, mode = 'w', newline = '') as file:
     writer = csv.writer(file)
     writer.writerow(['Angular Velocity (rad/s)', 'Wheel Radius (m)', 'Transmission Ratio (No Unit)', 'rpm (rpm)'])
 
@@ -83,7 +83,7 @@ def run_plot(frame):
 
     # Write values to CSV
 
-    with open(plot_random_settings.FILE_NAME, mode = 'a', newline = '') as file:
+    with open(plot_random_settings.CSV_FILE_PATH, mode = 'a', newline = '') as file:
       writer = csv.writer(file)
       writer.writerow([angular_velocity, wheel_radius, transmission_ratio, rpm])
 

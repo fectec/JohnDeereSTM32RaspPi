@@ -1,6 +1,6 @@
 # Library imports
 
-import math
+import os
 
 # Constants
 
@@ -17,7 +17,8 @@ X_RANGE = 20
 
 # CSV
 
-FILE_NAME = "tractor_data.csv"
+BASE_PATH = os.path.dirname(os.path.realpath( __file__ ))
+CSV_FILE_PATH = os.path.join(BASE_PATH, "data/tractor_data.csv")
 
 # Serial
 

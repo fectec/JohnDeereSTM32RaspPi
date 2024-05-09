@@ -39,7 +39,7 @@ axes[2].set_ylim(plot_settings.GEAR_BOUNDS[0] - plot_settings.GEAR_BOUNDS[0], pl
 
 # Create CSV file
 
-with open(plot_settings.FILE_NAME, mode = 'w', newline = '') as file:
+with open(plot_settings.CSV_FILE_PATH, mode = 'w', newline = '') as file:
     writer = csv.writer(file)
     writer.writerow(['Engine Speed', 'Vehicle Speed', 'Gear'])
 
@@ -75,7 +75,7 @@ def run_plot(frame):
 
     # Write values to CSV
 
-    with open(plot_settings.FILE_NAME, mode = 'a', newline = '') as file:
+    with open(plot_settings.CSV_FILE_PATH, mode = 'a', newline = '') as file:
       writer = csv.writer(file)
       writer.writerow([engine_speed, vehicle_speed, gear])
 
