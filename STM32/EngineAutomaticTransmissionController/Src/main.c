@@ -108,34 +108,51 @@ void USER_RCC_ClockEnable( void )
   // RCC_APB2ENR and RCC_CFGR modified to enable and adjust the clock for ADC1
 
   RCC->APB2ENR	|=	RCC_APB2ENR_ADC1EN;	// Enable clock for ADC1
-  RCC->CFGR	|=	RCC_CFGR_ADCPRE;	// Adjust ADC input clock
+  RCC->CFGR	|=	RCC_CFGR_ADCPRE;        // Adjust ADC input clock
 
   // RCC_APB2ENR modified to enable the clock for USART1
 
-  RCC->APB2ENR |= RCC_APB2ENR_USART1EN;		// To set USART1EN bit
+  RCC->APB2ENR |= RCC_APB2ENR_USART1EN; 	// To set USART1EN bit
 
   /* System Clock (SYSCLK) configuration for 64 MHz */
 
-  FLASH->ACR	&=	~( 0x5UL << 0U );	// Two wait states latency, if SYSCLK > 48 MHz
-  FLASH->ACR	|=	( 0x2UL << 0U );	// Two wait states latency, if SYSCLK > 48 MHz
-  RCC->CFGR	&=	~( 0x1UL << 16U )	// PLL HSI clock /2 selected as PLL input clock
+  // Two wait states latency, if SYSCLK > 48 MHz
+
+  FLASH->ACR	&=	~( 0x5UL << 0U );	
+  FLASH->ACR	|=	( 0x2UL << 0U );	
+  
+  // PLL HSI clock /2 selected as PLL input clock
+  
+  RCC->CFGR	&=	~( 0x1UL << 16U )
 		&	~( 0x7UL << 11U )	// APB2 pre-scaler /1
-		&	~( 0x3UL << 8U )	// APB1 pre-scaler /2 (APB1 must not exceed 36 MHz)
+		&	~( 0x3UL << 8U )        // APB1 pre-scaler /2 (APB1 must not exceed 36 MHz)
 		&	~( 0xFUL << 4U );	// AHB pre-scaler /1
-  RCC->CFGR	|=	( 0xFUL << 18U )	// PLL input clock x 16 (PLLMUL bits)
+
+  // PLL input clock x 16 (PLLMUL bits)
+
+  RCC->CFGR	|=	( 0xFUL << 18U )	
 		|	( 0X4UL << 8U );	// APB1 pre-scaler /2
   RCC->CR	|=	( 0x1UL << 24U );	// PLL2 ON
-  while( !(RCC->CR & ~( 0x1UL << 25U )));	// Wait until PLL is locked
-  RCC->CFGR	&=	~( 0x1UL << 0U );	// PLL used as system clock (SW bits)
-  RCC->CFGR	|=	( 0x2UL << 0U );	// PLL used as system clock (SW bits)
-  while( 0x8UL != ( RCC->CFGR & 0xCUL ));	// Wait until PLL is switched
+
+  // Wait until PLL is locked
+
+  while( !(RCC->CR & ~( 0x1UL << 25U )));
+
+  // PLL used as system clock (SW bits)
+
+  RCC->CFGR	&=	~( 0x1UL << 0U );
+  RCC->CFGR	|=	( 0x2UL << 0U );
+
+  // Wait until PLL is switched
+
+  while( 0x8UL != ( RCC->CFGR & 0xCUL ));
 
 }
 
 void USER_GPIO_Init( void )
 {
 
-  // Pin PA1 as analog input
+  // Pin PA0 as analog input
 
   GPIOA->CRL	&=	~( GPIO_CRL_MODE0 )
 		&	~( GPIO_CRL_CNF0 );

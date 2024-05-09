@@ -147,7 +147,7 @@ typedef struct
 #define RCC_CFGR_ADCPRE		0x3UL << 14U
 #define RCC_APB2ENR_USART1EN	0x1UL << 14U
 
-// PA1 (ADC1 Input)
+// PA0 (ADC0 Input)
 
 #define GPIO_CRL_MODE0		0x3UL << 0U
 #define GPIO_CRL_CNF0		0x3UL << 2U
