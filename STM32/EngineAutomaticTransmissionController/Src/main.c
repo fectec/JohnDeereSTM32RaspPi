@@ -18,8 +18,12 @@ volatile float voltageValue = 0, normalizedVoltageValue = 0;
 
 // Matrix Keyboard
 
-char selectedKey;
-float keyBrakeTorque;
+volatile char selectedKey;
+volatile float keyBrakeTorque;
+
+// LCD
+
+volatile uint8_t col = 16;
 
 /* Function prototypes */
 
@@ -36,6 +40,7 @@ int main( void )
   USER_TIM2_Init( );
   USER_ADC1_Init();
   USER_USART1_Init();
+  //LCD_Init();
 
   EngTrModel_initialize();
 
@@ -68,7 +73,7 @@ int main( void )
 
     normalizedVoltageValue = scaleVoltageValue(voltageValue, 0, 3.3);
 
-    //printf("%f_%f\n\r", normalizedVoltageValue, keyBrakeTorque); // Debug normalizedVoltageValue and keyBrakeTorque
+    // printf("%f_%f\n\r", normalizedVoltageValue, keyBrakeTorque); // Debug normalizedVoltageValue and keyBrakeTorque
 
     // Update the values for the Throttle and Brake commands
 
@@ -83,9 +88,29 @@ int main( void )
 
     printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
 
-    // 41 ms delay
+    USER_TIM2_Delay(TIM_PSC_41MS, TIM_CNT_41MS);		// 41 ms delay
 
-    USER_TIM2_Delay(TIM_PSC_41MS, TIM_CNT_41MS);
+  /*
+    // LCD test
+
+    LCD_Clear( );
+    LCD_Set_Cursor( 1, 1 );
+    LCD_Put_Str( "TE" );
+    LCD_Put_Num( 2003 );
+    LCD_Put_Char( 'B' );
+    LCD_Put_Str( " SoC" );
+    LCD_Set_Cursor( 2, col-- );
+    LCD_Put_Str( "Prueba de LCD ");
+    LCD_BarGraphic( 0, 64 );
+
+    USER_TIM2_Delay(TIM_PSC_200MS, TIM_CNT_200MS);		// 200 ms delay
+
+    if( col == 0 ){
+
+	USER_TIM2_Delay(TIM_PSC_500MS, TIM_CNT_500MS);		// 500 ms delay
+	 col = 16;
+    }
+  */
   }
 
 }
