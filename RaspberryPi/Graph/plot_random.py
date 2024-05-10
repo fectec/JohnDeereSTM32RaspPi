@@ -63,9 +63,11 @@ with open(plot_random_settings.CSV_FILE_PATH, mode = 'w', newline = '') as file:
 
 # Generate random values
 
-def run_plot(frame):
+frame = 0
 
-    global parameters_values, transmission_ratio
+def run_plot():
+
+    global parameters_values, transmission_ratio, frame
 
     # Assign random value to angular velocity and wheel radius variables
 
@@ -100,5 +102,7 @@ def run_plot(frame):
 
     for j, scatter_plot in enumerate(scatter_plots):
       scatter_plot.set_ydata(parameters_values[:, j])
+
+    frame += 1
 
     return fig
