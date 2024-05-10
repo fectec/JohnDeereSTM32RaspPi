@@ -20,4 +20,4 @@ X_RANGE = 20
 # CSV
 
 BASE_PATH = os.path.dirname(os.path.realpath( __file__ ))
-CSV_FILE_PATH = os.path.join(BASE_PATH, "data/tractor_random_data.csv")
+CSV_FILE_PATH = os.path.join(BASE_PATH, "data", "tractor_random_data.csv")
