@@ -45,13 +45,11 @@ with open(plot_settings.CSV_FILE_PATH, mode = 'w', newline = '') as file:
 
 # Instantiate Serial object
 
-ser = serial.Serial(plot_settings.SERIAL_PORT, baudrate=plot_settings.BAUDRATE, 
-                    parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
-                    bytesize=serial.EIGHTBITS, timeout=1)
+ser = serial.Serial(plot_settings.SERIAL_PORT, plot_settings.BAUDRATE)
 
 def run_plot():
 
-  global parameters_values
+  global parameters_values, ser
 
   # Read values, decode bytes to string and remove leading/trailing whitespaces
 
