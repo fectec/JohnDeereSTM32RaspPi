@@ -47,13 +47,13 @@ with open(plot_settings.CSV_FILE_PATH, mode = 'w', newline = '') as file:
 
 ser = serial.Serial(plot_settings.SERIAL_PORT, plot_settings.BAUDRATE)
 
-def run_plot():
+def run_plot(frame):
 
   global parameters_values, ser
 
   # Read values, decode bytes to string and remove leading/trailing whitespaces
 
-  rx_data = ser.readline().decode('utf_8').strip()
+  rx_data = ser.readline().decode('utf_8', 'strict').strip()
   
   # Split the received string by commas
 
@@ -101,5 +101,8 @@ def run_plot():
     vehicle_speed = 0
     gear = 0
 
-  return fig
+  return scatter_plots
 
+if __name__ == "__main__":
+  ani = FuncAnimation(fig, run_plot, frames=range(plot_settings.X_RANGE), blit=True)
+  plt.show()

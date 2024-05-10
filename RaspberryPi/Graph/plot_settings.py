@@ -22,6 +22,6 @@ CSV_FILE_PATH = os.path.join(BASE_PATH, "data", "tractor_data.csv")
 
 # Serial
 
-#SERIAL_PORT = "COM6"            # Windows
-SERIAL_PORT = "/dev/ttyS0"     # Raspberry Pi OS (Based on Debian)
+SERIAL_PORT = "COM6"            # Windows
+#SERIAL_PORT = "/dev/ttyS0"     # Raspberry Pi OS (Based on Debian)
 BAUDRATE = 115200
