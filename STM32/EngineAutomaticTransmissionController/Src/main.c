@@ -83,9 +83,9 @@ int main( void )
 
     printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
 
-    // 200 ms delay
+    // 41 ms delay
 
-    USER_TIM2_Delay(TIM_PSC_200MS, TIM_CNT_200MS);
+    USER_TIM2_Delay(TIM_PSC_41MS, TIM_CNT_41MS);
   }
 
 }

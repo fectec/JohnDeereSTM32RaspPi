@@ -49,7 +49,7 @@ ser = serial.Serial(plot_settings.SERIAL_PORT, baudrate=plot_settings.BAUDRATE,
                     parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
                     bytesize=serial.EIGHTBITS, timeout=1)
 
-def run_plot(frame):
+def run_plot():
 
   global parameters_values
 

@@ -25,6 +25,9 @@
 #define TIM_PSC_50MS	0X30
 #define TIM_CNT_50MS	0XE6
 
+#define TIM_PSC_41MS	0X28
+#define TIM_CNT_41MS	0X600
+
 #define TIM_PSC_5MS	0X4
 #define TIM_CNT_5MS	0X600
 

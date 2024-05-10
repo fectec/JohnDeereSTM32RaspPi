@@ -7,9 +7,9 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 # Code imports
 
 import game_settings
-#from plot import run_plot
+from plot import run_plot
 
-from plot_random import run_plot # Uncomment this and comment on the up line if you want to run with random data
+#from plot_random import run_plot # Uncomment this and comment on the up line if you want to run with random data
 
 # Menu
 
@@ -47,14 +47,10 @@ def game() :
 
     run = True
     clock = game_settings.pg.time.Clock()
-    
-    # Frame variable for plotting
-
-    frame = 0
 
     # Fetch fig from the plot module
 
-    fig = run_plot(frame)
+    fig = run_plot()
 
     # Transform fig into canvas and get its raw data
 
@@ -88,7 +84,7 @@ def game() :
 
         # Fetch a new fig from the plot module
 
-        fig = run_plot(frame)
+        fig = run_plot()
 
         # Redraw canvas
 
@@ -105,10 +101,6 @@ def game() :
         # Update display
 
         game_settings.pg.display.update()
-
-        # Increment frame counter by one
-
-        frame += 1
 
 def run_game() :
 
