@@ -16,7 +16,7 @@ On the other hand, the *matrix keypad* is read by declaring the *rows* pins as *
 
 Then, the button pressed is decoded into an action. The 5 sets the *Brake* value to 100. Meanwhile, 4 and 6 are treated as left and right, their effect being to decrease by one the value of the voltage read (before normalization, i.e., in the range of 0 to 3.3V), in order to simulate a slowdown during a turn in a curve. Again, the Brake value is fed to the model. 
 
-Once the model has processed this information, the output data is sent via the *USART internal peripheral* to the UART TX pin of the NUCLEO-F103RB board, which, like it will be reviewed later, is connected to the UART RX pin of the Raspberry Pi. It is also string formatted and written to the LCD. It is important to note that the *TIM internal peripheral* is programmed to provide the required delays to both the model and the LCD.
+Once the model has processed this information, the output data is sent via the *USART internal peripheral* to the *UART TX pin* of the NUCLEO-F103RB board, which, like it will be reviewed later, is connected to the *UART RX* pin of the Raspberry Pi. It is also string formatted and written to the LCD. It is important to note that the *TIM internal peripheral* is programmed to provide the required delays to both the model and the LCD.
 
 ## Plotting
 
