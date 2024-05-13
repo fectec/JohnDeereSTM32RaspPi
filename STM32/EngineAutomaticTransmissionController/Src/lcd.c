@@ -1,3 +1,7 @@
+/*
+ * LCD.c
+ */
+
 #include "main.h"
 #include "lcd.h"
 #include "timer.h"
@@ -195,7 +199,7 @@ void LCD_Set_Cursor( uint8_t line, uint8_t column )
 
 void LCD_Put_Str( char * str )
 {
-	for( int16_t i = 0; i < 16 && str[ i ] != 0; i++ )
+	for( int16_t i = 0; i < 16; i++ )
 		LCD_Put_Char( str[ i ] );			//	Send 1 byte to the LCD
 }
 

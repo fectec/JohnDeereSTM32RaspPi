@@ -16,6 +16,9 @@
 
 // Prescaler / count register values
 
+#define TIM_PSC_5S	0X1312
+#define TIM_CNT_5S	0X3
+
 #define TIM_PSC_500MS	0X1E8
 #define TIM_CNT_500MS	0X60
 
@@ -25,8 +28,8 @@
 #define TIM_PSC_50MS	0X30
 #define TIM_CNT_50MS	0XE6
 
-#define TIM_PSC_41MS	0X28
-#define TIM_CNT_41MS	0X600
+#define TIM_PSC_40MS	0X27
+#define TIM_CNT_40MS	0X600
 
 #define TIM_PSC_5MS	0X4
 #define TIM_CNT_5MS	0X600

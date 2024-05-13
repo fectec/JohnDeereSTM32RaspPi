@@ -13,17 +13,20 @@
 
 // ADC1
 
-volatile uint16_t conversionData = 0;
-volatile float voltageValue = 0, normalizedVoltageValue = 0;
+uint16_t conversionData = 0;
+float voltageValue = 0, normalizedVoltageValue = 0;
 
 // Matrix Keyboard
 
-volatile char selectedKey;
-volatile float keyBrakeTorque;
+char selectedKey;
+char action = 'N';
+float keyBrakeTorque;
 
 // LCD
 
-volatile uint8_t col = 16;
+uint8_t col = 16;
+char FirstLine_LCD_MSG[LCD_CHARS + 1];
+char SecondLine_LCD_MSG[LCD_CHARS + 1];
 
 /* Function prototypes */
 
@@ -33,16 +36,16 @@ void USER_GPIO_Init( void );
 int main( void )
 {
 
-  /* Loop forever */
+  EngTrModel_initialize();
 
   USER_RCC_ClockEnable();
   USER_GPIO_Init();
   USER_TIM2_Init( );
   USER_ADC1_Init();
   USER_USART1_Init();
-  //LCD_Init();
+  LCD_Init();
 
-  EngTrModel_initialize();
+  /* Loop forever */
 
   for(;;)
   {
@@ -61,14 +64,26 @@ int main( void )
     if(selectedKey == '5')
     {
 	keyBrakeTorque = 100.0;
+	action = 'B';
+
     }
     else if(selectedKey == '4' || selectedKey == '6')
     {
 	voltageValue -= 1;
+
+	if(selectedKey == '4')
+	{
+	    action = 'R';
+	}
+	else
+	{
+	    action = 'L';
+	}
     }
     else
     {
 	keyBrakeTorque = 0.0;
+	action = 'N';
     }
 
     normalizedVoltageValue = scaleVoltageValue(voltageValue, 0, 3.3);
@@ -88,29 +103,37 @@ int main( void )
 
     printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
 
-    USER_TIM2_Delay(TIM_PSC_41MS, TIM_CNT_41MS);		// 41 ms delay
+    USER_TIM2_Delay(TIM_PSC_40MS, TIM_CNT_40MS);		// 40 ms delay
 
-  /*
-    // LCD test
+    int EngineSpeedWhole = (int)(EngTrModel_Y.EngineSpeed);
+    int EngineSpeedDecimal = (int)((EngTrModel_Y.EngineSpeed - EngineSpeedWhole) * 100);
 
-    LCD_Clear( );
+    int VehicleSpeedWhole = (int)(EngTrModel_Y.VehicleSpeed);
+    int VehicleSpeedDecimal = (int)((EngTrModel_Y.VehicleSpeed - VehicleSpeedWhole) * 100);
+
+    int GearWhole = (int) (EngTrModel_Y.Gear);
+
+    snprintf(FirstLine_LCD_MSG, sizeof(FirstLine_LCD_MSG), "E:%04d.%02d G:%01d  %c", EngineSpeedWhole, EngineSpeedDecimal, GearWhole, action);
+    snprintf(SecondLine_LCD_MSG, sizeof(SecondLine_LCD_MSG), "V:%03d.%02d        ", VehicleSpeedWhole, VehicleSpeedDecimal);
+
     LCD_Set_Cursor( 1, 1 );
-    LCD_Put_Str( "TE" );
-    LCD_Put_Num( 2003 );
-    LCD_Put_Char( 'B' );
-    LCD_Put_Str( " SoC" );
+    LCD_Put_Str(FirstLine_LCD_MSG);
     LCD_Set_Cursor( 2, col-- );
-    LCD_Put_Str( "Prueba de LCD ");
-    LCD_BarGraphic( 0, 64 );
 
     USER_TIM2_Delay(TIM_PSC_200MS, TIM_CNT_200MS);		// 200 ms delay
 
     if( col == 0 ){
 
 	USER_TIM2_Delay(TIM_PSC_500MS, TIM_CNT_500MS);		// 500 ms delay
-	 col = 16;
+	col = 16;
+/*
+	LCD_Clear();
+	LCD_Set_Cursor( 1, 1 );
+	LCD_Put_Str(SecondLine_LCD_MSG);
+	USER_TIM2_Delay(TIM_PSC_5S, TIM_CNT_5S);		// 5 s delay
+*/
     }
-  */
+
   }
 
 }

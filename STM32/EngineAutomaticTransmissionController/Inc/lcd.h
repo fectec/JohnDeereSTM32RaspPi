@@ -23,7 +23,6 @@
 #define LCD_D6_PIN_LOW 	      0x1UL << 27U 	//	Reset pin DATA6_LCD (PC11)
 #define LCD_D7_PIN_LOW 	      0x1UL << 28U 	//	Reset pin DATA7_LCD (PC12)
 
-
 #define LCD_Clear( )          LCD_Write_Cmd( 0x01U )	// 	Clear the screen
 #define LCD_Display_ON( )     LCD_Write_Cmd( 0x0EU )	//	Activate LCD display
 #define LCD_Display_OFF( )    LCD_Write_Cmd( 0x08U )	//	Deactivate LCD display
@@ -35,6 +34,8 @@
 #define LCD_Cursor_Right( )   LCD_Write_Cmd( 0x14U )	//	Move cursor right
 #define LCD_Cursor_SLeft( )   LCD_Write_Cmd( 0x18U )	//	Scroll display left
 #define LCD_Cursor_SRight( )  LCD_Write_Cmd( 0x1CU )	//	Scroll display right
+
+#define LCD_CHARS 16
 
 void LCD_Data_Out4( uint8_t val );
 void LCD_Write_Byte( uint8_t val );
