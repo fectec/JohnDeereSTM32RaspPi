@@ -32,6 +32,6 @@ Finally, a **bash script** was written to simplify the process of running the pl
 
 ### Graphical Interface
 
-### Physical Interaction
-
-
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/0eedfc72-9643-4cea-a952-c239cb234ab8" alt = "Graphical Interface Demo"/>
+</p>
