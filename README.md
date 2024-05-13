@@ -39,5 +39,5 @@ Finally, a **bash script** was written to simplify the process of running the pl
 ### Graphical Interface with Random Data
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/abb724bc-0278-4fbc-a691-4ca3fbbb85c6" alt = "Graphical Interface Serial Data Demo"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/9bc90f82-4e30-47a8-b825-0492acb042d1" alt = "Graphical Interface Serial Data Demo"/>
 </p>
