@@ -10,7 +10,7 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 
 ## NUCLEO-F103RB model integration
 
-John Deere provided the files for a model of a *tractor engine automatic transmission controller*. This receives two input values, vehicle Throttle and Brake, and returns three output values, *Engine speed*, *Vehicle Speed* and *Gear*. Since a potentiometer represents the *Throttle*, the *ADC* on the NUCLEO-F103RB board is used to sense a variable voltage value which is then normalized to a range of 0 to 100 and fed to the model. 
+John Deere provided the files for a model of a **tractor engine automatic transmission controller**. This receives two input values, vehicle Throttle and Brake, and returns three output values, **Engine speed**, **Vehicle Speed** and **Gear**. Since a potentiometer represents the *Throttle*, the *ADC* on the NUCLEO-F103RB board is used to sense a variable voltage value which is then normalized to a range of 0 to 100 and fed to the model. 
 
 On the other hand, the *matrix keypad* is read by declaring the *rows* pins as *outputs* and the *columns* pins as *pull-up inputs*. Then, the row to be read is selected by setting the corresponding pin to ground and turning on the remaining pins. Thus, if a button in this row is pressed, an input will detect a logic 0 while the others remain at logic 1, so it is necessary to detect which of these has such a value to determine the column, and thus, the pressed button. If the pressed button is not found in such a row, then the procedure is repeated with the next row. In other words, it is a constant process of sweeping through rows and columns.
 
