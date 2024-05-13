@@ -20,7 +20,11 @@ Once the model has processed this information, the output data is sent via the *
 
 ## Raspberry Pi 3 Model B Plotting
 
-The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the UART RX pin. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *matplotlib* library. A graphical interface was also realized via the *pygame* library, which receives the graphs from *matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. At an earlier stage of the development, a plotting script using *randomly generated data* was created. This file is also provided. 
+The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the UART RX pin. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *Matplotlib* library. A graphical interface was also realized via the *Pygame* library, which receives the graphs from *Matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. At an earlier stage of the development, a plotting script using *randomly generated data* was created. This file is also provided. 
+
+To use the graphical interface, run **game.py**. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run **plot_linux.py**, which uses serially read data. 
+
+In both serial interaction cases, modify **plot_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_settings.py, alongside the baud rate, which is by default **115200** to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
 
 ## Demos
 
