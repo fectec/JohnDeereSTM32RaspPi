@@ -8,7 +8,7 @@ Main project in collaboration with *John Deere* for the undergrad course “**Sy
 
 It consists of a **John Deere tractor driving simulator**. The project uses SoCs to prototype the technologies integrated into a John Deere agricultural tractor. A *matrix keypad* represents the Steering and Braking of the vehicle, and a *potentiometer* represents the Throttle. The *NUCLEO-F103RB* development board with *STM32F103RB MCU* displays these values on an *LCD*. Also, through the *UART* protocol, they are sent to a *Raspberry Pi 3 Model B*, which carries out its processing and graphing on a screen. 
 
-## NUCLEO-F103RB model integration
+## NUCLEO-F103RB Model Integration
 
 John Deere provided the files for a model of a **tractor engine automatic transmission controller**. This receives two input values, vehicle Throttle and Brake, and returns three output values, *Engine speed*, *Vehicle Speed* and *Gear*. Since a potentiometer represents the Throttle, the *ADC* on the NUCLEO-F103RB board is used to sense a variable voltage value which is then normalized to a range of 0 to 100 and fed to the model. 
 
@@ -20,8 +20,12 @@ Once the model has processed this information, the output data is sent via the *
 
 ## Raspberry Pi 3 Model B Plotting
 
-The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the UART RX pin. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *matplotlib* library. 
+The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the UART RX pin. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *matplotlib* library. A graphical interface was also realized via the *pygame* library, which receives the graphs from *matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. At an earlier stage of the development, a plotting script using *randomly generated data* was created. This file is also provided. 
 
-A graphical interface was also realized via the *pygame* library, which receives the graphs from *matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. 
+## Demos
+
+### Graphical Interface
+
+### Physical Interaction
 
 
