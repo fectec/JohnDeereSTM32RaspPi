@@ -1,5 +1,5 @@
 /*
- * LCD.c
+ * lcd.c
  */
 
 #include "main.h"

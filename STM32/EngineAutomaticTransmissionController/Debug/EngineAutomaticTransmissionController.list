@@ -4171,7 +4171,6 @@ int main( void )
  8002508:	2242      	movs	r2, #66	; 0x42
  800250a:	701a      	strb	r2, [r3, #0]
  800250c:	e025      	b.n	800255a <main+0xc2>
-
     }
     else if(selectedKey == '4' || selectedKey == '6')
  800250e:	4b72      	ldr	r3, [pc, #456]	; (80026d8 <main+0x240>)
