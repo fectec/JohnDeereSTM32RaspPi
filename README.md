@@ -28,10 +28,14 @@ In both serial interaction cases, modify **plot_settings.py** to specify the ser
 
 Finally, a **bash script** was written to simplify the process of running the plotting files. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the plotting file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
 
-## Demos
+### Graphical Interface with Serial Data
 
-### Graphical Interface
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/c96a14ab-8e65-4f09-b992-fef5bcf41a36" alt = "Graphical Interface Serial Data Demo" width="600" height="350"/>
+</p>
 
-### Physical Interaction
+### Graphical Interface with Random Data
 
-
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/9bc90f82-4e30-47a8-b825-0492acb042d1" alt = "Graphical Interface Random Data Demo" width="600" height="350"/>
+</p>
