@@ -73,11 +73,11 @@ int main( void )
 
 	if(selectedKey == '4')
 	{
-	    action = 'R';
+	    action = 'L';
 	}
 	else
 	{
-	    action = 'L';
+	    action = 'R';
 	}
     }
     else

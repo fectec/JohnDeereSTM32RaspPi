@@ -5,7 +5,7 @@
 #include "main.h"
 #include "matrixkeyboard.h"
 
-// PB10, PB4, PB5, PB3
+// PB10, PB6, PB5, PB7
 
 unsigned short int R_POSITIONS[NUMBER_OF_ELEMENTS] = {10, 6, 5, 7};
 
@@ -22,7 +22,7 @@ char keys[NUMBER_OF_ELEMENTS][NUMBER_OF_ELEMENTS] = {
 
 char USER_MATRIX_KEYBOARD_Read( void ) {
 
-  char selectedKey;
+  char selectedKey = 'N';	// Default
 
   for (unsigned short int i = 0; i < NUMBER_OF_ELEMENTS; i++) {
 
