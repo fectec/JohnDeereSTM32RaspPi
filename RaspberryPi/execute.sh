@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to run game (Tested on: Raspberry Pi 3 Model B - Raspberry Pi OS 64-bit)
+# Script to run game (Tested on: Raspberry Pi 3 Model B - Raspberry Pi OS 64-bit, based on Debian)
 
 set -e                                                          # Exit immediately if any command fails
 
@@ -17,8 +17,9 @@ source "$HOME/.venv/bin/activate"                               # Activate the v
 #pip install numpy -U
 #pip install pyserial -U
 
-cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Graph  # Change directory to the location of the 'game.py' Python script (modify if needed)
+cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Graph  # Change directory to the location of the 'game.py' / 'plot_linux.py' Python scripts (modify if needed)
 
-python3 game.py                                                 # Run the Python script named 'game.py'
+#python3 game.py                                                # Run the Python script named 'game.py'
+python3 plot_linux.py                                           # Run the Python script named 'plot_linux.py'
 
 deactivate                                                      # Deactivate the virtual environment
