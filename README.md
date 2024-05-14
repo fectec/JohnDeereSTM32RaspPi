@@ -6,9 +6,9 @@ Main project in collaboration with *John Deere* for the undergrad course “**Sy
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/a2e3f5e0-a5d1-4a21-a7a1-1e9dee4edf54" alt = "NUCLEO-F103RB & Raspberry Pi 3 Model B"/>
 </p>
 
-It consists of a **John Deere tractor driving simulator**. The project uses SoCs to prototype the technologies integrated into a John Deere agricultural tractor. A *matrix keypad* represents the Steering and Braking of the vehicle, and a *potentiometer* represents the Throttle. The *NUCLEO-F103RB* development board with *STM32F103RB MCU* displays these values on an *LCD*. Also, through the *UART* protocol, they are sent to a *Raspberry Pi 3 Model B*, which carries out its processing and graphing on a screen. 
+It consists of a **John Deere tractor driving simulator**. The project uses SoCs to prototype the technologies integrated into a John Deere agricultural tractor. A *matrix keypad* represents the Steering and Braking of the vehicle, and a *potentiometer* represents the Throttle. The *NUCLEO-F103RB* development board with *STM32F103RB MCU* displays these values on an *LCD*. Also, through the *UART* protocol, they are sent to a *Raspberry Pi 3 Model B* (with *Raspberry Pi OS 64-bit*, *based on Debian*), which carries out its processing and graphing on a screen. 
 
-## NUCLEO-F103RB model integration
+## NUCLEO-F103RB Model Integration
 
 John Deere provided the files for a model of a **tractor engine automatic transmission controller**. This receives two input values, vehicle Throttle and Brake, and returns three output values, *Engine speed*, *Vehicle Speed* and *Gear*. Since a potentiometer represents the Throttle, the *ADC* on the NUCLEO-F103RB board is used to sense a variable voltage value which is then normalized to a range of 0 to 100 and fed to the model. 
 
@@ -20,8 +20,18 @@ Once the model has processed this information, the output data is sent via the *
 
 ## Raspberry Pi 3 Model B Plotting
 
-The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the UART RX pin. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *matplotlib* library. 
+The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the UART RX pin. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *Matplotlib* library. A graphical interface was also realized via the *Pygame* library, which receives the graphs from *Matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. At an earlier stage of the development, a plotting script using *randomly generated data* was created. This file is also provided. 
 
-A graphical interface was also realized via the *pygame* library, which receives the graphs from *matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. 
+To use the graphical interface, run **game.py**. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run **plot_linux.py**, which uses serially read data. 
+
+In both serial interaction cases, modify **plot_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_settings.py, alongside the baud rate, which is by default **115200** to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
+
+Finally, a **bash script** was written to simplify the process of running the plotting files. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the plotting file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
+
+## Demos
+
+### Graphical Interface
+
+### Physical Interaction
 
 
