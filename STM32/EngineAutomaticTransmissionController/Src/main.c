@@ -19,7 +19,7 @@ float voltageValue = 0, normalizedVoltageValue = 0;
 // Matrix Keyboard
 
 char selectedKey;
-char action = 'N';
+char action = 'F';
 float keyBrakeTorque;
 
 // LCD
@@ -83,7 +83,7 @@ int main( void )
     else
     {
 	keyBrakeTorque = 0.0;
-	action = 'N';
+	action = 'F';
     }
 
     normalizedVoltageValue = scaleVoltageValue(voltageValue, 0, 3.3);
@@ -105,6 +105,8 @@ int main( void )
 
     USER_TIM2_Delay(TIM_PSC_40MS, TIM_CNT_40MS);		// 40 ms delay
 
+    // Extract the whole and decimal parts for Engine Speed and Vehicle Speed, and cast them alongside Gear to integers
+
     int EngineSpeedWhole = (int)(EngTrModel_Y.EngineSpeed);
     int EngineSpeedDecimal = (int)((EngTrModel_Y.EngineSpeed - EngineSpeedWhole) * 100);
 
@@ -113,8 +115,12 @@ int main( void )
 
     int GearWhole = (int) (EngTrModel_Y.Gear);
 
+    // Write the messages to send to the LCD
+
     snprintf(FirstLine_LCD_MSG, sizeof(FirstLine_LCD_MSG), "E:%04d.%02d G:%01d  %c", EngineSpeedWhole, EngineSpeedDecimal, GearWhole, action);
     snprintf(SecondLine_LCD_MSG, sizeof(SecondLine_LCD_MSG), "V:%03d.%02d        ", VehicleSpeedWhole, VehicleSpeedDecimal);
+
+    // Display values on the LCD
 
     LCD_Set_Cursor( 1, 1 );
     LCD_Put_Str(FirstLine_LCD_MSG);
