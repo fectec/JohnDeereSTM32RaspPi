@@ -65,7 +65,6 @@ int main( void )
     {
 	keyBrakeTorque = 100.0;
 	action = 'B';
-
     }
     else if(selectedKey == '4' || selectedKey == '6')
     {
