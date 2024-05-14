@@ -124,21 +124,10 @@ int main( void )
 
     LCD_Set_Cursor( 1, 1 );
     LCD_Put_Str(FirstLine_LCD_MSG);
-    LCD_Set_Cursor( 2, col-- );
+    LCD_Set_Cursor( 2, 1 );
+    LCD_Put_Str(SecondLine_LCD_MSG);
 
     USER_TIM2_Delay(TIM_PSC_200MS, TIM_CNT_200MS);		// 200 ms delay
-
-    if( col == 0 ){
-
-	USER_TIM2_Delay(TIM_PSC_500MS, TIM_CNT_500MS);		// 500 ms delay
-	col = 16;
-/*
-	LCD_Clear();
-	LCD_Set_Cursor( 1, 1 );
-	LCD_Put_Str(SecondLine_LCD_MSG);
-	USER_TIM2_Delay(TIM_PSC_5S, TIM_CNT_5S);		// 5 s delay
-*/
-    }
 
   }
 
