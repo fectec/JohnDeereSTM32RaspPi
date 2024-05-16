@@ -17,16 +17,16 @@
 
 // Directions
 
-#define	IN	0
+#define	INP	0
 #define OUT_10	1	// Maximum output speed 10 MHz
 #define OUT_2	2	// Maximum output speed 2 MHz
 #define OUT_50	3	// Maximum output speed 50 MHz
 
 // Direction options for input
 
-#define	IN_AN	0	// Analog
-#define	IN_F	1	// Input floating
-#define	IN_PP	2	// Input pull-down / pull-up
+#define	INP_AN	0	// Analog
+#define	INP_F	1	// Input floating
+#define	INP_PP	2	// Input pull-down / pull-up
 
 // Direction options for output
 

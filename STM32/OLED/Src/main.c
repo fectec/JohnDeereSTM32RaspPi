@@ -16,14 +16,44 @@
  ******************************************************************************
  */
 
-#include <stdint.h>
+#include "main.h"
+#include "GPIO_Driver.h"
 
-#if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
-#endif
+void USER_Delay( void );
 
 int main(void)
 {
-    /* Loop forever */
-	for(;;);
+  RCC->APB2ENR |= ( 0x1UL << 2U );	// PORTA Clock Enable
+  RCC->APB2ENR |= ( 0x1UL << 4U );	// PORTC Clock Enable
+
+  // PA5 as OUT 10 MHz
+
+  USER_GPIO_DEFINE(PORTA, 5, OUT_10, OUT_GP_PP);
+  USER_GPIO_WRITE(PORTA, 5, 0);
+
+  // PC13 as INP pull-up
+
+  USER_GPIO_DEFINE(PORTC, 13, INP, INP_PP);
+  USER_GPIO_WRITE(PORTC, 13, 1);
+
+  for (;;) {
+    if( !USER_GPIO_READ(PORTC, 13) )
+    {
+	USER_Delay( );
+
+	if( !USER_GPIO_READ(PORTC, 13) )
+	{
+	    USER_GPIO_TOGGLE(PORTA, 5);
+	    while( !USER_GPIO_READ(PORTC, 13) ){ }
+	    USER_Delay( );
+	}
+    }
+  }
+}
+
+void USER_Delay( void ){
+  __asm("LDR r0, =250000");
+  __asm("again: sub r0, r0, #1");
+  __asm("CMP r0, #0");
+  __asm("BNE again");
 }
