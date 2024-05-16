@@ -54,4 +54,12 @@ typedef struct
 #define GPIOF	(( GPIO_TypeDef *) GPIOF_BASE)
 #define GPIOG	(( GPIO_TypeDef *) GPIOG_BASE)
 
+#define RCC_APB2ENR_IOPAEN	0x1UL << 2U
+#define RCC_APB2ENR_IOPBEN	0x1UL << 3U
+#define RCC_APB2ENR_IOPCEN	0x1UL << 4U
+#define RCC_APB2ENR_IOPDEN	0x1UL << 5U
+#define RCC_APB2ENR_IOPEEN	0x1UL << 6U
+#define RCC_APB2ENR_IOPFEN	0x1UL << 7U
+#define RCC_APB2ENR_IOPGEN	0x1UL << 8U
+
 #endif /* MAIN_H_ */

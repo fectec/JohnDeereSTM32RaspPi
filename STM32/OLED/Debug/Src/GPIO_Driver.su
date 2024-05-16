@@ -1,4 +1,4 @@
-../Src/GPIO_Driver.c:8:6:USER_GPIO_DEFINE	24	static
-../Src/GPIO_Driver.c:46:9:USER_GPIO_READ	24	static
-../Src/GPIO_Driver.c:83:6:USER_GPIO_WRITE	24	static
-../Src/GPIO_Driver.c:118:6:USER_GPIO_TOGGLE	16	static
+../Src/GPIO_Driver.c:8:6:USER_GPIO_Define	24	static
+../Src/GPIO_Driver.c:46:9:USER_GPIO_Read	24	static
+../Src/GPIO_Driver.c:83:6:USER_GPIO_Write	24	static
+../Src/GPIO_Driver.c:118:6:USER_GPIO_Toggle	16	static

@@ -23,28 +23,28 @@ void USER_Delay( void );
 
 int main(void)
 {
-  RCC->APB2ENR |= ( 0x1UL << 2U );	// PORTA Clock Enable
-  RCC->APB2ENR |= ( 0x1UL << 4U );	// PORTC Clock Enable
+  RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;	// PORTA Clock Enable
+  RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;	// PORTC Clock Enable
 
   // PA5 as OUT 10 MHz
 
-  USER_GPIO_DEFINE(PORTA, 5, OUT_10, OUT_GP_PP);
-  USER_GPIO_WRITE(PORTA, 5, 0);
+  USER_GPIO_Define(PORTA, 5, OUT_10, OUT_GP_PP);
+  USER_GPIO_Write(PORTA, 5, 0);
 
   // PC13 as INP pull-up
 
-  USER_GPIO_DEFINE(PORTC, 13, INP, INP_PP);
-  USER_GPIO_WRITE(PORTC, 13, 1);
+  USER_GPIO_Define(PORTC, 13, INP, INP_PP);
+  USER_GPIO_Write(PORTC, 13, 1);
 
   for (;;) {
-    if( !USER_GPIO_READ(PORTC, 13) )
+    if( !USER_GPIO_Read(PORTC, 13) )
     {
 	USER_Delay( );
 
-	if( !USER_GPIO_READ(PORTC, 13) )
+	if( !USER_GPIO_Read(PORTC, 13) )
 	{
-	    USER_GPIO_TOGGLE(PORTA, 5);
-	    while( !USER_GPIO_READ(PORTC, 13) ){ }
+	    USER_GPIO_Toggle(PORTA, 5);
+	    while( !USER_GPIO_Read(PORTC, 13) ){ }
 	    USER_Delay( );
 	}
     }

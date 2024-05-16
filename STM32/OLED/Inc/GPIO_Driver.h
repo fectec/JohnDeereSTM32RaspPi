@@ -35,9 +35,9 @@
 #define OUT_AF_PP	2	// Alternate Function output - Push-pull
 #define OUT_AF_OD	3	// Alternate Function output - Open-drain
 
-void USER_GPIO_DEFINE( uint8_t, uint8_t, uint8_t, uint8_t );
-uint8_t USER_GPIO_READ( uint8_t, uint8_t );
-void USER_GPIO_WRITE( uint8_t, uint8_t, uint8_t );
-void USER_GPIO_TOGGLE(uint8_t, uint8_t);
+void USER_GPIO_Define( uint8_t, uint8_t, uint8_t, uint8_t );
+uint8_t USER_GPIO_Read( uint8_t, uint8_t );
+void USER_GPIO_Write( uint8_t, uint8_t, uint8_t );
+void USER_GPIO_Toggle(uint8_t, uint8_t);
 
 #endif /* GPIO_DRIVER_H_ */

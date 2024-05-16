@@ -92,7 +92,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x103 ./Src/main.o
  .debug_macro   0x0000000000000000       0x6a ./Src/main.o
  .debug_macro   0x0000000000000000      0x1df ./Src/main.o
- .debug_macro   0x0000000000000000       0x64 ./Src/main.o
+ .debug_macro   0x0000000000000000       0x8e ./Src/main.o
  .debug_macro   0x0000000000000000       0x76 ./Src/main.o
  .group         0x0000000000000000        0xc ./Src/syscalls.o
  .group         0x0000000000000000        0xc ./Src/syscalls.o
@@ -577,18 +577,18 @@ LOAD C:/ST/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  *(.text)
  .text          0x0000000008000130       0x40 C:/ST/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7-m/nofp/crtbegin.o
  *(.text*)
- .text.USER_GPIO_DEFINE
+ .text.USER_GPIO_Define
                 0x0000000008000170      0x108 ./Src/GPIO_Driver.o
-                0x0000000008000170                USER_GPIO_DEFINE
- .text.USER_GPIO_READ
+                0x0000000008000170                USER_GPIO_Define
+ .text.USER_GPIO_Read
                 0x0000000008000278       0x9c ./Src/GPIO_Driver.o
-                0x0000000008000278                USER_GPIO_READ
- .text.USER_GPIO_WRITE
+                0x0000000008000278                USER_GPIO_Read
+ .text.USER_GPIO_Write
                 0x0000000008000314       0xb4 ./Src/GPIO_Driver.o
-                0x0000000008000314                USER_GPIO_WRITE
- .text.USER_GPIO_TOGGLE
+                0x0000000008000314                USER_GPIO_Write
+ .text.USER_GPIO_Toggle
                 0x00000000080003c8       0x44 ./Src/GPIO_Driver.o
-                0x00000000080003c8                USER_GPIO_TOGGLE
+                0x00000000080003c8                USER_GPIO_Toggle
  .text.main     0x000000000800040c       0x8c ./Src/main.o
                 0x000000000800040c                main
  .text.USER_Delay
@@ -843,7 +843,7 @@ LOAD C:/ST/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_rnglists
                 0x0000000000000042       0x19 ./Startup/startup_stm32f103rbtx.o
 
-.debug_macro    0x0000000000000000     0x10c5
+.debug_macro    0x0000000000000000     0x10ef
  .debug_macro   0x0000000000000000       0x7b ./Src/GPIO_Driver.o
  .debug_macro   0x000000000000007b      0xaa8 ./Src/GPIO_Driver.o
  .debug_macro   0x0000000000000b23       0x22 ./Src/GPIO_Driver.o
@@ -852,21 +852,21 @@ LOAD C:/ST/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x0000000000000c24      0x103 ./Src/GPIO_Driver.o
  .debug_macro   0x0000000000000d27       0x6a ./Src/GPIO_Driver.o
  .debug_macro   0x0000000000000d91      0x1df ./Src/GPIO_Driver.o
- .debug_macro   0x0000000000000f70       0x64 ./Src/GPIO_Driver.o
- .debug_macro   0x0000000000000fd4       0x76 ./Src/GPIO_Driver.o
- .debug_macro   0x000000000000104a       0x7b ./Src/main.o
+ .debug_macro   0x0000000000000f70       0x8e ./Src/GPIO_Driver.o
+ .debug_macro   0x0000000000000ffe       0x76 ./Src/GPIO_Driver.o
+ .debug_macro   0x0000000000001074       0x7b ./Src/main.o
 
 .debug_line     0x0000000000000000      0xa74
  .debug_line    0x0000000000000000      0x582 ./Src/GPIO_Driver.o
  .debug_line    0x0000000000000582      0x477 ./Src/main.o
  .debug_line    0x00000000000009f9       0x7b ./Startup/startup_stm32f103rbtx.o
 
-.debug_str      0x0000000000000000     0x3f1f
- .debug_str     0x0000000000000000     0x3e93 ./Src/GPIO_Driver.o
-                                       0x3fff (size before relaxing)
- .debug_str     0x0000000000003e93       0x5d ./Src/main.o
-                                       0x4002 (size before relaxing)
- .debug_str     0x0000000000003ef0       0x2f ./Startup/startup_stm32f103rbtx.o
+.debug_str      0x0000000000000000     0x3ff8
+ .debug_str     0x0000000000000000     0x3f6c ./Src/GPIO_Driver.o
+                                       0x40d8 (size before relaxing)
+ .debug_str     0x0000000000003f6c       0x5d ./Src/main.o
+                                       0x40db (size before relaxing)
+ .debug_str     0x0000000000003fc9       0x2f ./Startup/startup_stm32f103rbtx.o
                                          0x77 (size before relaxing)
 
 .debug_frame    0x0000000000000000      0x128

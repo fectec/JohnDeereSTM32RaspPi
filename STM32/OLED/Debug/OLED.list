@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_rnglists 0000005b  00000000  00000000  00010cc0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  000010c5  00000000  00000000  00010d1b  2**0
+ 17 .debug_macro  000010ef  00000000  00000000  00010d1b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00000a74  00000000  00000000  00011de0  2**0
+ 18 .debug_line   00000a74  00000000  00000000  00011e0a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00003f1f  00000000  00000000  00012854  2**0
+ 19 .debug_str    00003ff8  00000000  00000000  0001287e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00000128  00000000  00000000  00016774  2**2
+ 20 .debug_frame  00000128  00000000  00000000  00016878  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000006b  00000000  00000000  0001689c  2**0
+ 21 .debug_line_str 0000006b  00000000  00000000  000169a0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -78,12 +78,12 @@ Disassembly of section .text:
  8000168:	20000004 	.word	0x20000004
  800016c:	08000550 	.word	0x08000550
 
-08000170 <USER_GPIO_DEFINE>:
+08000170 <USER_GPIO_Define>:
 
 #include "main.h"
 #include "GPIO_Driver.h"
 
-void USER_GPIO_DEFINE(uint8_t port, uint8_t pin, uint8_t direction, uint8_t option)
+void USER_GPIO_Define(uint8_t port, uint8_t pin, uint8_t direction, uint8_t option)
 {
  8000170:	b490      	push	{r4, r7}
  8000172:	b084      	sub	sp, #16
@@ -111,7 +111,7 @@ void USER_GPIO_DEFINE(uint8_t port, uint8_t pin, uint8_t direction, uint8_t opti
   if( pin > 7 ) {
  8000196:	79bb      	ldrb	r3, [r7, #6]
  8000198:	2b07      	cmp	r3, #7
- 800019a:	d904      	bls.n	80001a6 <USER_GPIO_DEFINE+0x36>
+ 800019a:	d904      	bls.n	80001a6 <USER_GPIO_Define+0x36>
       actual_pin -= 8;
  800019c:	7afb      	ldrb	r3, [r7, #11]
  800019e:	3b08      	subs	r3, #8
@@ -124,74 +124,74 @@ void USER_GPIO_DEFINE(uint8_t port, uint8_t pin, uint8_t direction, uint8_t opti
   if( port == 0 ) {
  80001a6:	79fb      	ldrb	r3, [r7, #7]
  80001a8:	2b00      	cmp	r3, #0
- 80001aa:	d107      	bne.n	80001bc <USER_GPIO_DEFINE+0x4c>
+ 80001aa:	d107      	bne.n	80001bc <USER_GPIO_Define+0x4c>
       CR = (volatile uint32_t *) (&GPIOA->CRL + offset);
  80001ac:	7abb      	ldrb	r3, [r7, #10]
  80001ae:	009b      	lsls	r3, r3, #2
  80001b0:	f103 4380 	add.w	r3, r3, #1073741824	; 0x40000000
  80001b4:	f503 3384 	add.w	r3, r3, #67584	; 0x10800
  80001b8:	60fb      	str	r3, [r7, #12]
- 80001ba:	e03d      	b.n	8000238 <USER_GPIO_DEFINE+0xc8>
+ 80001ba:	e03d      	b.n	8000238 <USER_GPIO_Define+0xc8>
   }
   else if( port == 1 ) {
  80001bc:	79fb      	ldrb	r3, [r7, #7]
  80001be:	2b01      	cmp	r3, #1
- 80001c0:	d107      	bne.n	80001d2 <USER_GPIO_DEFINE+0x62>
+ 80001c0:	d107      	bne.n	80001d2 <USER_GPIO_Define+0x62>
       CR = (volatile uint32_t *) (&GPIOB->CRL + offset);
  80001c2:	7abb      	ldrb	r3, [r7, #10]
  80001c4:	009b      	lsls	r3, r3, #2
  80001c6:	f103 4380 	add.w	r3, r3, #1073741824	; 0x40000000
  80001ca:	f503 3386 	add.w	r3, r3, #68608	; 0x10c00
  80001ce:	60fb      	str	r3, [r7, #12]
- 80001d0:	e032      	b.n	8000238 <USER_GPIO_DEFINE+0xc8>
+ 80001d0:	e032      	b.n	8000238 <USER_GPIO_Define+0xc8>
   }
   else if ( port == 2 ) {
  80001d2:	79fb      	ldrb	r3, [r7, #7]
  80001d4:	2b02      	cmp	r3, #2
- 80001d6:	d107      	bne.n	80001e8 <USER_GPIO_DEFINE+0x78>
+ 80001d6:	d107      	bne.n	80001e8 <USER_GPIO_Define+0x78>
       CR = (volatile uint32_t *) (&GPIOC->CRL + offset);
  80001d8:	7abb      	ldrb	r3, [r7, #10]
  80001da:	009b      	lsls	r3, r3, #2
  80001dc:	f103 4380 	add.w	r3, r3, #1073741824	; 0x40000000
  80001e0:	f503 3388 	add.w	r3, r3, #69632	; 0x11000
  80001e4:	60fb      	str	r3, [r7, #12]
- 80001e6:	e027      	b.n	8000238 <USER_GPIO_DEFINE+0xc8>
+ 80001e6:	e027      	b.n	8000238 <USER_GPIO_Define+0xc8>
   }
   else if ( port == 3 ) {
  80001e8:	79fb      	ldrb	r3, [r7, #7]
  80001ea:	2b03      	cmp	r3, #3
- 80001ec:	d107      	bne.n	80001fe <USER_GPIO_DEFINE+0x8e>
+ 80001ec:	d107      	bne.n	80001fe <USER_GPIO_Define+0x8e>
       CR = (volatile uint32_t *) (&GPIOD->CRL + offset);
  80001ee:	7abb      	ldrb	r3, [r7, #10]
  80001f0:	009b      	lsls	r3, r3, #2
  80001f2:	f103 4380 	add.w	r3, r3, #1073741824	; 0x40000000
  80001f6:	f503 338a 	add.w	r3, r3, #70656	; 0x11400
  80001fa:	60fb      	str	r3, [r7, #12]
- 80001fc:	e01c      	b.n	8000238 <USER_GPIO_DEFINE+0xc8>
+ 80001fc:	e01c      	b.n	8000238 <USER_GPIO_Define+0xc8>
   }
   else if( port == 4 ) {
  80001fe:	79fb      	ldrb	r3, [r7, #7]
  8000200:	2b04      	cmp	r3, #4
- 8000202:	d107      	bne.n	8000214 <USER_GPIO_DEFINE+0xa4>
+ 8000202:	d107      	bne.n	8000214 <USER_GPIO_Define+0xa4>
       CR = (volatile uint32_t *) (&GPIOE->CRL + offset);
  8000204:	7abb      	ldrb	r3, [r7, #10]
  8000206:	009b      	lsls	r3, r3, #2
  8000208:	f103 4380 	add.w	r3, r3, #1073741824	; 0x40000000
  800020c:	f503 338c 	add.w	r3, r3, #71680	; 0x11800
  8000210:	60fb      	str	r3, [r7, #12]
- 8000212:	e011      	b.n	8000238 <USER_GPIO_DEFINE+0xc8>
+ 8000212:	e011      	b.n	8000238 <USER_GPIO_Define+0xc8>
   }
   else if( port == 5 ) {
  8000214:	79fb      	ldrb	r3, [r7, #7]
  8000216:	2b05      	cmp	r3, #5
- 8000218:	d107      	bne.n	800022a <USER_GPIO_DEFINE+0xba>
+ 8000218:	d107      	bne.n	800022a <USER_GPIO_Define+0xba>
       CR = (volatile uint32_t *) (&GPIOF->CRL + offset);
  800021a:	7abb      	ldrb	r3, [r7, #10]
  800021c:	009b      	lsls	r3, r3, #2
  800021e:	f103 4380 	add.w	r3, r3, #1073741824	; 0x40000000
  8000222:	f503 338e 	add.w	r3, r3, #72704	; 0x11c00
  8000226:	60fb      	str	r3, [r7, #12]
- 8000228:	e006      	b.n	8000238 <USER_GPIO_DEFINE+0xc8>
+ 8000228:	e006      	b.n	8000238 <USER_GPIO_Define+0xc8>
   }
   else {
       CR = (volatile uint32_t *) (&GPIOG->CRL + offset);
@@ -238,9 +238,9 @@ void USER_GPIO_DEFINE(uint8_t port, uint8_t pin, uint8_t direction, uint8_t opti
  8000274:	bc90      	pop	{r4, r7}
  8000276:	4770      	bx	lr
 
-08000278 <USER_GPIO_READ>:
+08000278 <USER_GPIO_Read>:
 
-uint8_t USER_GPIO_READ(uint8_t port, uint8_t pin)
+uint8_t USER_GPIO_Read(uint8_t port, uint8_t pin)
 {
  8000278:	b480      	push	{r7}
  800027a:	b085      	sub	sp, #20
@@ -256,66 +256,66 @@ uint8_t USER_GPIO_READ(uint8_t port, uint8_t pin)
   if( port == 0 ) {
  8000288:	79fb      	ldrb	r3, [r7, #7]
  800028a:	2b00      	cmp	r3, #0
- 800028c:	d102      	bne.n	8000294 <USER_GPIO_READ+0x1c>
+ 800028c:	d102      	bne.n	8000294 <USER_GPIO_Read+0x1c>
       IDR = (volatile uint32_t *) (&GPIOA->IDR);
- 800028e:	4b1a      	ldr	r3, [pc, #104]	; (80002f8 <USER_GPIO_READ+0x80>)
+ 800028e:	4b1a      	ldr	r3, [pc, #104]	; (80002f8 <USER_GPIO_Read+0x80>)
  8000290:	60fb      	str	r3, [r7, #12]
- 8000292:	e01f      	b.n	80002d4 <USER_GPIO_READ+0x5c>
+ 8000292:	e01f      	b.n	80002d4 <USER_GPIO_Read+0x5c>
   }
   else if( port == 1 )
  8000294:	79fb      	ldrb	r3, [r7, #7]
  8000296:	2b01      	cmp	r3, #1
- 8000298:	d102      	bne.n	80002a0 <USER_GPIO_READ+0x28>
+ 8000298:	d102      	bne.n	80002a0 <USER_GPIO_Read+0x28>
   {
       IDR = (volatile uint32_t *) (&GPIOB->IDR);
- 800029a:	4b18      	ldr	r3, [pc, #96]	; (80002fc <USER_GPIO_READ+0x84>)
+ 800029a:	4b18      	ldr	r3, [pc, #96]	; (80002fc <USER_GPIO_Read+0x84>)
  800029c:	60fb      	str	r3, [r7, #12]
- 800029e:	e019      	b.n	80002d4 <USER_GPIO_READ+0x5c>
+ 800029e:	e019      	b.n	80002d4 <USER_GPIO_Read+0x5c>
   }
   else if( port == 2 )
  80002a0:	79fb      	ldrb	r3, [r7, #7]
  80002a2:	2b02      	cmp	r3, #2
- 80002a4:	d102      	bne.n	80002ac <USER_GPIO_READ+0x34>
+ 80002a4:	d102      	bne.n	80002ac <USER_GPIO_Read+0x34>
   {
       IDR = (volatile uint32_t *) (&GPIOC->IDR);
- 80002a6:	4b16      	ldr	r3, [pc, #88]	; (8000300 <USER_GPIO_READ+0x88>)
+ 80002a6:	4b16      	ldr	r3, [pc, #88]	; (8000300 <USER_GPIO_Read+0x88>)
  80002a8:	60fb      	str	r3, [r7, #12]
- 80002aa:	e013      	b.n	80002d4 <USER_GPIO_READ+0x5c>
+ 80002aa:	e013      	b.n	80002d4 <USER_GPIO_Read+0x5c>
   }
   else if( port == 3 )
  80002ac:	79fb      	ldrb	r3, [r7, #7]
  80002ae:	2b03      	cmp	r3, #3
- 80002b0:	d102      	bne.n	80002b8 <USER_GPIO_READ+0x40>
+ 80002b0:	d102      	bne.n	80002b8 <USER_GPIO_Read+0x40>
   {
       IDR = (volatile uint32_t *) (&GPIOD->IDR);
- 80002b2:	4b14      	ldr	r3, [pc, #80]	; (8000304 <USER_GPIO_READ+0x8c>)
+ 80002b2:	4b14      	ldr	r3, [pc, #80]	; (8000304 <USER_GPIO_Read+0x8c>)
  80002b4:	60fb      	str	r3, [r7, #12]
- 80002b6:	e00d      	b.n	80002d4 <USER_GPIO_READ+0x5c>
+ 80002b6:	e00d      	b.n	80002d4 <USER_GPIO_Read+0x5c>
   }
   else if( port == 4 )
  80002b8:	79fb      	ldrb	r3, [r7, #7]
  80002ba:	2b04      	cmp	r3, #4
- 80002bc:	d102      	bne.n	80002c4 <USER_GPIO_READ+0x4c>
+ 80002bc:	d102      	bne.n	80002c4 <USER_GPIO_Read+0x4c>
   {
       IDR = (volatile uint32_t *) (&GPIOE->IDR);
- 80002be:	4b12      	ldr	r3, [pc, #72]	; (8000308 <USER_GPIO_READ+0x90>)
+ 80002be:	4b12      	ldr	r3, [pc, #72]	; (8000308 <USER_GPIO_Read+0x90>)
  80002c0:	60fb      	str	r3, [r7, #12]
- 80002c2:	e007      	b.n	80002d4 <USER_GPIO_READ+0x5c>
+ 80002c2:	e007      	b.n	80002d4 <USER_GPIO_Read+0x5c>
   }
   else if( port == 5 )
  80002c4:	79fb      	ldrb	r3, [r7, #7]
  80002c6:	2b05      	cmp	r3, #5
- 80002c8:	d102      	bne.n	80002d0 <USER_GPIO_READ+0x58>
+ 80002c8:	d102      	bne.n	80002d0 <USER_GPIO_Read+0x58>
   {
       IDR = (volatile uint32_t *) (&GPIOF->IDR);
- 80002ca:	4b10      	ldr	r3, [pc, #64]	; (800030c <USER_GPIO_READ+0x94>)
+ 80002ca:	4b10      	ldr	r3, [pc, #64]	; (800030c <USER_GPIO_Read+0x94>)
  80002cc:	60fb      	str	r3, [r7, #12]
- 80002ce:	e001      	b.n	80002d4 <USER_GPIO_READ+0x5c>
+ 80002ce:	e001      	b.n	80002d4 <USER_GPIO_Read+0x5c>
   }
   else
   {
       IDR = (volatile uint32_t *) (&GPIOG->IDR);
- 80002d0:	4b0f      	ldr	r3, [pc, #60]	; (8000310 <USER_GPIO_READ+0x98>)
+ 80002d0:	4b0f      	ldr	r3, [pc, #60]	; (8000310 <USER_GPIO_Read+0x98>)
  80002d2:	60fb      	str	r3, [r7, #12]
   }
 
@@ -346,9 +346,9 @@ uint8_t USER_GPIO_READ(uint8_t port, uint8_t pin)
  800030c:	40011c08 	.word	0x40011c08
  8000310:	40012008 	.word	0x40012008
 
-08000314 <USER_GPIO_WRITE>:
+08000314 <USER_GPIO_Write>:
 
-void USER_GPIO_WRITE(uint8_t port, uint8_t pin, uint8_t state)
+void USER_GPIO_Write(uint8_t port, uint8_t pin, uint8_t state)
 {
  8000314:	b480      	push	{r7}
  8000316:	b085      	sub	sp, #20
@@ -364,73 +364,73 @@ void USER_GPIO_WRITE(uint8_t port, uint8_t pin, uint8_t state)
   if( port == 0 ) {
  8000326:	79fb      	ldrb	r3, [r7, #7]
  8000328:	2b00      	cmp	r3, #0
- 800032a:	d102      	bne.n	8000332 <USER_GPIO_WRITE+0x1e>
+ 800032a:	d102      	bne.n	8000332 <USER_GPIO_Write+0x1e>
       ODR = (volatile uint32_t *) (&GPIOA->ODR);
- 800032c:	4b1f      	ldr	r3, [pc, #124]	; (80003ac <USER_GPIO_WRITE+0x98>)
+ 800032c:	4b1f      	ldr	r3, [pc, #124]	; (80003ac <USER_GPIO_Write+0x98>)
  800032e:	60fb      	str	r3, [r7, #12]
- 8000330:	e01f      	b.n	8000372 <USER_GPIO_WRITE+0x5e>
+ 8000330:	e01f      	b.n	8000372 <USER_GPIO_Write+0x5e>
   }
   else if( port == 1 )
  8000332:	79fb      	ldrb	r3, [r7, #7]
  8000334:	2b01      	cmp	r3, #1
- 8000336:	d102      	bne.n	800033e <USER_GPIO_WRITE+0x2a>
+ 8000336:	d102      	bne.n	800033e <USER_GPIO_Write+0x2a>
   {
       ODR = (volatile uint32_t *) (&GPIOB->ODR);
- 8000338:	4b1d      	ldr	r3, [pc, #116]	; (80003b0 <USER_GPIO_WRITE+0x9c>)
+ 8000338:	4b1d      	ldr	r3, [pc, #116]	; (80003b0 <USER_GPIO_Write+0x9c>)
  800033a:	60fb      	str	r3, [r7, #12]
- 800033c:	e019      	b.n	8000372 <USER_GPIO_WRITE+0x5e>
+ 800033c:	e019      	b.n	8000372 <USER_GPIO_Write+0x5e>
   }
   else if( port == 2 )
  800033e:	79fb      	ldrb	r3, [r7, #7]
  8000340:	2b02      	cmp	r3, #2
- 8000342:	d102      	bne.n	800034a <USER_GPIO_WRITE+0x36>
+ 8000342:	d102      	bne.n	800034a <USER_GPIO_Write+0x36>
   {
       ODR = (volatile uint32_t *) (&GPIOC->ODR);
- 8000344:	4b1b      	ldr	r3, [pc, #108]	; (80003b4 <USER_GPIO_WRITE+0xa0>)
+ 8000344:	4b1b      	ldr	r3, [pc, #108]	; (80003b4 <USER_GPIO_Write+0xa0>)
  8000346:	60fb      	str	r3, [r7, #12]
- 8000348:	e013      	b.n	8000372 <USER_GPIO_WRITE+0x5e>
+ 8000348:	e013      	b.n	8000372 <USER_GPIO_Write+0x5e>
   }
   else if( port == 3 )
  800034a:	79fb      	ldrb	r3, [r7, #7]
  800034c:	2b03      	cmp	r3, #3
- 800034e:	d102      	bne.n	8000356 <USER_GPIO_WRITE+0x42>
+ 800034e:	d102      	bne.n	8000356 <USER_GPIO_Write+0x42>
   {
       ODR = (volatile uint32_t *) (&GPIOD->ODR);
- 8000350:	4b19      	ldr	r3, [pc, #100]	; (80003b8 <USER_GPIO_WRITE+0xa4>)
+ 8000350:	4b19      	ldr	r3, [pc, #100]	; (80003b8 <USER_GPIO_Write+0xa4>)
  8000352:	60fb      	str	r3, [r7, #12]
- 8000354:	e00d      	b.n	8000372 <USER_GPIO_WRITE+0x5e>
+ 8000354:	e00d      	b.n	8000372 <USER_GPIO_Write+0x5e>
   }
   else if( port == 4 )
  8000356:	79fb      	ldrb	r3, [r7, #7]
  8000358:	2b04      	cmp	r3, #4
- 800035a:	d102      	bne.n	8000362 <USER_GPIO_WRITE+0x4e>
+ 800035a:	d102      	bne.n	8000362 <USER_GPIO_Write+0x4e>
   {
       ODR = (volatile uint32_t *) (&GPIOE->ODR);
- 800035c:	4b17      	ldr	r3, [pc, #92]	; (80003bc <USER_GPIO_WRITE+0xa8>)
+ 800035c:	4b17      	ldr	r3, [pc, #92]	; (80003bc <USER_GPIO_Write+0xa8>)
  800035e:	60fb      	str	r3, [r7, #12]
- 8000360:	e007      	b.n	8000372 <USER_GPIO_WRITE+0x5e>
+ 8000360:	e007      	b.n	8000372 <USER_GPIO_Write+0x5e>
   }
   else if( port == 5 )
  8000362:	79fb      	ldrb	r3, [r7, #7]
  8000364:	2b05      	cmp	r3, #5
- 8000366:	d102      	bne.n	800036e <USER_GPIO_WRITE+0x5a>
+ 8000366:	d102      	bne.n	800036e <USER_GPIO_Write+0x5a>
   {
       ODR = (volatile uint32_t *) (&GPIOF->ODR);
- 8000368:	4b15      	ldr	r3, [pc, #84]	; (80003c0 <USER_GPIO_WRITE+0xac>)
+ 8000368:	4b15      	ldr	r3, [pc, #84]	; (80003c0 <USER_GPIO_Write+0xac>)
  800036a:	60fb      	str	r3, [r7, #12]
- 800036c:	e001      	b.n	8000372 <USER_GPIO_WRITE+0x5e>
+ 800036c:	e001      	b.n	8000372 <USER_GPIO_Write+0x5e>
   }
   else
   {
       ODR = (volatile uint32_t *) (&GPIOG->ODR);
- 800036e:	4b15      	ldr	r3, [pc, #84]	; (80003c4 <USER_GPIO_WRITE+0xb0>)
+ 800036e:	4b15      	ldr	r3, [pc, #84]	; (80003c4 <USER_GPIO_Write+0xb0>)
  8000370:	60fb      	str	r3, [r7, #12]
   }
 
   state ? ( *ODR |= ( state << pin ) ) : ( *ODR &= ~( 1 << pin ) );
  8000372:	797b      	ldrb	r3, [r7, #5]
  8000374:	2b00      	cmp	r3, #0
- 8000376:	d009      	beq.n	800038c <USER_GPIO_WRITE+0x78>
+ 8000376:	d009      	beq.n	800038c <USER_GPIO_Write+0x78>
  8000378:	68fb      	ldr	r3, [r7, #12]
  800037a:	681b      	ldr	r3, [r3, #0]
  800037c:	7979      	ldrb	r1, [r7, #5]
@@ -440,7 +440,7 @@ void USER_GPIO_WRITE(uint8_t port, uint8_t pin, uint8_t state)
  8000386:	68fb      	ldr	r3, [r7, #12]
  8000388:	601a      	str	r2, [r3, #0]
 }
- 800038a:	e009      	b.n	80003a0 <USER_GPIO_WRITE+0x8c>
+ 800038a:	e009      	b.n	80003a0 <USER_GPIO_Write+0x8c>
   state ? ( *ODR |= ( state << pin ) ) : ( *ODR &= ~( 1 << pin ) );
  800038c:	68fb      	ldr	r3, [r7, #12]
  800038e:	681b      	ldr	r3, [r3, #0]
@@ -466,9 +466,9 @@ void USER_GPIO_WRITE(uint8_t port, uint8_t pin, uint8_t state)
  80003c0:	40011c0c 	.word	0x40011c0c
  80003c4:	4001200c 	.word	0x4001200c
 
-080003c8 <USER_GPIO_TOGGLE>:
+080003c8 <USER_GPIO_Toggle>:
 
-void USER_GPIO_TOGGLE(uint8_t port, uint8_t pin)
+void USER_GPIO_Toggle(uint8_t port, uint8_t pin)
 {
  80003c8:	b580      	push	{r7, lr}
  80003ca:	b082      	sub	sp, #8
@@ -478,33 +478,33 @@ void USER_GPIO_TOGGLE(uint8_t port, uint8_t pin)
  80003d2:	71fb      	strb	r3, [r7, #7]
  80003d4:	4613      	mov	r3, r2
  80003d6:	71bb      	strb	r3, [r7, #6]
-  if( USER_GPIO_READ(port, pin) ) {
+  if( USER_GPIO_Read(port, pin) ) {
  80003d8:	79ba      	ldrb	r2, [r7, #6]
  80003da:	79fb      	ldrb	r3, [r7, #7]
  80003dc:	4611      	mov	r1, r2
  80003de:	4618      	mov	r0, r3
- 80003e0:	f7ff ff4a 	bl	8000278 <USER_GPIO_READ>
+ 80003e0:	f7ff ff4a 	bl	8000278 <USER_GPIO_Read>
  80003e4:	4603      	mov	r3, r0
  80003e6:	2b00      	cmp	r3, #0
- 80003e8:	d006      	beq.n	80003f8 <USER_GPIO_TOGGLE+0x30>
-      USER_GPIO_WRITE(port, pin, 0);
+ 80003e8:	d006      	beq.n	80003f8 <USER_GPIO_Toggle+0x30>
+      USER_GPIO_Write(port, pin, 0);
  80003ea:	79b9      	ldrb	r1, [r7, #6]
  80003ec:	79fb      	ldrb	r3, [r7, #7]
  80003ee:	2200      	movs	r2, #0
  80003f0:	4618      	mov	r0, r3
- 80003f2:	f7ff ff8f 	bl	8000314 <USER_GPIO_WRITE>
+ 80003f2:	f7ff ff8f 	bl	8000314 <USER_GPIO_Write>
   }
   else {
-      USER_GPIO_WRITE(port, pin, 1);
+      USER_GPIO_Write(port, pin, 1);
   }
 }
- 80003f6:	e005      	b.n	8000404 <USER_GPIO_TOGGLE+0x3c>
-      USER_GPIO_WRITE(port, pin, 1);
+ 80003f6:	e005      	b.n	8000404 <USER_GPIO_Toggle+0x3c>
+      USER_GPIO_Write(port, pin, 1);
  80003f8:	79b9      	ldrb	r1, [r7, #6]
  80003fa:	79fb      	ldrb	r3, [r7, #7]
  80003fc:	2201      	movs	r2, #1
  80003fe:	4618      	mov	r0, r3
- 8000400:	f7ff ff88 	bl	8000314 <USER_GPIO_WRITE>
+ 8000400:	f7ff ff88 	bl	8000314 <USER_GPIO_Write>
 }
  8000404:	bf00      	nop
  8000406:	3708      	adds	r7, #8
@@ -520,13 +520,13 @@ int main(void)
 {
  800040c:	b580      	push	{r7, lr}
  800040e:	af00      	add	r7, sp, #0
-  RCC->APB2ENR |= ( 0x1UL << 2U );	// PORTA Clock Enable
+  RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;	// PORTA Clock Enable
  8000410:	4b20      	ldr	r3, [pc, #128]	; (8000494 <main+0x88>)
  8000412:	699b      	ldr	r3, [r3, #24]
  8000414:	4a1f      	ldr	r2, [pc, #124]	; (8000494 <main+0x88>)
  8000416:	f043 0304 	orr.w	r3, r3, #4
  800041a:	6193      	str	r3, [r2, #24]
-  RCC->APB2ENR |= ( 0x1UL << 4U );	// PORTC Clock Enable
+  RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;	// PORTC Clock Enable
  800041c:	4b1d      	ldr	r3, [pc, #116]	; (8000494 <main+0x88>)
  800041e:	699b      	ldr	r3, [r3, #24]
  8000420:	4a1c      	ldr	r2, [pc, #112]	; (8000494 <main+0x88>)
@@ -535,37 +535,37 @@ int main(void)
 
   // PA5 as OUT 10 MHz
 
-  USER_GPIO_DEFINE(PORTA, 5, OUT_10, OUT_GP_PP);
+  USER_GPIO_Define(PORTA, 5, OUT_10, OUT_GP_PP);
  8000428:	2300      	movs	r3, #0
  800042a:	2201      	movs	r2, #1
  800042c:	2105      	movs	r1, #5
  800042e:	2000      	movs	r0, #0
- 8000430:	f7ff fe9e 	bl	8000170 <USER_GPIO_DEFINE>
-  USER_GPIO_WRITE(PORTA, 5, 0);
+ 8000430:	f7ff fe9e 	bl	8000170 <USER_GPIO_Define>
+  USER_GPIO_Write(PORTA, 5, 0);
  8000434:	2200      	movs	r2, #0
  8000436:	2105      	movs	r1, #5
  8000438:	2000      	movs	r0, #0
- 800043a:	f7ff ff6b 	bl	8000314 <USER_GPIO_WRITE>
+ 800043a:	f7ff ff6b 	bl	8000314 <USER_GPIO_Write>
 
   // PC13 as INP pull-up
 
-  USER_GPIO_DEFINE(PORTC, 13, INP, INP_PP);
+  USER_GPIO_Define(PORTC, 13, INP, INP_PP);
  800043e:	2302      	movs	r3, #2
  8000440:	2200      	movs	r2, #0
  8000442:	210d      	movs	r1, #13
  8000444:	2002      	movs	r0, #2
- 8000446:	f7ff fe93 	bl	8000170 <USER_GPIO_DEFINE>
-  USER_GPIO_WRITE(PORTC, 13, 1);
+ 8000446:	f7ff fe93 	bl	8000170 <USER_GPIO_Define>
+  USER_GPIO_Write(PORTC, 13, 1);
  800044a:	2201      	movs	r2, #1
  800044c:	210d      	movs	r1, #13
  800044e:	2002      	movs	r0, #2
- 8000450:	f7ff ff60 	bl	8000314 <USER_GPIO_WRITE>
+ 8000450:	f7ff ff60 	bl	8000314 <USER_GPIO_Write>
 
   for (;;) {
-    if( !USER_GPIO_READ(PORTC, 13) )
+    if( !USER_GPIO_Read(PORTC, 13) )
  8000454:	210d      	movs	r1, #13
  8000456:	2002      	movs	r0, #2
- 8000458:	f7ff ff0e 	bl	8000278 <USER_GPIO_READ>
+ 8000458:	f7ff ff0e 	bl	8000278 <USER_GPIO_Read>
  800045c:	4603      	mov	r3, r0
  800045e:	2b00      	cmp	r3, #0
  8000460:	d1f8      	bne.n	8000454 <main+0x48>
@@ -573,29 +573,29 @@ int main(void)
 	USER_Delay( );
  8000462:	f000 f819 	bl	8000498 <USER_Delay>
 
-	if( !USER_GPIO_READ(PORTC, 13) )
+	if( !USER_GPIO_Read(PORTC, 13) )
  8000466:	210d      	movs	r1, #13
  8000468:	2002      	movs	r0, #2
- 800046a:	f7ff ff05 	bl	8000278 <USER_GPIO_READ>
+ 800046a:	f7ff ff05 	bl	8000278 <USER_GPIO_Read>
  800046e:	4603      	mov	r3, r0
  8000470:	2b00      	cmp	r3, #0
  8000472:	d1ef      	bne.n	8000454 <main+0x48>
 	{
-	    USER_GPIO_TOGGLE(PORTA, 5);
+	    USER_GPIO_Toggle(PORTA, 5);
  8000474:	2105      	movs	r1, #5
  8000476:	2000      	movs	r0, #0
- 8000478:	f7ff ffa6 	bl	80003c8 <USER_GPIO_TOGGLE>
-	    while( !USER_GPIO_READ(PORTC, 13) ){ }
+ 8000478:	f7ff ffa6 	bl	80003c8 <USER_GPIO_Toggle>
+	    while( !USER_GPIO_Read(PORTC, 13) ){ }
  800047c:	bf00      	nop
  800047e:	210d      	movs	r1, #13
  8000480:	2002      	movs	r0, #2
- 8000482:	f7ff fef9 	bl	8000278 <USER_GPIO_READ>
+ 8000482:	f7ff fef9 	bl	8000278 <USER_GPIO_Read>
  8000486:	4603      	mov	r3, r0
  8000488:	2b00      	cmp	r3, #0
  800048a:	d0f8      	beq.n	800047e <main+0x72>
 	    USER_Delay( );
  800048c:	f000 f804 	bl	8000498 <USER_Delay>
-    if( !USER_GPIO_READ(PORTC, 13) )
+    if( !USER_GPIO_Read(PORTC, 13) )
  8000490:	e7e0      	b.n	8000454 <main+0x48>
  8000492:	bf00      	nop
  8000494:	40021000 	.word	0x40021000

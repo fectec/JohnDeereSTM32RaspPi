@@ -5,7 +5,7 @@
 #include "main.h"
 #include "GPIO_Driver.h"
 
-void USER_GPIO_DEFINE(uint8_t port, uint8_t pin, uint8_t direction, uint8_t option)
+void USER_GPIO_Define(uint8_t port, uint8_t pin, uint8_t direction, uint8_t option)
 {
   volatile uint32_t * CR;
   uint8_t actual_pin = pin;
@@ -43,7 +43,7 @@ void USER_GPIO_DEFINE(uint8_t port, uint8_t pin, uint8_t direction, uint8_t opti
 	|	( option << (actual_pin * 4 + 2) );
 }
 
-uint8_t USER_GPIO_READ(uint8_t port, uint8_t pin)
+uint8_t USER_GPIO_Read(uint8_t port, uint8_t pin)
 {
   volatile uint32_t * IDR;
   int state;
@@ -80,7 +80,7 @@ uint8_t USER_GPIO_READ(uint8_t port, uint8_t pin)
   return state;
 }
 
-void USER_GPIO_WRITE(uint8_t port, uint8_t pin, uint8_t state)
+void USER_GPIO_Write(uint8_t port, uint8_t pin, uint8_t state)
 {
   volatile uint32_t * ODR;
 
@@ -115,12 +115,12 @@ void USER_GPIO_WRITE(uint8_t port, uint8_t pin, uint8_t state)
   state ? ( *ODR |= ( state << pin ) ) : ( *ODR &= ~( 1 << pin ) );
 }
 
-void USER_GPIO_TOGGLE(uint8_t port, uint8_t pin)
+void USER_GPIO_Toggle(uint8_t port, uint8_t pin)
 {
-  if( USER_GPIO_READ(port, pin) ) {
-      USER_GPIO_WRITE(port, pin, 0);
+  if( USER_GPIO_Read(port, pin) ) {
+      USER_GPIO_Write(port, pin, 0);
   }
   else {
-      USER_GPIO_WRITE(port, pin, 1);
+      USER_GPIO_Write(port, pin, 1);
   }
 }
