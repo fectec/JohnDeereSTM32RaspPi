@@ -5,7 +5,7 @@
 #include "main.h"
 #include "GPIO_Driver.h"
 
-void USER_GPIO_Define(uint8_t port, uint8_t pin, uint8_t direction, uint8_t option)
+void USER_GPIO_Define( uint8_t port, uint8_t pin, uint8_t direction, uint8_t option )
 {
   volatile uint32_t * CR;
   uint8_t actual_pin = pin;
@@ -43,7 +43,7 @@ void USER_GPIO_Define(uint8_t port, uint8_t pin, uint8_t direction, uint8_t opti
 	|	( option << (actual_pin * 4 + 2) );
 }
 
-uint8_t USER_GPIO_Read(uint8_t port, uint8_t pin)
+uint8_t USER_GPIO_Read( uint8_t port, uint8_t pin )
 {
   volatile uint32_t * IDR;
   int state;
