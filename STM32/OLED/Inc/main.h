@@ -36,6 +36,16 @@ typedef struct
   volatile uint32_t LCKR;
 } GPIO_TypeDef;
 
+/* SysTick registers */
+
+typedef struct
+{
+  volatile uint32_t CTRL;
+  volatile uint32_t LOAD;
+  volatile uint32_t VAL;
+  volatile uint32_t CALIB;
+} SYSTICK_TypeDef;
+
 #define RCC_BASE	0x40021000UL	// RCC base address
 #define GPIOA_BASE	0x40010800UL	// GPIO Port A base address
 #define GPIOB_BASE	0x40010C00UL	// GPIO Port B base address
@@ -44,6 +54,7 @@ typedef struct
 #define GPIOE_BASE	0x40011800UL	// GPIO Port E base address
 #define GPIOF_BASE	0x40011C00UL	// GPIO Port F base address
 #define GPIOG_BASE	0x40012000UL	// GPIO Port G base address
+#define SYSTICK_BASE	0xE000E010UL	// SysTick
 
 #define RCC	(( RCC_TypeDef *) RCC_BASE)
 #define GPIOA	(( GPIO_TypeDef *) GPIOA_BASE)
@@ -53,6 +64,7 @@ typedef struct
 #define GPIOE	(( GPIO_TypeDef *) GPIOE_BASE)
 #define GPIOF	(( GPIO_TypeDef *) GPIOF_BASE)
 #define GPIOG	(( GPIO_TypeDef *) GPIOG_BASE)
+#define SYSTICK (( SYSTICK_TypeDef *) SYSTICK_BASE)
 
 #define RCC_APB2ENR_IOPAEN	0x1UL << 2U
 #define RCC_APB2ENR_IOPBEN	0x1UL << 3U

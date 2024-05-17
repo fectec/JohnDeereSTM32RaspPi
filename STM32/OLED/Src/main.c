@@ -4,6 +4,7 @@
 
 #include "main.h"
 #include "GPIO_Driver.h"
+#include "systick.h"
 
 void USER_Delay( void );
 
@@ -25,13 +26,13 @@ int main(void)
   for (;;) {
     if( !USER_GPIO_Read(PORTC, 13) )
     {
-	USER_Delay( );
+	USER_SYSTICK_Delay(1);
 
 	if( !USER_GPIO_Read(PORTC, 13) )
 	{
 	    USER_GPIO_Toggle(PORTA, 5);
 	    while( !USER_GPIO_Read(PORTC, 13) ){ }
-	    USER_Delay( );
+	    USER_SYSTICK_Delay(1);
 	}
     }
   }
