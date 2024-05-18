@@ -35,7 +35,7 @@ void USER_OLED_SendCMD_2_Byte( uint8_t I2C, uint8_t data[] )
 void USER_OLED_Init( uint8_t I2C )
 {
 
-  USER_I2C_Init(2, I2C_SM);
+  USER_I2C_Init(I2C, I2C_SM);
 
   uint8_t cmd_1[] = {0xA8, 0x3F};
   USER_OLED_SendCMD_2_Byte(I2C, cmd_1);

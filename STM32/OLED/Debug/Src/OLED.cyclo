@@ -1,2 +1,3 @@
 ../Src/OLED.c:8:6:USER_OLED_SendCMD_1_Byte	1
 ../Src/OLED.c:19:6:USER_OLED_SendCMD_2_Byte	2
+../Src/OLED.c:35:6:USER_OLED_Init	1
