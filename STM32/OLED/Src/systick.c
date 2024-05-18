@@ -3,7 +3,7 @@
  */
 
 #include "main.h"
-#include "systick.h"
+#include "SYSTICK.h"
 
 void USER_SYSTICK_Init( void )
 {

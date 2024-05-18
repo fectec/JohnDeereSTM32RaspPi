@@ -1,0 +1,4 @@
+../Src/GPIO.c:8:6:USER_GPIO_Define	9
+../Src/GPIO.c:53:9:USER_GPIO_Read	8
+../Src/GPIO.c:91:6:USER_GPIO_Write	9
+../Src/GPIO.c:126:6:USER_GPIO_Toggle	2

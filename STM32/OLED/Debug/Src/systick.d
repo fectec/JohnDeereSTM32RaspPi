@@ -1,3 +1,3 @@
-Src/systick.o: ../Src/systick.c ../Inc/main.h ../Inc/systick.h
+Src/SYSTICK.o: ../Src/SYSTICK.c ../Inc/main.h ../Inc/SYSTICK.h
 ../Inc/main.h:
-../Inc/systick.h:
+../Inc/SYSTICK.h:

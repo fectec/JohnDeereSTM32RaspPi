@@ -1,9 +1,9 @@
 /*
- * GPIO_Driver.c
+ * GPIO.c
  */
 
 #include "main.h"
-#include "GPIO_Driver.h"
+#include "GPIO.h"
 
 void USER_GPIO_Define( uint8_t port, uint8_t pin, uint8_t direction, uint8_t option )
 {
@@ -16,25 +16,32 @@ void USER_GPIO_Define( uint8_t port, uint8_t pin, uint8_t direction, uint8_t opt
       offset = 0x01;
   }
 
-  if( port == 0 ) {
+  if( port == 0 )
+  {
       CR = (volatile uint32_t *) (&GPIOA->CRL + offset);
   }
-  else if( port == 1 ) {
+  else if( port == 1 )
+  {
       CR = (volatile uint32_t *) (&GPIOB->CRL + offset);
   }
-  else if ( port == 2 ) {
+  else if ( port == 2 )
+  {
       CR = (volatile uint32_t *) (&GPIOC->CRL + offset);
   }
-  else if ( port == 3 ) {
+  else if ( port == 3 )
+  {
       CR = (volatile uint32_t *) (&GPIOD->CRL + offset);
   }
-  else if( port == 4 ) {
+  else if( port == 4 )
+  {
       CR = (volatile uint32_t *) (&GPIOE->CRL + offset);
   }
-  else if( port == 5 ) {
+  else if( port == 5 )
+  {
       CR = (volatile uint32_t *) (&GPIOF->CRL + offset);
   }
-  else {
+  else if( port == 6 )
+  {
       CR = (volatile uint32_t *) (&GPIOG->CRL + offset);
   }
 
@@ -48,7 +55,8 @@ uint8_t USER_GPIO_Read( uint8_t port, uint8_t pin )
   volatile uint32_t * IDR;
   int state;
 
-  if( port == 0 ) {
+  if( port == 0 )
+  {
       IDR = (volatile uint32_t *) (&GPIOA->IDR);
   }
   else if( port == 1 )
@@ -71,7 +79,7 @@ uint8_t USER_GPIO_Read( uint8_t port, uint8_t pin )
   {
       IDR = (volatile uint32_t *) (&GPIOF->IDR);
   }
-  else
+  else if( port == 6 )
   {
       IDR = (volatile uint32_t *) (&GPIOG->IDR);
   }
@@ -107,7 +115,7 @@ void USER_GPIO_Write(uint8_t port, uint8_t pin, uint8_t state)
   {
       ODR = (volatile uint32_t *) (&GPIOF->ODR);
   }
-  else
+  else if( port == 6 )
   {
       ODR = (volatile uint32_t *) (&GPIOG->ODR);
   }

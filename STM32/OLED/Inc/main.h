@@ -46,6 +46,21 @@ typedef struct
   volatile uint32_t CALIB;
 } SYSTICK_TypeDef;
 
+/* I2C registers */
+
+typedef struct
+{
+  volatile uint32_t CR1;
+  volatile uint32_t CR2;
+  volatile uint32_t OAR1;
+  volatile uint32_t OAR2;
+  volatile uint32_t DR;
+  volatile uint32_t SR1;
+  volatile uint32_t SR2;
+  volatile uint32_t CCR;
+  volatile uint32_t TRISE;
+} I2C_TypeDef;
+
 #define RCC_BASE	0x40021000UL	// RCC base address
 #define GPIOA_BASE	0x40010800UL	// GPIO Port A base address
 #define GPIOB_BASE	0x40010C00UL	// GPIO Port B base address
@@ -54,7 +69,9 @@ typedef struct
 #define GPIOE_BASE	0x40011800UL	// GPIO Port E base address
 #define GPIOF_BASE	0x40011C00UL	// GPIO Port F base address
 #define GPIOG_BASE	0x40012000UL	// GPIO Port G base address
-#define SYSTICK_BASE	0xE000E010UL	// SysTick
+#define SYSTICK_BASE	0xE000E010UL	// SysTick base address
+#define I2C1_BASE	0x40005400UL	// I2C1 base address
+#define I2C2_BASE	0x40005800UL	// I2C2 base address
 
 #define RCC	(( RCC_TypeDef *) RCC_BASE)
 #define GPIOA	(( GPIO_TypeDef *) GPIOA_BASE)
@@ -65,6 +82,8 @@ typedef struct
 #define GPIOF	(( GPIO_TypeDef *) GPIOF_BASE)
 #define GPIOG	(( GPIO_TypeDef *) GPIOG_BASE)
 #define SYSTICK (( SYSTICK_TypeDef *) SYSTICK_BASE)
+#define I2C1	(( I2C_TypeDef *) I2C1_BASE)
+#define I2C2	(( I2C_TypeDef *) I2C2_BASE)
 
 #define RCC_APB2ENR_IOPAEN	0x1UL << 2U
 #define RCC_APB2ENR_IOPBEN	0x1UL << 3U

@@ -1,0 +1,2 @@
+../Src/OLED.c:8:6:USER_OLED_SendCMD_1_Byte	16	static
+../Src/OLED.c:19:6:USER_OLED_SendCMD_2_Byte	24	static

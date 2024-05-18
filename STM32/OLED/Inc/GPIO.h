@@ -1,9 +1,9 @@
 /*
- * GPIO_Driver.h
+ * GPIO.h
  */
 
-#ifndef GPIO_DRIVER_H_
-#define GPIO_DRIVER_H_
+#ifndef GPIO_H_
+#define GPIO_H_
 
 // Ports
 
@@ -40,4 +40,4 @@ uint8_t USER_GPIO_Read( uint8_t, uint8_t );
 void USER_GPIO_Write( uint8_t, uint8_t, uint8_t );
 void USER_GPIO_Toggle( uint8_t, uint8_t );
 
-#endif /* GPIO_DRIVER_H_ */
+#endif /* GPIO_H_ */

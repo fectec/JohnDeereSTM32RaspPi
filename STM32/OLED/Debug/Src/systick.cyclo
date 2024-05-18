@@ -1,2 +1,2 @@
-../Src/systick.c:8:6:USER_SYSTICK_Init	1
-../Src/systick.c:18:6:USER_SYSTICK_Delay	3
+../Src/SYSTICK.c:8:6:USER_SYSTICK_Init	1
+../Src/SYSTICK.c:18:6:USER_SYSTICK_Delay	3
