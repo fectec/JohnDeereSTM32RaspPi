@@ -24,7 +24,6 @@
 #define I2C_1			0
 #define I2C_2			1
 
-
 void USER_I2C_Init( uint8_t, uint8_t );
 void USER_I2C_Start( uint8_t );
 void USER_I2C_Address( uint8_t, uint8_t, uint8_t );

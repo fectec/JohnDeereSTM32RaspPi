@@ -5,47 +5,47 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   00000130  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00000868  08000130  08000130  00010130  2**2
+  1 .text         00000b10  08000130  08000130  00010130  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000001e8  08000998  08000998  00010998  2**2
+  2 .rodata       000005ec  08000c40  08000c40  00010c40  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08000b80  08000b80  00010b88  2**0
+  3 .ARM.extab    00000000  0800122c  0800122c  00020004  2**0
                   CONTENTS
-  4 .ARM          00000000  08000b80  08000b80  00010b88  2**0
+  4 .ARM          00000000  0800122c  0800122c  00020004  2**0
                   CONTENTS
-  5 .preinit_array 00000000  08000b80  08000b88  00010b88  2**0
+  5 .preinit_array 00000000  0800122c  0800122c  00020004  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08000b80  08000b80  00010b80  2**2
+  6 .init_array   00000004  0800122c  0800122c  0001122c  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08000b84  08000b84  00010b84  2**2
+  7 .fini_array   00000004  08001230  08001230  00011230  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000000  20000000  20000000  00010b88  2**0
+  8 .data         00000004  20000000  08001234  00020000  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000001c  20000000  08000b88  00020000  2**2
+  9 .bss          0000041c  20000004  08001238  00020004  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  2000001c  08000b88  0002001c  2**0
+ 10 ._user_heap_stack 00000600  20000420  08001238  00020420  2**0
                   ALLOC
- 11 .ARM.attributes 00000029  00000000  00000000  00010b88  2**0
+ 11 .ARM.attributes 00000029  00000000  00000000  00020004  2**0
                   CONTENTS, READONLY
- 12 .comment      00000043  00000000  00000000  00010bb1  2**0
+ 12 .comment      00000043  00000000  00000000  0002002d  2**0
                   CONTENTS, READONLY
- 13 .debug_info   00000b30  00000000  00000000  00010bf4  2**0
+ 13 .debug_info   0000104d  00000000  00000000  00020070  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00000448  00000000  00000000  00011724  2**0
+ 14 .debug_abbrev 000005a0  00000000  00000000  000210bd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00000130  00000000  00000000  00011b70  2**3
+ 15 .debug_aranges 00000180  00000000  00000000  00021660  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 000000d1  00000000  00000000  00011ca0  2**0
+ 16 .debug_rnglists 0000010b  00000000  00000000  000217e0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  000012d5  00000000  00000000  00011d71  2**0
+ 17 .debug_macro  00001378  00000000  00000000  000218eb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   000016a0  00000000  00000000  00013046  2**0
+ 18 .debug_line   00001d52  00000000  00000000  00022c63  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00004489  00000000  00000000  000146e6  2**0
+ 19 .debug_str    0000462c  00000000  00000000  000249b5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00000378  00000000  00000000  00018b70  2**2
+ 20 .debug_frame  000004dc  00000000  00000000  00028fe4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000006b  00000000  00000000  00018ee8  2**0
+ 21 .debug_line_str 0000006b  00000000  00000000  000294c0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -62,9 +62,9 @@ Disassembly of section .text:
  8000142:	2301      	movs	r3, #1
  8000144:	7023      	strb	r3, [r4, #0]
  8000146:	bd10      	pop	{r4, pc}
- 8000148:	20000000 	.word	0x20000000
+ 8000148:	20000004 	.word	0x20000004
  800014c:	00000000 	.word	0x00000000
- 8000150:	08000980 	.word	0x08000980
+ 8000150:	08000c28 	.word	0x08000c28
 
 08000154 <frame_dummy>:
  8000154:	b508      	push	{r3, lr}
@@ -75,8 +75,8 @@ Disassembly of section .text:
  800015e:	f3af 8000 	nop.w
  8000162:	bd08      	pop	{r3, pc}
  8000164:	00000000 	.word	0x00000000
- 8000168:	20000004 	.word	0x20000004
- 800016c:	08000980 	.word	0x08000980
+ 8000168:	20000008 	.word	0x20000008
+ 800016c:	08000c28 	.word	0x08000c28
 
 08000170 <USER_GPIO_Define>:
 
@@ -863,9 +863,9 @@ void USER_OLED_Init( uint8_t I2C, uint8_t screen_size )
  8000626:	71fb      	strb	r3, [r7, #7]
  8000628:	4613      	mov	r3, r2
  800062a:	71bb      	strb	r3, [r7, #6]
-  USER_I2C_Init( I2C, I2C_SM );
+  USER_I2C_Init( I2C, I2C_FM );
  800062c:	79fb      	ldrb	r3, [r7, #7]
- 800062e:	21b4      	movs	r1, #180	; 0xb4
+ 800062e:	212d      	movs	r1, #45	; 0x2d
  8000630:	4618      	mov	r0, r3
  8000632:	f7ff fe25 	bl	8000280 <USER_I2C_Init>
 
@@ -1112,12 +1112,12 @@ void USER_OLED_Blank( uint8_t I2C )
  80007cc:	4618      	mov	r0, r3
  80007ce:	f7ff ffcd 	bl	800076c <USER_OLED_Position>
 
-  for(i = 0; i < OLED_SCREEN_COLUMNS; i++)
+  for(i = 0; i < OLED_SCREEN_ROWS; i++)
  80007d2:	2300      	movs	r3, #0
  80007d4:	73fb      	strb	r3, [r7, #15]
- 80007d6:	e010      	b.n	80007fa <USER_OLED_Blank+0x3e>
+ 80007d6:	e011      	b.n	80007fc <USER_OLED_Blank+0x40>
   {
-    for(j = 0; j < OLED_SCREEN_ROWS; j++)
+    for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
  80007d8:	2300      	movs	r3, #0
  80007da:	73bb      	strb	r3, [r7, #14]
  80007dc:	e007      	b.n	80007ee <USER_OLED_Blank+0x32>
@@ -1127,20 +1127,20 @@ void USER_OLED_Blank( uint8_t I2C )
  80007e0:	2100      	movs	r1, #0
  80007e2:	4618      	mov	r0, r3
  80007e4:	f7ff ff9d 	bl	8000722 <USER_OLED_Data>
-    for(j = 0; j < OLED_SCREEN_ROWS; j++)
+    for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
  80007e8:	7bbb      	ldrb	r3, [r7, #14]
  80007ea:	3301      	adds	r3, #1
  80007ec:	73bb      	strb	r3, [r7, #14]
- 80007ee:	7bbb      	ldrb	r3, [r7, #14]
- 80007f0:	2b07      	cmp	r3, #7
- 80007f2:	d9f4      	bls.n	80007de <USER_OLED_Blank+0x22>
-  for(i = 0; i < OLED_SCREEN_COLUMNS; i++)
- 80007f4:	7bfb      	ldrb	r3, [r7, #15]
- 80007f6:	3301      	adds	r3, #1
- 80007f8:	73fb      	strb	r3, [r7, #15]
- 80007fa:	f997 300f 	ldrsb.w	r3, [r7, #15]
- 80007fe:	2b00      	cmp	r3, #0
- 8000800:	daea      	bge.n	80007d8 <USER_OLED_Blank+0x1c>
+ 80007ee:	f997 300e 	ldrsb.w	r3, [r7, #14]
+ 80007f2:	2b00      	cmp	r3, #0
+ 80007f4:	daf3      	bge.n	80007de <USER_OLED_Blank+0x22>
+  for(i = 0; i < OLED_SCREEN_ROWS; i++)
+ 80007f6:	7bfb      	ldrb	r3, [r7, #15]
+ 80007f8:	3301      	adds	r3, #1
+ 80007fa:	73fb      	strb	r3, [r7, #15]
+ 80007fc:	7bfb      	ldrb	r3, [r7, #15]
+ 80007fe:	2b07      	cmp	r3, #7
+ 8000800:	d9ea      	bls.n	80007d8 <USER_OLED_Blank+0x1c>
     }
   }
 }
@@ -1164,7 +1164,7 @@ void USER_OLED_Print( uint8_t I2C, char str[] )
  8000818:	2300      	movs	r3, #0
  800081a:	73fb      	strb	r3, [r7, #15]
 
-  while(str[i])
+  while( str[i] )
  800081c:	e01e      	b.n	800085c <USER_OLED_Print+0x50>
   {
       for(j = 0; j < 5; j++)
@@ -1203,7 +1203,7 @@ void USER_OLED_Print( uint8_t I2C, char str[] )
  8000856:	7bfb      	ldrb	r3, [r7, #15]
  8000858:	3301      	adds	r3, #1
  800085a:	73fb      	strb	r3, [r7, #15]
-  while(str[i])
+  while( str[i] )
  800085c:	7bfb      	ldrb	r3, [r7, #15]
  800085e:	683a      	ldr	r2, [r7, #0]
  8000860:	4413      	add	r3, r2
@@ -1218,7 +1218,7 @@ void USER_OLED_Print( uint8_t I2C, char str[] )
  800086e:	46bd      	mov	sp, r7
  8000870:	bd80      	pop	{r7, pc}
  8000872:	bf00      	nop
- 8000874:	080009a0 	.word	0x080009a0
+ 8000874:	08000c4c 	.word	0x08000c4c
 
 08000878 <USER_OLED_Message>:
 
@@ -1252,193 +1252,615 @@ void USER_OLED_Message( uint8_t I2C, char str[], uint8_t x_pos, uint8_t y_pos )
  80008a8:	3708      	adds	r7, #8
  80008aa:	46bd      	mov	sp, r7
  80008ac:	bd80      	pop	{r7, pc}
+
+080008ae <USER_OLED_Clear_Buffer>:
+
+void USER_OLED_Clear_Buffer( char screen_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS] )
+{
+ 80008ae:	b480      	push	{r7}
+ 80008b0:	b085      	sub	sp, #20
+ 80008b2:	af00      	add	r7, sp, #0
+ 80008b4:	6078      	str	r0, [r7, #4]
+  uint8_t i, j;
+
+  for(i = 0; i < OLED_SCREEN_ROWS; i++)
+ 80008b6:	2300      	movs	r3, #0
+ 80008b8:	73fb      	strb	r3, [r7, #15]
+ 80008ba:	e013      	b.n	80008e4 <USER_OLED_Clear_Buffer+0x36>
+  {
+      for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
+ 80008bc:	2300      	movs	r3, #0
+ 80008be:	73bb      	strb	r3, [r7, #14]
+ 80008c0:	e009      	b.n	80008d6 <USER_OLED_Clear_Buffer+0x28>
+      {
+	  screen_buffer[i][j] = 0;
+ 80008c2:	7bfb      	ldrb	r3, [r7, #15]
+ 80008c4:	01db      	lsls	r3, r3, #7
+ 80008c6:	687a      	ldr	r2, [r7, #4]
+ 80008c8:	441a      	add	r2, r3
+ 80008ca:	7bbb      	ldrb	r3, [r7, #14]
+ 80008cc:	2100      	movs	r1, #0
+ 80008ce:	54d1      	strb	r1, [r2, r3]
+      for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
+ 80008d0:	7bbb      	ldrb	r3, [r7, #14]
+ 80008d2:	3301      	adds	r3, #1
+ 80008d4:	73bb      	strb	r3, [r7, #14]
+ 80008d6:	f997 300e 	ldrsb.w	r3, [r7, #14]
+ 80008da:	2b00      	cmp	r3, #0
+ 80008dc:	daf1      	bge.n	80008c2 <USER_OLED_Clear_Buffer+0x14>
+  for(i = 0; i < OLED_SCREEN_ROWS; i++)
+ 80008de:	7bfb      	ldrb	r3, [r7, #15]
+ 80008e0:	3301      	adds	r3, #1
+ 80008e2:	73fb      	strb	r3, [r7, #15]
+ 80008e4:	7bfb      	ldrb	r3, [r7, #15]
+ 80008e6:	2b07      	cmp	r3, #7
+ 80008e8:	d9e8      	bls.n	80008bc <USER_OLED_Clear_Buffer+0xe>
+      }
+  }
+}
+ 80008ea:	bf00      	nop
+ 80008ec:	bf00      	nop
+ 80008ee:	3714      	adds	r7, #20
+ 80008f0:	46bd      	mov	sp, r7
+ 80008f2:	bc80      	pop	{r7}
+ 80008f4:	4770      	bx	lr
+
+080008f6 <USER_OLED_Update_Buffer>:
+
+void USER_OLED_Update_Buffer( ImgType img, uint8_t img_num, char screen_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS] )
+{
+ 80008f6:	b084      	sub	sp, #16
+ 80008f8:	b480      	push	{r7}
+ 80008fa:	b085      	sub	sp, #20
+ 80008fc:	af00      	add	r7, sp, #0
+ 80008fe:	f107 0c18 	add.w	ip, r7, #24
+ 8000902:	e88c 000f 	stmia.w	ip, {r0, r1, r2, r3}
+  uint16_t x_dir, y_dir, end_x, end_y, cnt = 0;
+ 8000906:	2300      	movs	r3, #0
+ 8000908:	80fb      	strh	r3, [r7, #6]
+
+  if( ( img.width + img.x_pos ) > OLED_SCREEN_COLUMNS )
+ 800090a:	7e7b      	ldrb	r3, [r7, #25]
+ 800090c:	461a      	mov	r2, r3
+ 800090e:	f897 3094 	ldrb.w	r3, [r7, #148]	; 0x94
+ 8000912:	4413      	add	r3, r2
+ 8000914:	2b80      	cmp	r3, #128	; 0x80
+ 8000916:	dd02      	ble.n	800091e <USER_OLED_Update_Buffer+0x28>
+  {
+      end_x = OLED_SCREEN_COLUMNS - 1;
+ 8000918:	237f      	movs	r3, #127	; 0x7f
+ 800091a:	817b      	strh	r3, [r7, #10]
+ 800091c:	e008      	b.n	8000930 <USER_OLED_Update_Buffer+0x3a>
+  }
+  else
+  {
+      end_x = img.width + img.x_pos - 1;
+ 800091e:	7e7b      	ldrb	r3, [r7, #25]
+ 8000920:	b29a      	uxth	r2, r3
+ 8000922:	f897 3094 	ldrb.w	r3, [r7, #148]	; 0x94
+ 8000926:	b29b      	uxth	r3, r3
+ 8000928:	4413      	add	r3, r2
+ 800092a:	b29b      	uxth	r3, r3
+ 800092c:	3b01      	subs	r3, #1
+ 800092e:	817b      	strh	r3, [r7, #10]
+  }
+
+  if( ( img.height + img.y_pos ) > OLED_SCREEN_ROWS )
+ 8000930:	7e3b      	ldrb	r3, [r7, #24]
+ 8000932:	461a      	mov	r2, r3
+ 8000934:	f897 3095 	ldrb.w	r3, [r7, #149]	; 0x95
+ 8000938:	4413      	add	r3, r2
+ 800093a:	2b08      	cmp	r3, #8
+ 800093c:	dd02      	ble.n	8000944 <USER_OLED_Update_Buffer+0x4e>
+  {
+      end_y = OLED_SCREEN_ROWS - 1;
+ 800093e:	2307      	movs	r3, #7
+ 8000940:	813b      	strh	r3, [r7, #8]
+ 8000942:	e008      	b.n	8000956 <USER_OLED_Update_Buffer+0x60>
+  }
+  else
+  {
+      end_y = img.height + img.y_pos - 1;
+ 8000944:	7e3b      	ldrb	r3, [r7, #24]
+ 8000946:	b29a      	uxth	r2, r3
+ 8000948:	f897 3095 	ldrb.w	r3, [r7, #149]	; 0x95
+ 800094c:	b29b      	uxth	r3, r3
+ 800094e:	4413      	add	r3, r2
+ 8000950:	b29b      	uxth	r3, r3
+ 8000952:	3b01      	subs	r3, #1
+ 8000954:	813b      	strh	r3, [r7, #8]
+  }
+
+  for(y_dir = img.y_pos; y_dir <= end_y; y_dir++)
+ 8000956:	f897 3095 	ldrb.w	r3, [r7, #149]	; 0x95
+ 800095a:	81bb      	strh	r3, [r7, #12]
+ 800095c:	e02f      	b.n	80009be <USER_OLED_Update_Buffer+0xc8>
+  {
+    for (x_dir= img.x_pos; x_dir <= end_x; x_dir++)
+ 800095e:	f897 3094 	ldrb.w	r3, [r7, #148]	; 0x94
+ 8000962:	81fb      	strh	r3, [r7, #14]
+ 8000964:	e024      	b.n	80009b0 <USER_OLED_Update_Buffer+0xba>
+    {
+      cnt =( y_dir - img.y_pos ) * img.width + x_dir - img.x_pos;
+ 8000966:	89bb      	ldrh	r3, [r7, #12]
+ 8000968:	f897 2095 	ldrb.w	r2, [r7, #149]	; 0x95
+ 800096c:	1a9b      	subs	r3, r3, r2
+ 800096e:	b29b      	uxth	r3, r3
+ 8000970:	7e7a      	ldrb	r2, [r7, #25]
+ 8000972:	b292      	uxth	r2, r2
+ 8000974:	fb02 f303 	mul.w	r3, r2, r3
+ 8000978:	b29a      	uxth	r2, r3
+ 800097a:	89fb      	ldrh	r3, [r7, #14]
+ 800097c:	4413      	add	r3, r2
+ 800097e:	b29a      	uxth	r2, r3
+ 8000980:	f897 3094 	ldrb.w	r3, [r7, #148]	; 0x94
+ 8000984:	b29b      	uxth	r3, r3
+ 8000986:	1ad3      	subs	r3, r2, r3
+ 8000988:	80fb      	strh	r3, [r7, #6]
+      screen_buffer[y_dir][x_dir] = img.image[img_num][cnt];
+ 800098a:	f897 3098 	ldrb.w	r3, [r7, #152]	; 0x98
+ 800098e:	009b      	lsls	r3, r3, #2
+ 8000990:	3318      	adds	r3, #24
+ 8000992:	443b      	add	r3, r7
+ 8000994:	685a      	ldr	r2, [r3, #4]
+ 8000996:	88fb      	ldrh	r3, [r7, #6]
+ 8000998:	18d1      	adds	r1, r2, r3
+ 800099a:	89bb      	ldrh	r3, [r7, #12]
+ 800099c:	01db      	lsls	r3, r3, #7
+ 800099e:	f8d7 209c 	ldr.w	r2, [r7, #156]	; 0x9c
+ 80009a2:	441a      	add	r2, r3
+ 80009a4:	89fb      	ldrh	r3, [r7, #14]
+ 80009a6:	7809      	ldrb	r1, [r1, #0]
+ 80009a8:	54d1      	strb	r1, [r2, r3]
+    for (x_dir= img.x_pos; x_dir <= end_x; x_dir++)
+ 80009aa:	89fb      	ldrh	r3, [r7, #14]
+ 80009ac:	3301      	adds	r3, #1
+ 80009ae:	81fb      	strh	r3, [r7, #14]
+ 80009b0:	89fa      	ldrh	r2, [r7, #14]
+ 80009b2:	897b      	ldrh	r3, [r7, #10]
+ 80009b4:	429a      	cmp	r2, r3
+ 80009b6:	d9d6      	bls.n	8000966 <USER_OLED_Update_Buffer+0x70>
+  for(y_dir = img.y_pos; y_dir <= end_y; y_dir++)
+ 80009b8:	89bb      	ldrh	r3, [r7, #12]
+ 80009ba:	3301      	adds	r3, #1
+ 80009bc:	81bb      	strh	r3, [r7, #12]
+ 80009be:	89ba      	ldrh	r2, [r7, #12]
+ 80009c0:	893b      	ldrh	r3, [r7, #8]
+ 80009c2:	429a      	cmp	r2, r3
+ 80009c4:	d9cb      	bls.n	800095e <USER_OLED_Update_Buffer+0x68>
+    }
+  }
+}
+ 80009c6:	bf00      	nop
+ 80009c8:	bf00      	nop
+ 80009ca:	3714      	adds	r7, #20
+ 80009cc:	46bd      	mov	sp, r7
+ 80009ce:	bc80      	pop	{r7}
+ 80009d0:	b004      	add	sp, #16
+ 80009d2:	4770      	bx	lr
+
+080009d4 <USER_OLED_Print_Buffer>:
+    i++;
+  }
+}
+
+void USER_OLED_Print_Buffer( uint8_t I2C, char screen_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS] )
+{
+ 80009d4:	b580      	push	{r7, lr}
+ 80009d6:	b084      	sub	sp, #16
+ 80009d8:	af00      	add	r7, sp, #0
+ 80009da:	4603      	mov	r3, r0
+ 80009dc:	6039      	str	r1, [r7, #0]
+ 80009de:	71fb      	strb	r3, [r7, #7]
+  USER_OLED_Position( I2C, 0, 0 );
+ 80009e0:	79fb      	ldrb	r3, [r7, #7]
+ 80009e2:	2200      	movs	r2, #0
+ 80009e4:	2100      	movs	r1, #0
+ 80009e6:	4618      	mov	r0, r3
+ 80009e8:	f7ff fec0 	bl	800076c <USER_OLED_Position>
+
+  uint8_t i, j;
+
+  for (i = 0; i < OLED_SCREEN_ROWS; i++)
+ 80009ec:	2300      	movs	r3, #0
+ 80009ee:	73fb      	strb	r3, [r7, #15]
+ 80009f0:	e017      	b.n	8000a22 <USER_OLED_Print_Buffer+0x4e>
+  {
+    for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
+ 80009f2:	2300      	movs	r3, #0
+ 80009f4:	73bb      	strb	r3, [r7, #14]
+ 80009f6:	e00d      	b.n	8000a14 <USER_OLED_Print_Buffer+0x40>
+    {
+	USER_OLED_Data( I2C, screen_buffer[i][j] );
+ 80009f8:	7bfb      	ldrb	r3, [r7, #15]
+ 80009fa:	01db      	lsls	r3, r3, #7
+ 80009fc:	683a      	ldr	r2, [r7, #0]
+ 80009fe:	441a      	add	r2, r3
+ 8000a00:	7bbb      	ldrb	r3, [r7, #14]
+ 8000a02:	5cd2      	ldrb	r2, [r2, r3]
+ 8000a04:	79fb      	ldrb	r3, [r7, #7]
+ 8000a06:	4611      	mov	r1, r2
+ 8000a08:	4618      	mov	r0, r3
+ 8000a0a:	f7ff fe8a 	bl	8000722 <USER_OLED_Data>
+    for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
+ 8000a0e:	7bbb      	ldrb	r3, [r7, #14]
+ 8000a10:	3301      	adds	r3, #1
+ 8000a12:	73bb      	strb	r3, [r7, #14]
+ 8000a14:	f997 300e 	ldrsb.w	r3, [r7, #14]
+ 8000a18:	2b00      	cmp	r3, #0
+ 8000a1a:	daed      	bge.n	80009f8 <USER_OLED_Print_Buffer+0x24>
+  for (i = 0; i < OLED_SCREEN_ROWS; i++)
+ 8000a1c:	7bfb      	ldrb	r3, [r7, #15]
+ 8000a1e:	3301      	adds	r3, #1
+ 8000a20:	73fb      	strb	r3, [r7, #15]
+ 8000a22:	7bfb      	ldrb	r3, [r7, #15]
+ 8000a24:	2b07      	cmp	r3, #7
+ 8000a26:	d9e4      	bls.n	80009f2 <USER_OLED_Print_Buffer+0x1e>
+    }
+  }
+}
+ 8000a28:	bf00      	nop
+ 8000a2a:	bf00      	nop
+ 8000a2c:	3710      	adds	r7, #16
+ 8000a2e:	46bd      	mov	sp, r7
+ 8000a30:	bd80      	pop	{r7, pc}
 	...
 
-080008b0 <main>:
+08000a34 <USER_SYSTICK_Init>:
+
+#include "main.h"
 #include "SYSTICK.h"
-#include "I2C.h"
-#include "OLED.h"
+
+void USER_SYSTICK_Init( void )
+{
+ 8000a34:	b480      	push	{r7}
+ 8000a36:	af00      	add	r7, sp, #0
+    SYSTICK->CTRL	= 0;				// Clear register
+ 8000a38:	4b0c      	ldr	r3, [pc, #48]	; (8000a6c <USER_SYSTICK_Init+0x38>)
+ 8000a3a:	2200      	movs	r2, #0
+ 8000a3c:	601a      	str	r2, [r3, #0]
+    SYSTICK->LOAD	= 0x00FFFFFF;			// Max start value
+ 8000a3e:	4b0b      	ldr	r3, [pc, #44]	; (8000a6c <USER_SYSTICK_Init+0x38>)
+ 8000a40:	f06f 427f 	mvn.w	r2, #4278190080	; 0xff000000
+ 8000a44:	605a      	str	r2, [r3, #4]
+    SYSTICK->VAL	= 0;				// Clear register
+ 8000a46:	4b09      	ldr	r3, [pc, #36]	; (8000a6c <USER_SYSTICK_Init+0x38>)
+ 8000a48:	2200      	movs	r2, #0
+ 8000a4a:	609a      	str	r2, [r3, #8]
+
+    SYSTICK->CTRL	|=	SYSTICK_CTRL_CLKSOURCE;	// Clock source is processor clock (AHB)
+ 8000a4c:	4b07      	ldr	r3, [pc, #28]	; (8000a6c <USER_SYSTICK_Init+0x38>)
+ 8000a4e:	681b      	ldr	r3, [r3, #0]
+ 8000a50:	4a06      	ldr	r2, [pc, #24]	; (8000a6c <USER_SYSTICK_Init+0x38>)
+ 8000a52:	f043 0304 	orr.w	r3, r3, #4
+ 8000a56:	6013      	str	r3, [r2, #0]
+    SYSTICK->CTRL	|=	SYSTICK_CTRL_ENABLE;	// Counter enabled
+ 8000a58:	4b04      	ldr	r3, [pc, #16]	; (8000a6c <USER_SYSTICK_Init+0x38>)
+ 8000a5a:	681b      	ldr	r3, [r3, #0]
+ 8000a5c:	4a03      	ldr	r2, [pc, #12]	; (8000a6c <USER_SYSTICK_Init+0x38>)
+ 8000a5e:	f043 0301 	orr.w	r3, r3, #1
+ 8000a62:	6013      	str	r3, [r2, #0]
+}
+ 8000a64:	bf00      	nop
+ 8000a66:	46bd      	mov	sp, r7
+ 8000a68:	bc80      	pop	{r7}
+ 8000a6a:	4770      	bx	lr
+ 8000a6c:	e000e010 	.word	0xe000e010
+
+08000a70 <USER_SYSTICK_Delay_Millis>:
+
+void USER_SYSTICK_Delay_Millis( void )
+{
+ 8000a70:	b480      	push	{r7}
+ 8000a72:	af00      	add	r7, sp, #0
+  SYSTICK->LOAD		=	0x11940;
+ 8000a74:	4b08      	ldr	r3, [pc, #32]	; (8000a98 <USER_SYSTICK_Delay_Millis+0x28>)
+ 8000a76:	4a09      	ldr	r2, [pc, #36]	; (8000a9c <USER_SYSTICK_Delay_Millis+0x2c>)
+ 8000a78:	605a      	str	r2, [r3, #4]
+  SYSTICK->VAL		=	0;
+ 8000a7a:	4b07      	ldr	r3, [pc, #28]	; (8000a98 <USER_SYSTICK_Delay_Millis+0x28>)
+ 8000a7c:	2200      	movs	r2, #0
+ 8000a7e:	609a      	str	r2, [r3, #8]
+  while(!(SYSTICK->CTRL & SYSTICK_CTRL_COUNTFLAG));	// Returns 1 if timer counted to 0 since last time this was read
+ 8000a80:	bf00      	nop
+ 8000a82:	4b05      	ldr	r3, [pc, #20]	; (8000a98 <USER_SYSTICK_Delay_Millis+0x28>)
+ 8000a84:	681b      	ldr	r3, [r3, #0]
+ 8000a86:	f403 3380 	and.w	r3, r3, #65536	; 0x10000
+ 8000a8a:	2b00      	cmp	r3, #0
+ 8000a8c:	d0f9      	beq.n	8000a82 <USER_SYSTICK_Delay_Millis+0x12>
+}
+ 8000a8e:	bf00      	nop
+ 8000a90:	bf00      	nop
+ 8000a92:	46bd      	mov	sp, r7
+ 8000a94:	bc80      	pop	{r7}
+ 8000a96:	4770      	bx	lr
+ 8000a98:	e000e010 	.word	0xe000e010
+ 8000a9c:	00011940 	.word	0x00011940
+
+08000aa0 <USER_SYSTICK_Delay_ms>:
+
+void USER_SYSTICK_Delay_ms( uint32_t t )
+{
+ 8000aa0:	b580      	push	{r7, lr}
+ 8000aa2:	b082      	sub	sp, #8
+ 8000aa4:	af00      	add	r7, sp, #0
+ 8000aa6:	6078      	str	r0, [r7, #4]
+  for(; t > 0; t--)
+ 8000aa8:	e004      	b.n	8000ab4 <USER_SYSTICK_Delay_ms+0x14>
+  {
+      USER_SYSTICK_Delay_Millis();
+ 8000aaa:	f7ff ffe1 	bl	8000a70 <USER_SYSTICK_Delay_Millis>
+  for(; t > 0; t--)
+ 8000aae:	687b      	ldr	r3, [r7, #4]
+ 8000ab0:	3b01      	subs	r3, #1
+ 8000ab2:	607b      	str	r3, [r7, #4]
+ 8000ab4:	687b      	ldr	r3, [r7, #4]
+ 8000ab6:	2b00      	cmp	r3, #0
+ 8000ab8:	d1f7      	bne.n	8000aaa <USER_SYSTICK_Delay_ms+0xa>
+  }
+}
+ 8000aba:	bf00      	nop
+ 8000abc:	bf00      	nop
+ 8000abe:	3708      	adds	r7, #8
+ 8000ac0:	46bd      	mov	sp, r7
+ 8000ac2:	bd80      	pop	{r7, pc}
+
+08000ac4 <main>:
+
+char oled_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS];
+uint8_t i, j;
 
 int main( void )
 {
- 80008b0:	b580      	push	{r7, lr}
- 80008b2:	af00      	add	r7, sp, #0
+ 8000ac4:	b580      	push	{r7, lr}
+ 8000ac6:	b0be      	sub	sp, #248	; 0xf8
+ 8000ac8:	af1e      	add	r7, sp, #120	; 0x78
+  USER_SYSTICK_Init();
+ 8000aca:	f7ff ffb3 	bl	8000a34 <USER_SYSTICK_Init>
   RCC->APB2ENR	|=	RCC_APB2ENR_IOPBEN;
- 80008b4:	4b09      	ldr	r3, [pc, #36]	; (80008dc <main+0x2c>)
- 80008b6:	699b      	ldr	r3, [r3, #24]
- 80008b8:	4a08      	ldr	r2, [pc, #32]	; (80008dc <main+0x2c>)
- 80008ba:	f043 0308 	orr.w	r3, r3, #8
- 80008be:	6193      	str	r3, [r2, #24]
+ 8000ace:	4b1e      	ldr	r3, [pc, #120]	; (8000b48 <main+0x84>)
+ 8000ad0:	699b      	ldr	r3, [r3, #24]
+ 8000ad2:	4a1d      	ldr	r2, [pc, #116]	; (8000b48 <main+0x84>)
+ 8000ad4:	f043 0308 	orr.w	r3, r3, #8
+ 8000ad8:	6193      	str	r3, [r2, #24]
 
   USER_OLED_Init_64(I2C_1);
- 80008c0:	2000      	movs	r0, #0
- 80008c2:	f7ff ff20 	bl	8000706 <USER_OLED_Init_64>
+ 8000ada:	2000      	movs	r0, #0
+ 8000adc:	f7ff fe13 	bl	8000706 <USER_OLED_Init_64>
   USER_OLED_Blank(I2C_1);
- 80008c6:	2000      	movs	r0, #0
- 80008c8:	f7ff ff78 	bl	80007bc <USER_OLED_Blank>
-  USER_OLED_Message(I2C_1, "TEST", OLED_SCREEN_COLUMNS / 4, OLED_SCREEN_ROWS / 2);
- 80008cc:	2304      	movs	r3, #4
- 80008ce:	2220      	movs	r2, #32
- 80008d0:	4903      	ldr	r1, [pc, #12]	; (80008e0 <main+0x30>)
- 80008d2:	2000      	movs	r0, #0
- 80008d4:	f7ff ffd0 	bl	8000878 <USER_OLED_Message>
+ 8000ae0:	2000      	movs	r0, #0
+ 8000ae2:	f7ff fe6b 	bl	80007bc <USER_OLED_Blank>
+  USER_OLED_Message(I2C_1, "JOHN DEERE", OLED_SCREEN_COLUMNS / 4, OLED_SCREEN_ROWS / 2);
+ 8000ae6:	2304      	movs	r3, #4
+ 8000ae8:	2220      	movs	r2, #32
+ 8000aea:	4918      	ldr	r1, [pc, #96]	; (8000b4c <main+0x88>)
+ 8000aec:	2000      	movs	r0, #0
+ 8000aee:	f7ff fec3 	bl	8000878 <USER_OLED_Message>
+  USER_SYSTICK_Delay_ms( 200 );
+ 8000af2:	20c8      	movs	r0, #200	; 0xc8
+ 8000af4:	f7ff ffd4 	bl	8000aa0 <USER_SYSTICK_Delay_ms>
+
+  ImgType john_deere_logo_img = {.height = john_deere_logo_rows, .width = john_deere_logo_cols, .x_pos = 0, .y_pos =0};
+ 8000af8:	463b      	mov	r3, r7
+ 8000afa:	2280      	movs	r2, #128	; 0x80
+ 8000afc:	2100      	movs	r1, #0
+ 8000afe:	4618      	mov	r0, r3
+ 8000b00:	f000 f857 	bl	8000bb2 <memset>
+ 8000b04:	4b12      	ldr	r3, [pc, #72]	; (8000b50 <main+0x8c>)
+ 8000b06:	781b      	ldrb	r3, [r3, #0]
+ 8000b08:	703b      	strb	r3, [r7, #0]
+ 8000b0a:	4b12      	ldr	r3, [pc, #72]	; (8000b54 <main+0x90>)
+ 8000b0c:	781b      	ldrb	r3, [r3, #0]
+ 8000b0e:	707b      	strb	r3, [r7, #1]
+  john_deere_logo_img.image[0] = john_deere_logo;
+ 8000b10:	4b11      	ldr	r3, [pc, #68]	; (8000b58 <main+0x94>)
+ 8000b12:	607b      	str	r3, [r7, #4]
+
+  USER_OLED_Clear_Buffer(oled_buffer);
+ 8000b14:	4811      	ldr	r0, [pc, #68]	; (8000b5c <main+0x98>)
+ 8000b16:	f7ff feca 	bl	80008ae <USER_OLED_Clear_Buffer>
+  USER_OLED_Update_Buffer(john_deere_logo_img, 0, oled_buffer);
+ 8000b1a:	4b10      	ldr	r3, [pc, #64]	; (8000b5c <main+0x98>)
+ 8000b1c:	931d      	str	r3, [sp, #116]	; 0x74
+ 8000b1e:	2300      	movs	r3, #0
+ 8000b20:	931c      	str	r3, [sp, #112]	; 0x70
+ 8000b22:	4668      	mov	r0, sp
+ 8000b24:	f107 0310 	add.w	r3, r7, #16
+ 8000b28:	2270      	movs	r2, #112	; 0x70
+ 8000b2a:	4619      	mov	r1, r3
+ 8000b2c:	f000 f86e 	bl	8000c0c <memcpy>
+ 8000b30:	463b      	mov	r3, r7
+ 8000b32:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
+ 8000b34:	f7ff fedf 	bl	80008f6 <USER_OLED_Update_Buffer>
+  USER_OLED_Print_Buffer(I2C_1, oled_buffer);
+ 8000b38:	4908      	ldr	r1, [pc, #32]	; (8000b5c <main+0x98>)
+ 8000b3a:	2000      	movs	r0, #0
+ 8000b3c:	f7ff ff4a 	bl	80009d4 <USER_OLED_Print_Buffer>
+  USER_SYSTICK_Delay_ms( 1 );
+ 8000b40:	2001      	movs	r0, #1
+ 8000b42:	f7ff ffad 	bl	8000aa0 <USER_SYSTICK_Delay_ms>
 
   for(;;)
- 80008d8:	e7fe      	b.n	80008d8 <main+0x28>
- 80008da:	bf00      	nop
- 80008dc:	40021000 	.word	0x40021000
- 80008e0:	08000998 	.word	0x08000998
+ 8000b46:	e7fe      	b.n	8000b46 <main+0x82>
+ 8000b48:	40021000 	.word	0x40021000
+ 8000b4c:	08000c40 	.word	0x08000c40
+ 8000b50:	20000000 	.word	0x20000000
+ 8000b54:	20000001 	.word	0x20000001
+ 8000b58:	08000e2c 	.word	0x08000e2c
+ 8000b5c:	20000020 	.word	0x20000020
 
-080008e4 <Reset_Handler>:
+08000b60 <Reset_Handler>:
 
   .section .text.Reset_Handler
   .weak Reset_Handler
   .type Reset_Handler, %function
 Reset_Handler:
   ldr   r0, =_estack
- 80008e4:	480d      	ldr	r0, [pc, #52]	; (800091c <LoopForever+0x2>)
+ 8000b60:	480d      	ldr	r0, [pc, #52]	; (8000b98 <LoopForever+0x2>)
   mov   sp, r0          /* set stack pointer */
- 80008e6:	4685      	mov	sp, r0
+ 8000b62:	4685      	mov	sp, r0
 /* Call the clock system initialization function.*/
   bl  SystemInit
- 80008e8:	f3af 8000 	nop.w
+ 8000b64:	f3af 8000 	nop.w
 
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
- 80008ec:	480c      	ldr	r0, [pc, #48]	; (8000920 <LoopForever+0x6>)
+ 8000b68:	480c      	ldr	r0, [pc, #48]	; (8000b9c <LoopForever+0x6>)
   ldr r1, =_edata
- 80008ee:	490d      	ldr	r1, [pc, #52]	; (8000924 <LoopForever+0xa>)
+ 8000b6a:	490d      	ldr	r1, [pc, #52]	; (8000ba0 <LoopForever+0xa>)
   ldr r2, =_sidata
- 80008f0:	4a0d      	ldr	r2, [pc, #52]	; (8000928 <LoopForever+0xe>)
+ 8000b6c:	4a0d      	ldr	r2, [pc, #52]	; (8000ba4 <LoopForever+0xe>)
   movs r3, #0
- 80008f2:	2300      	movs	r3, #0
+ 8000b6e:	2300      	movs	r3, #0
   b LoopCopyDataInit
- 80008f4:	e002      	b.n	80008fc <LoopCopyDataInit>
+ 8000b70:	e002      	b.n	8000b78 <LoopCopyDataInit>
 
-080008f6 <CopyDataInit>:
+08000b72 <CopyDataInit>:
 
 CopyDataInit:
   ldr r4, [r2, r3]
- 80008f6:	58d4      	ldr	r4, [r2, r3]
+ 8000b72:	58d4      	ldr	r4, [r2, r3]
   str r4, [r0, r3]
- 80008f8:	50c4      	str	r4, [r0, r3]
+ 8000b74:	50c4      	str	r4, [r0, r3]
   adds r3, r3, #4
- 80008fa:	3304      	adds	r3, #4
+ 8000b76:	3304      	adds	r3, #4
 
-080008fc <LoopCopyDataInit>:
+08000b78 <LoopCopyDataInit>:
 
 LoopCopyDataInit:
   adds r4, r0, r3
- 80008fc:	18c4      	adds	r4, r0, r3
+ 8000b78:	18c4      	adds	r4, r0, r3
   cmp r4, r1
- 80008fe:	428c      	cmp	r4, r1
+ 8000b7a:	428c      	cmp	r4, r1
   bcc CopyDataInit
- 8000900:	d3f9      	bcc.n	80008f6 <CopyDataInit>
+ 8000b7c:	d3f9      	bcc.n	8000b72 <CopyDataInit>
 
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
- 8000902:	4a0a      	ldr	r2, [pc, #40]	; (800092c <LoopForever+0x12>)
+ 8000b7e:	4a0a      	ldr	r2, [pc, #40]	; (8000ba8 <LoopForever+0x12>)
   ldr r4, =_ebss
- 8000904:	4c0a      	ldr	r4, [pc, #40]	; (8000930 <LoopForever+0x16>)
+ 8000b80:	4c0a      	ldr	r4, [pc, #40]	; (8000bac <LoopForever+0x16>)
   movs r3, #0
- 8000906:	2300      	movs	r3, #0
+ 8000b82:	2300      	movs	r3, #0
   b LoopFillZerobss
- 8000908:	e001      	b.n	800090e <LoopFillZerobss>
+ 8000b84:	e001      	b.n	8000b8a <LoopFillZerobss>
 
-0800090a <FillZerobss>:
+08000b86 <FillZerobss>:
 
 FillZerobss:
   str  r3, [r2]
- 800090a:	6013      	str	r3, [r2, #0]
+ 8000b86:	6013      	str	r3, [r2, #0]
   adds r2, r2, #4
- 800090c:	3204      	adds	r2, #4
+ 8000b88:	3204      	adds	r2, #4
 
-0800090e <LoopFillZerobss>:
+08000b8a <LoopFillZerobss>:
 
 LoopFillZerobss:
   cmp r2, r4
- 800090e:	42a2      	cmp	r2, r4
+ 8000b8a:	42a2      	cmp	r2, r4
   bcc FillZerobss
- 8000910:	d3fb      	bcc.n	800090a <FillZerobss>
+ 8000b8c:	d3fb      	bcc.n	8000b86 <FillZerobss>
 
 /* Call static constructors */
   bl __libc_init_array
- 8000912:	f000 f811 	bl	8000938 <__libc_init_array>
+ 8000b8e:	f000 f819 	bl	8000bc4 <__libc_init_array>
 /* Call the application's entry point.*/
   bl main
- 8000916:	f7ff ffcb 	bl	80008b0 <main>
+ 8000b92:	f7ff ff97 	bl	8000ac4 <main>
 
-0800091a <LoopForever>:
+08000b96 <LoopForever>:
 
 LoopForever:
   b LoopForever
- 800091a:	e7fe      	b.n	800091a <LoopForever>
+ 8000b96:	e7fe      	b.n	8000b96 <LoopForever>
   ldr   r0, =_estack
- 800091c:	20005000 	.word	0x20005000
+ 8000b98:	20005000 	.word	0x20005000
   ldr r0, =_sdata
- 8000920:	20000000 	.word	0x20000000
+ 8000b9c:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 8000924:	20000000 	.word	0x20000000
+ 8000ba0:	20000004 	.word	0x20000004
   ldr r2, =_sidata
- 8000928:	08000b88 	.word	0x08000b88
+ 8000ba4:	08001234 	.word	0x08001234
   ldr r2, =_sbss
- 800092c:	20000000 	.word	0x20000000
+ 8000ba8:	20000004 	.word	0x20000004
   ldr r4, =_ebss
- 8000930:	2000001c 	.word	0x2000001c
+ 8000bac:	20000420 	.word	0x20000420
 
-08000934 <ADC1_2_IRQHandler>:
+08000bb0 <ADC1_2_IRQHandler>:
  * @retval : None
 */
   .section .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
   b Infinite_Loop
- 8000934:	e7fe      	b.n	8000934 <ADC1_2_IRQHandler>
+ 8000bb0:	e7fe      	b.n	8000bb0 <ADC1_2_IRQHandler>
+
+08000bb2 <memset>:
+ 8000bb2:	4603      	mov	r3, r0
+ 8000bb4:	4402      	add	r2, r0
+ 8000bb6:	4293      	cmp	r3, r2
+ 8000bb8:	d100      	bne.n	8000bbc <memset+0xa>
+ 8000bba:	4770      	bx	lr
+ 8000bbc:	f803 1b01 	strb.w	r1, [r3], #1
+ 8000bc0:	e7f9      	b.n	8000bb6 <memset+0x4>
 	...
 
-08000938 <__libc_init_array>:
- 8000938:	b570      	push	{r4, r5, r6, lr}
- 800093a:	2600      	movs	r6, #0
- 800093c:	4d0c      	ldr	r5, [pc, #48]	; (8000970 <__libc_init_array+0x38>)
- 800093e:	4c0d      	ldr	r4, [pc, #52]	; (8000974 <__libc_init_array+0x3c>)
- 8000940:	1b64      	subs	r4, r4, r5
- 8000942:	10a4      	asrs	r4, r4, #2
- 8000944:	42a6      	cmp	r6, r4
- 8000946:	d109      	bne.n	800095c <__libc_init_array+0x24>
- 8000948:	f000 f81a 	bl	8000980 <_init>
- 800094c:	2600      	movs	r6, #0
- 800094e:	4d0a      	ldr	r5, [pc, #40]	; (8000978 <__libc_init_array+0x40>)
- 8000950:	4c0a      	ldr	r4, [pc, #40]	; (800097c <__libc_init_array+0x44>)
- 8000952:	1b64      	subs	r4, r4, r5
- 8000954:	10a4      	asrs	r4, r4, #2
- 8000956:	42a6      	cmp	r6, r4
- 8000958:	d105      	bne.n	8000966 <__libc_init_array+0x2e>
- 800095a:	bd70      	pop	{r4, r5, r6, pc}
- 800095c:	f855 3b04 	ldr.w	r3, [r5], #4
- 8000960:	4798      	blx	r3
- 8000962:	3601      	adds	r6, #1
- 8000964:	e7ee      	b.n	8000944 <__libc_init_array+0xc>
- 8000966:	f855 3b04 	ldr.w	r3, [r5], #4
- 800096a:	4798      	blx	r3
- 800096c:	3601      	adds	r6, #1
- 800096e:	e7f2      	b.n	8000956 <__libc_init_array+0x1e>
- 8000970:	08000b80 	.word	0x08000b80
- 8000974:	08000b80 	.word	0x08000b80
- 8000978:	08000b80 	.word	0x08000b80
- 800097c:	08000b84 	.word	0x08000b84
+08000bc4 <__libc_init_array>:
+ 8000bc4:	b570      	push	{r4, r5, r6, lr}
+ 8000bc6:	2600      	movs	r6, #0
+ 8000bc8:	4d0c      	ldr	r5, [pc, #48]	; (8000bfc <__libc_init_array+0x38>)
+ 8000bca:	4c0d      	ldr	r4, [pc, #52]	; (8000c00 <__libc_init_array+0x3c>)
+ 8000bcc:	1b64      	subs	r4, r4, r5
+ 8000bce:	10a4      	asrs	r4, r4, #2
+ 8000bd0:	42a6      	cmp	r6, r4
+ 8000bd2:	d109      	bne.n	8000be8 <__libc_init_array+0x24>
+ 8000bd4:	f000 f828 	bl	8000c28 <_init>
+ 8000bd8:	2600      	movs	r6, #0
+ 8000bda:	4d0a      	ldr	r5, [pc, #40]	; (8000c04 <__libc_init_array+0x40>)
+ 8000bdc:	4c0a      	ldr	r4, [pc, #40]	; (8000c08 <__libc_init_array+0x44>)
+ 8000bde:	1b64      	subs	r4, r4, r5
+ 8000be0:	10a4      	asrs	r4, r4, #2
+ 8000be2:	42a6      	cmp	r6, r4
+ 8000be4:	d105      	bne.n	8000bf2 <__libc_init_array+0x2e>
+ 8000be6:	bd70      	pop	{r4, r5, r6, pc}
+ 8000be8:	f855 3b04 	ldr.w	r3, [r5], #4
+ 8000bec:	4798      	blx	r3
+ 8000bee:	3601      	adds	r6, #1
+ 8000bf0:	e7ee      	b.n	8000bd0 <__libc_init_array+0xc>
+ 8000bf2:	f855 3b04 	ldr.w	r3, [r5], #4
+ 8000bf6:	4798      	blx	r3
+ 8000bf8:	3601      	adds	r6, #1
+ 8000bfa:	e7f2      	b.n	8000be2 <__libc_init_array+0x1e>
+ 8000bfc:	0800122c 	.word	0x0800122c
+ 8000c00:	0800122c 	.word	0x0800122c
+ 8000c04:	0800122c 	.word	0x0800122c
+ 8000c08:	08001230 	.word	0x08001230
 
-08000980 <_init>:
- 8000980:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8000982:	bf00      	nop
- 8000984:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8000986:	bc08      	pop	{r3}
- 8000988:	469e      	mov	lr, r3
- 800098a:	4770      	bx	lr
+08000c0c <memcpy>:
+ 8000c0c:	440a      	add	r2, r1
+ 8000c0e:	4291      	cmp	r1, r2
+ 8000c10:	f100 33ff 	add.w	r3, r0, #4294967295
+ 8000c14:	d100      	bne.n	8000c18 <memcpy+0xc>
+ 8000c16:	4770      	bx	lr
+ 8000c18:	b510      	push	{r4, lr}
+ 8000c1a:	f811 4b01 	ldrb.w	r4, [r1], #1
+ 8000c1e:	4291      	cmp	r1, r2
+ 8000c20:	f803 4f01 	strb.w	r4, [r3, #1]!
+ 8000c24:	d1f9      	bne.n	8000c1a <memcpy+0xe>
+ 8000c26:	bd10      	pop	{r4, pc}
 
-0800098c <_fini>:
- 800098c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800098e:	bf00      	nop
- 8000990:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8000992:	bc08      	pop	{r3}
- 8000994:	469e      	mov	lr, r3
- 8000996:	4770      	bx	lr
+08000c28 <_init>:
+ 8000c28:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000c2a:	bf00      	nop
+ 8000c2c:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8000c2e:	bc08      	pop	{r3}
+ 8000c30:	469e      	mov	lr, r3
+ 8000c32:	4770      	bx	lr
+
+08000c34 <_fini>:
+ 8000c34:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000c36:	bf00      	nop
+ 8000c38:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8000c3a:	bc08      	pop	{r3}
+ 8000c3c:	469e      	mov	lr, r3
+ 8000c3e:	4770      	bx	lr

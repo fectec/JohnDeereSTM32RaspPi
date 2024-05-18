@@ -34,7 +34,7 @@ void USER_OLED_Command_2_Byte( uint8_t I2C, uint8_t data[] )
 
 void USER_OLED_Init( uint8_t I2C, uint8_t screen_size )
 {
-  USER_I2C_Init( I2C, I2C_SM );
+  USER_I2C_Init( I2C, I2C_FM );
 
   uint8_t cmd_1[] = {0xA8, 0x3F};
   USER_OLED_Command_2_Byte( I2C, cmd_1 );
@@ -103,9 +103,9 @@ void USER_OLED_Blank( uint8_t I2C )
 
   USER_OLED_Position( I2C, 0, 0 );
 
-  for(i = 0; i < OLED_SCREEN_COLUMNS; i++)
+  for(i = 0; i < OLED_SCREEN_ROWS; i++)
   {
-    for(j = 0; j < OLED_SCREEN_ROWS; j++)
+    for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
     {
 	USER_OLED_Data( I2C, 0x0 );
     }
@@ -116,7 +116,7 @@ void USER_OLED_Print( uint8_t I2C, char str[] )
 {
   uint8_t i = 0, j;
 
-  while(str[i])
+  while( str[i] )
   {
       for(j = 0; j < 5; j++)
       {
@@ -131,4 +131,98 @@ void USER_OLED_Message( uint8_t I2C, char str[], uint8_t x_pos, uint8_t y_pos )
 {
   USER_OLED_Position(I2C, x_pos, y_pos);
   USER_OLED_Print(I2C, str);
+}
+
+void USER_OLED_Clear_Buffer( char screen_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS] )
+{
+  uint8_t i, j;
+
+  for(i = 0; i < OLED_SCREEN_ROWS; i++)
+  {
+      for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
+      {
+	  screen_buffer[i][j] = 0;
+      }
+  }
+}
+
+void USER_OLED_Update_Buffer( ImgType img, uint8_t img_num, char screen_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS] )
+{
+  uint16_t x_dir, y_dir, end_x, end_y, cnt = 0;
+
+  if( ( img.width + img.x_pos ) > OLED_SCREEN_COLUMNS )
+  {
+      end_x = OLED_SCREEN_COLUMNS - 1;
+  }
+  else
+  {
+      end_x = img.width + img.x_pos - 1;
+  }
+
+  if( ( img.height + img.y_pos ) > OLED_SCREEN_ROWS )
+  {
+      end_y = OLED_SCREEN_ROWS - 1;
+  }
+  else
+  {
+      end_y = img.height + img.y_pos - 1;
+  }
+
+  for(y_dir = img.y_pos; y_dir <= end_y; y_dir++)
+  {
+    for (x_dir= img.x_pos; x_dir <= end_x; x_dir++)
+    {
+      cnt =( y_dir - img.y_pos ) * img.width + x_dir - img.x_pos;
+      screen_buffer[y_dir][x_dir] = img.image[img_num][cnt];
+    }
+  }
+}
+
+void USER_OLED_Update_String_Buffer( uint8_t x_pos, uint8_t y_pos, char str[], char screen_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS] )
+{
+  uint8_t i = 0, j, cnt_col = x_pos, cnt_row = y_pos;
+
+  while( str[i] )
+  {
+    if( cnt_row > OLED_SCREEN_ROWS ) { break; }
+
+    for(j = 0; j < 5; j++)
+    {
+      screen_buffer[cnt_row][cnt_col] = ASCII[str[i] - 32][j];
+
+      if( ( cnt_col + 1 ) > OLED_SCREEN_COLUMNS - 1 )
+      {
+	if( ( cnt_row + 1 ) > OLED_SCREEN_ROWS )
+	{
+	    break;
+	}
+	else
+	{
+	    cnt_row ++;
+	    cnt_col = x_pos;
+	}
+      }
+      else
+      {
+	    cnt_col ++;
+      }
+    }
+
+    i++;
+  }
+}
+
+void USER_OLED_Print_Buffer( uint8_t I2C, char screen_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS] )
+{
+  USER_OLED_Position( I2C, 0, 0 );
+
+  uint8_t i, j;
+
+  for (i = 0; i < OLED_SCREEN_ROWS; i++)
+  {
+    for(j = 0; j < OLED_SCREEN_COLUMNS; j++)
+    {
+	USER_OLED_Data( I2C, screen_buffer[i][j] );
+    }
+  }
 }
