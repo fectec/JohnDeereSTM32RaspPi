@@ -8,19 +8,16 @@
 #include "I2C.h"
 #include "OLED.h"
 
-uint8_t data[2] = {0x00, 0x02};
-
 int main( void )
 {
   RCC->APB2ENR	|=	RCC_APB2ENR_IOPBEN;
 
-  USER_SYSTICK_Init();
-  //USER_I2C_Init(2, I2C_FM);
-  USER_OLED_Init(1);
+  USER_OLED_Init_64(I2C_1);
+  USER_OLED_Blank(I2C_1);
+  USER_OLED_Message(I2C_1, "TEST", OLED_SCREEN_COLUMNS / 4, OLED_SCREEN_ROWS / 2);
 
   for(;;)
   {
 
   }
-
 }

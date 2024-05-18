@@ -21,12 +21,15 @@
 #define I2C_SR1_ADDR		0x1UL << 1U
 #define I2C_SR1_TXE		0x1UL << 7U
 #define I2C_CR1_STOP		0x1UL << 9U
+#define I2C_1			0
+#define I2C_2			1
+
 
 void USER_I2C_Init( uint8_t, uint8_t );
 void USER_I2C_Start( uint8_t );
 void USER_I2C_Address( uint8_t, uint8_t, uint8_t );
 void USER_I2C_Data( uint8_t, uint8_t );
-void USER_I2C_Stop( uint8_t I2C );
-void USER_I2C_Write( uint8_t I2C, uint8_t address, uint8_t data[] );
+void USER_I2C_Stop( uint8_t );
+void USER_I2C_Write( uint8_t, uint8_t, uint8_t[] );
 
 #endif /* I2C_H_ */

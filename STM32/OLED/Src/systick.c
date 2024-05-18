@@ -1,5 +1,5 @@
 /*
- * systick.c
+ * SYSTICK.c
  */
 
 #include "main.h"
@@ -17,7 +17,7 @@ void USER_SYSTICK_Init( void )
 
 void USER_SYSTICK_Delay( uint32_t t )
 {
-  for(;t > 0; t--)
+  for(; t > 0; t--)
   {
     SYSTICK->LOAD	=	0x11940;
     SYSTICK->VAL = 0;

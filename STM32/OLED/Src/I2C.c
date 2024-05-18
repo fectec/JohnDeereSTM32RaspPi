@@ -6,16 +6,18 @@
 #include "I2C.h"
 #include "GPIO.h"
 
+// Init
+
 void USER_I2C_Init( uint8_t I2C, uint8_t speed_mode )
 {
   RCC->APB2ENR		|=	RCC_APB2ENR_AFIOEN;	// Alternate function I/O clock enable
 
-  if( I2C == 1 )
+  if( I2C == 0 )
   {
       RCC->APB1ENR 	|=	RCC_APB1ENR_I2C1EN;	// I2C1 clock enable
 
-      USER_GPIO_Define(PORTB, 6, OUT_50, OUT_AF_OD);	// PB6 I2C1_SCL
-      USER_GPIO_Define(PORTB, 7, OUT_50, OUT_AF_OD);	// PB7 I2C1_SDA
+      USER_GPIO_Define( PORTB, 6, OUT_50, OUT_AF_OD );	// PB6 I2C1_SCL
+      USER_GPIO_Define( PORTB, 7, OUT_50, OUT_AF_OD );	// PB7 I2C1_SDA
 
       I2C1->CR1		|=	I2C_CR1_SWRST;		// Software reset
       I2C1->CR1		&=	~I2C_CR1_SWRST;
@@ -27,12 +29,12 @@ void USER_I2C_Init( uint8_t I2C, uint8_t speed_mode )
 
       I2C1->CR1		|=	I2C_CR1_PE;		// Peripheral enable
   }
-  else if( I2C == 2 )
+  else if( I2C == 1 )
   {
       RCC->APB1ENR 	|=	RCC_APB1ENR_I2C2EN;	// I2C2 clock enable
 
-      USER_GPIO_Define(PORTB, 10, OUT_50, OUT_AF_OD);	// PB10 I2C2_SCL
-      USER_GPIO_Define(PORTB, 11, OUT_50, OUT_AF_OD);	// PB11 I2C2_SDA
+      USER_GPIO_Define( PORTB, 10, OUT_50, OUT_AF_OD );	// PB10 I2C2_SCL
+      USER_GPIO_Define( PORTB, 11, OUT_50, OUT_AF_OD );	// PB11 I2C2_SDA
 
       I2C2->CR1		|=	I2C_CR1_SWRST;
       I2C2->CR1		&=	~I2C_CR1_SWRST;
@@ -52,12 +54,12 @@ void USER_I2C_Init( uint8_t I2C, uint8_t speed_mode )
 void USER_I2C_Start( uint8_t I2C )
 {
 
-  if( I2C == 1 )
+  if( I2C == 0 )
   {
       I2C1->CR1		|=	I2C_CR1_START;		// Start generation
       while (! ( I2C1->SR1 & I2C_SR1_SB) );		// Set when a Start condition generated
   }
-  else if ( I2C == 2 )
+  else if ( I2C == 1 )
   {
       I2C2->CR1		|=	I2C_CR1_START;
       while (! ( I2C2->SR1 & I2C_SR1_SB ) );
@@ -65,13 +67,13 @@ void USER_I2C_Start( uint8_t I2C )
 
 }
 
-// Sending the address + R or W
+// Send the address + R or W
 
 void USER_I2C_Address( uint8_t I2C, uint8_t address, uint8_t RW )
 {
   volatile uint16_t tmp;
 
-  if( I2C == 1 )
+  if( I2C == 0 )
   {
       I2C1->DR = ( address | RW );
 
@@ -87,7 +89,7 @@ void USER_I2C_Address( uint8_t I2C, uint8_t address, uint8_t RW )
 	  }
       }
   }
-  else if ( I2C == 2 )
+  else if ( I2C == 1 )
   {
       I2C2->DR = ( address | RW );
 
@@ -111,13 +113,13 @@ void USER_I2C_Address( uint8_t I2C, uint8_t address, uint8_t RW )
 void USER_I2C_Data( uint8_t I2C, uint8_t data )
 {
 
-  if( I2C == 1 )
+  if( I2C == 0 )
   {
       while( !( I2C1->SR1 & I2C_SR1_TXE ) );		// While data register not empty
       I2C1->DR = data;
       while( !( I2C1->SR1 & I2C_SR1_TXE ) );
   }
-  else if ( I2C == 2 )
+  else if ( I2C == 1 )
   {
       while( !( I2C2->SR1 & I2C_SR1_TXE ) );		// While data register not empty
       I2C2->DR = data;
@@ -132,13 +134,13 @@ void USER_I2C_Stop( uint8_t I2C )
 {
   volatile uint16_t tmp;
 
-  if( I2C == 1 )
+  if( I2C == 0 )
   {
       tmp = I2C1->SR1;
       tmp = I2C1->SR2;
       I2C1->CR1		|=	I2C_CR1_STOP;		// Stop generation
   }
-  else if ( I2C == 2 )
+  else if ( I2C == 1 )
   {
       tmp = I2C2->SR1;
       tmp = I2C2->SR2;
@@ -153,8 +155,8 @@ void USER_I2C_Write( uint8_t I2C, uint8_t address, uint8_t data[] )
 {
   uint32_t i = 0;
 
-  USER_I2C_Start(I2C);
-  USER_I2C_Address(I2C, address, 0);
+  USER_I2C_Start( I2C );
+  USER_I2C_Address( I2C, address, 0 );
 
   while(data[i])
   {
@@ -162,7 +164,5 @@ void USER_I2C_Write( uint8_t I2C, uint8_t address, uint8_t data[] )
     i++;
   }
 
-  USER_I2C_Stop(I2C);
+  USER_I2C_Stop( I2C );
 }
-
-

@@ -1,5 +1,5 @@
 /*
- * systick.h
+ * SYSTICK.h
  */
 
 #ifndef SYSTICK_H_

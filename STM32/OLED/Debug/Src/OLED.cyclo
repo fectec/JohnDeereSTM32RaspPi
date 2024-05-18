@@ -1,3 +1,10 @@
-../Src/OLED.c:8:6:USER_OLED_SendCMD_1_Byte	1
-../Src/OLED.c:19:6:USER_OLED_SendCMD_2_Byte	2
+../Src/OLED.c:8:6:USER_OLED_Command_1_Byte	1
+../Src/OLED.c:19:6:USER_OLED_Command_2_Byte	2
 ../Src/OLED.c:35:6:USER_OLED_Init	1
+../Src/OLED.c:71:6:USER_OLED_Init_32	1
+../Src/OLED.c:76:6:USER_OLED_Init_64	1
+../Src/OLED.c:81:6:USER_OLED_Data	1
+../Src/OLED.c:92:6:USER_OLED_Position	1
+../Src/OLED.c:100:6:USER_OLED_Blank	3
+../Src/OLED.c:115:6:USER_OLED_Print	3
+../Src/OLED.c:130:6:USER_OLED_Message	1
