@@ -1,0 +1,4 @@
+../Src/GPIO.c:11:6:USER_GPIO_Define	24	static
+../Src/GPIO.c:65:9:USER_GPIO_Read	24	static
+../Src/GPIO.c:105:6:USER_GPIO_Write	24	static
+../Src/GPIO.c:142:6:USER_GPIO_Toggle	16	static

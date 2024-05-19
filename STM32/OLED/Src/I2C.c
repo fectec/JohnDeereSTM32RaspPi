@@ -2,8 +2,8 @@
  * I2C.c
  */
 
-#include "main.h"
 #include "I2C.h"
+#include "main.h"
 #include "GPIO.h"
 
 // Init

@@ -2,8 +2,8 @@ import struct  # To unpack the data from the header
 import os
 
 BASE_PATH = os.path.dirname(os.path.realpath( __file__ ))
-IMG_PATH = os.path.join(BASE_PATH, "Assets/image.bmp")
-IMAGE_NAME = "john_deere_logo"
+IMG_PATH = os.path.join(BASE_PATH, "Assets/stm32_logo.bmp")
+IMAGE_NAME = "STM32_LOGO"
 TEXT_PATH = os.path.join(BASE_PATH, "output.txt")
 
 #  2- Opening & preparation to read the data the file
@@ -77,10 +77,10 @@ n5110_array.reverse()
 
 with open(TEXT_PATH, 'w') as text_file:
     text_file.write(
-        f'static uint8_t {IMAGE_NAME}_rows = {len(n5110_array)};\n'
+        f'static uint8_t {IMAGE_NAME}_ROWS = {len(n5110_array)};\n'
     )
     text_file.write(
-        f'static uint8_t {IMAGE_NAME}_cols = {len(n5110_array[0])};\n'
+        f'static uint8_t {IMAGE_NAME}_COLS = {len(n5110_array[0])};\n'
     )
     text_file.write(f'static const char {IMAGE_NAME}[] = \n')
     text_file.write('{\n')

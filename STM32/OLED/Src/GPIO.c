@@ -2,8 +2,8 @@
  * GPIO.c
  */
 
-#include "main.h"
 #include "GPIO.h"
+#include "main.h"
 
 void USER_GPIO_Define( uint8_t port, uint8_t pin, uint8_t direction, uint8_t option )
 {

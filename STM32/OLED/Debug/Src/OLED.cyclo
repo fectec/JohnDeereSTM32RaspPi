@@ -12,3 +12,4 @@
 ../Src/OLED.c:149:6:USER_OLED_Update_Buffer	5
 ../Src/OLED.c:181:6:USER_OLED_Update_String_Buffer	6
 ../Src/OLED.c:215:6:USER_OLED_Print_Buffer	3
+../Src/OLED.c:230:6:USER_OLED_Update_Buffer_Bit	18

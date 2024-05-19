@@ -2,8 +2,8 @@
  * SYSTICK.c
  */
 
-#include "main.h"
 #include "SYSTICK.h"
+#include "main.h"
 
 void USER_SYSTICK_Init( void )
 {
