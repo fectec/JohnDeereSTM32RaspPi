@@ -32,6 +32,8 @@ Finally, a **bash script** was written to simplify the process of running the pl
 
 The *I2C internal peripheral* was configured to communicate with a *128x64 OLED screen* (although it is possible to use a 128x32 screen). Then, functions were developed so it would be possible to display images sending *commands* and *data* in the format of a *buffer*.
 
+## Demos
+
 ### Graphical Interface with Serial Data
 
 <p align="center">
@@ -50,4 +52,4 @@ The *I2C internal peripheral* was configured to communicate with a *128x64 OLED 
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/53f0341c-1f7c-4d7f-8cf4-8736078b7f43" alt = "Physical Demo" width="600" height="350"/>
 </p>
 
-
+### OLED Screen
