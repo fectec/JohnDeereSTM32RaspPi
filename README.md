@@ -28,6 +28,10 @@ In both serial interaction cases, modify **plot_settings.py** to specify the ser
 
 Finally, a **bash script** was written to simplify the process of running the plotting files. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the plotting file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
 
+## Bonus - OLED Screen
+
+The *I2C internal peripheral* was configured to communicate with a *128x64 OLED screen* (although it is possible to use a 128x32 screen). Then, functions were developed so it would be possible to display images sending *commands* and *data* in the format of a *buffer*.
+
 ### Graphical Interface with Serial Data
 
 <p align="center">
