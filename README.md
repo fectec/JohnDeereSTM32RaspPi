@@ -46,7 +46,7 @@ The *I2C internal peripheral* was configured to communicate with a *128x64 OLED 
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/9bc90f82-4e30-47a8-b825-0492acb042d1" alt = "Graphical Interface Random Data Demo" width="600" height="350"/>
 </p>
 
-### Physical
+### First Physical Test
 
 <p align="center">
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/53f0341c-1f7c-4d7f-8cf4-8736078b7f43" alt = "Physical Demo" width="600" height="350"/>
