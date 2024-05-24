@@ -208,6 +208,8 @@ void TASK_3_MODEL_Feed( void )
 
   EngTrModel_step();
 
+  USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );		// 40 ms delay
+
   return;
 }
 
@@ -235,6 +237,8 @@ void TASK_6_LCD_Write( void )
   LCD_Put_Str( FirstLine_LCD_MSG );
   LCD_Set_Cursor( 2, 1 );
   LCD_Put_Str( SecondLine_LCD_MSG );
+
+  USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );		// 200 ms delay
 
   return;
 }

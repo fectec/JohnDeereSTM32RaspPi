@@ -9,5 +9,5 @@
 ../Src/main.c:163:6:TASK_1_ADC_Read	8	static
 ../Src/main.c:173:6:TASK_2_MATRIX_KEYPAD_Read	8	static
 ../Src/main.c:204:6:TASK_3_MODEL_Feed	8	static
-../Src/main.c:214:6:TASK_4_USART_Send	32	static
-../Src/main.c:221:6:TASK_6_LCD_Write	56	static
+../Src/main.c:216:6:TASK_4_USART_Send	32	static
+../Src/main.c:223:6:TASK_6_LCD_Write	56	static
