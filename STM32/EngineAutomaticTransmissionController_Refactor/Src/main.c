@@ -112,7 +112,7 @@ int main( void )
 
     // Send the output values
 
-    // printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
+    printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
 
     USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );		// 40 ms delay
 
