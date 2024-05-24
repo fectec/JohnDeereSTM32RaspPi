@@ -1,6 +1,0 @@
-../Src/I2C.c:11:6:USER_I2C_Init	16	static
-../Src/I2C.c:54:6:USER_I2C_Start	16	static
-../Src/I2C.c:72:6:USER_I2C_Address	24	static
-../Src/I2C.c:113:6:USER_I2C_Data	16	static
-../Src/I2C.c:133:6:USER_I2C_Stop	24	static
-../Src/I2C.c:154:6:USER_I2C_Write	24	static

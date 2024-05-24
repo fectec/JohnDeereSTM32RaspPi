@@ -1,2 +1,0 @@
-../Src/timer.c:8:6:USER_TIM2_Init	4	static
-../Src/timer.c:17:6:USER_TIM2_Delay	16	static
