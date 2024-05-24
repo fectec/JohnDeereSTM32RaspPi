@@ -245,20 +245,16 @@ typedef struct
 
 // Functions
 
-void USER_RCC_Init( void );
+void TASK_1_ADC_Read_Init( void );
+void TASK_2_MATRIX_KEYPAD_Read_Init( void );
+void TASK_3_MODEL_Feed_Init( void );
+void TASK_4_USART_Send_Init( void );
+void TASK_5_LCD_Write_Init( void );
 
-void TASK_1_MODEL_RCC_TIM_Init( void );
-void TASK_2_ADC_Init( void );
-void TASK_3_USART_Init( void );
-void TASK_4_LCD_Init( void );
-void TASK_5_MATRIX_KEYPAD_Init( void );
-void TASK_6_OLED_Init( void );
-
-void TASK_7_ADC_Read( void );
-void TASK_8_MATRIX_KEYPAD_Read( void );
-void TASK_9_VOLTAGE_Normalize( void );
-void TASK_10_MODEL_Feed( void );
-void TASK_11_MODEL_Send( void );
-void TASK_12_LCD_Write( void );
+void TASK_1_ADC_Read( void );
+void TASK_2_MATRIX_KEYPAD_Read( void );
+void TASK_3_MODEL_Feed( void );
+void TASK_4_USART_Send( void );
+void TASK_6_LCD_Write( void );
 
 #endif /* MAIN_H_ */

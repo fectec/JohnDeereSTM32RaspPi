@@ -45,12 +45,11 @@ void USER_RCC_ClockEnable( void );
 
 int main( void )
 {
-  TASK_1_MODEL_RCC_TIM_Init();
-  TASK_2_ADC_Init();
-  TASK_3_USART_Init();
-  TASK_4_LCD_Init();
-  TASK_5_MATRIX_KEYPAD_Init();
-  TASK_6_OLED_Init();
+  TASK_1_ADC_Read_Init();
+  TASK_2_MATRIX_KEYPAD_Read_Init();
+  TASK_3_MODEL_Feed_Init();
+  TASK_4_USART_Send_Init();
+  TASK_5_LCD_Write_Init();
 
   /* Loop forever */
 
@@ -58,26 +57,25 @@ int main( void )
   {
     // ADC
 
-    TASK_7_ADC_Read();
+    TASK_1_ADC_Read();
 
     // Matrix keypad
 
-    TASK_8_MATRIX_KEYPAD_Read();
-    TASK_9_VOLTAGE_Normalize();
+    TASK_2_MATRIX_KEYPAD_Read();
 
     // Update the values for the Throttle and Brake commands into the vehicle model
 
-    TASK_10_MODEL_Feed();
+    TASK_3_MODEL_Feed();
 
     // Send the output values
 
-    TASK_11_MODEL_Send();
+    TASK_4_USART_Send();
 
     /* Extract the whole and decimal parts for Engine Speed and Vehicle Speed, and cast them alongside Gear to integers
     Write the messages to send to the LCD
     Display values on the LCD */
 
-    TASK_12_LCD_Write();
+    TASK_6_LCD_Write();
   }
 
 }
@@ -121,52 +119,58 @@ void USER_RCC_Init( void )
 void TASK_1_MODEL_RCC_TIM_Init( void )
 {
   EngTrModel_initialize();
-  USER_RCC_Init();
-  USER_TIM_Init( TIM_2 );
+
   return;
 }
 
-void TASK_2_ADC_Init( void )
+void TASK_1_ADC_Read_Init( void )
 {
+  USER_RCC_Init();
+  USER_TIM_Init( TIM_2 );
   USER_ADC_Init( ADC_1 );
   return;
 }
 
-void TASK_3_USART_Init( void )
-{
-  USER_USART_Init( USART_1 );
-  return;
-}
-
-void TASK_4_LCD_Init( void )
-{
-  USER_LCD_Init();
-  return;
-}
-
-void TASK_5_MATRIX_KEYPAD_Init( void )
+void TASK_2_MATRIX_KEYPAD_Read_Init( void )
 {
   USER_MATRIX_KEYPAD_Init();
   return;
 }
 
-void TASK_6_OLED_Init( void )
+void TASK_3_MODEL_Feed_Init( void )
 {
+  EngTrModel_initialize();
+  return;
+}
+
+void TASK_4_USART_Send_Init( void )
+{
+  USER_USART_Init( USART_1 );
+  return;
+}
+
+void TASK_5_LCD_Write_Init( void )
+{
+  USER_LCD_Init();
+
   USER_SYSTICK_Init();
   USER_OLED_Init_64( I2C_2 );
+  USER_OLED_Animation( I2C_2, oled_buffer );
 
   return;
 }
 
-void TASK_7_ADC_Read( void )
+void TASK_1_ADC_Read( void )
 {
   conversionData = USER_ADC_Convert( ADC_1 );
   voltageValue = 0.00080586 * conversionData;
 
+  normalizedVoltageValue = scaleVoltageValue( voltageValue, 0, 3.3 );
+
   return;
 }
 
-void TASK_8_MATRIX_KEYPAD_Read( void )
+void TASK_2_MATRIX_KEYPAD_Read( void )
 {
   selectedKey = USER_MATRIX_KEYPAD_Read();
 
@@ -197,14 +201,7 @@ void TASK_8_MATRIX_KEYPAD_Read( void )
   return;
 }
 
-void TASK_9_VOLTAGE_Normalize( void )
-{
-  normalizedVoltageValue = scaleVoltageValue( voltageValue, 0, 3.3 );
-
-  return;
-}
-
-void TASK_10_MODEL_Feed( void )
+void TASK_3_MODEL_Feed( void )
 {
   EngTrModel_U.Throttle = normalizedVoltageValue;
   EngTrModel_U.BrakeTorque = keyBrakeTorque;
@@ -214,14 +211,14 @@ void TASK_10_MODEL_Feed( void )
   return;
 }
 
-void TASK_11_MODEL_Send( void )
+void TASK_4_USART_Send( void )
 {
   printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
 
   return;
 }
 
-void TASK_12_LCD_Write( void )
+void TASK_6_LCD_Write( void )
 {
   int EngineSpeedWhole = (int)( EngTrModel_Y.EngineSpeed );
   int EngineSpeedDecimal = (int)( ( EngTrModel_Y.EngineSpeed - EngineSpeedWhole ) * 100 );
