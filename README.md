@@ -24,9 +24,15 @@ The Raspberry Pi receives the output data from the model (engine speed, vehicle 
 
 To use the graphical interface, run **game.py**. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run **plot_linux.py**, which uses serially read data. 
 
-In both serial interaction cases, modify **plot_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_settings.py, alongside the baud rate, which is by default **115200** to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
+In both serial interaction cases, modify **plot_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_settings.py, alongside the baud rate, which is by default 115200 to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
 
 Finally, a **bash script** was written to simplify the process of running the plotting files. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the plotting file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
+
+## Bonus - OLED Screen
+
+The *I2C internal peripheral* was configured to communicate with a *128x64 OLED screen* (although it is possible to use a 128x32 screen). Then, functions were developed so it would be possible to display images sending *commands* and *data* in the format of a *buffer*.
+
+## Demos
 
 ### Graphical Interface with Serial Data
 
@@ -40,10 +46,10 @@ Finally, a **bash script** was written to simplify the process of running the pl
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/9bc90f82-4e30-47a8-b825-0492acb042d1" alt = "Graphical Interface Random Data Demo" width="600" height="350"/>
 </p>
 
-### Physical
+### First Physical Test
 
 <p align="center">
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/53f0341c-1f7c-4d7f-8cf4-8736078b7f43" alt = "Physical Demo" width="600" height="350"/>
 </p>
 
-
+### OLED Screen
