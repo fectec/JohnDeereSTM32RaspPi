@@ -71,7 +71,7 @@ int main( void )
 
     selectedKey = USER_MATRIX_KEYPAD_Read();
 
-    printf("%f_%c\n\r", voltageValue, selectedKey);			// Debug ADC and matrix keypad
+    // printf("%f_%c\n\r", voltageValue, selectedKey);			// Debug ADC and matrix keypad
 
     if(selectedKey == '5')
     {
@@ -134,9 +134,9 @@ int main( void )
     // Display values on the LCD
 
     LCD_Set_Cursor( 1, 1 );
-    LCD_Put_Str( "a" );
+    LCD_Put_Str( FirstLine_LCD_MSG );
     LCD_Set_Cursor( 2, 1 );
-    LCD_Put_Str( "a" );
+    LCD_Put_Str( SecondLine_LCD_MSG );
 
     USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );		// 200 ms delay
   }
