@@ -23,8 +23,11 @@ const int8_t UserFont[8][8] =
 
 // Function that initializes the LCD to 4 bits
 
-void USER_LCD_Init( void )
-{
+void USER_LCD_Init(void){
+
+	// RCC_APB2ENR modified to IO port C clock enable
+
+	RCC->APB2ENR	|=	RCC_APB2ENR_IOPCEN;	// To set IOPCEN bit
 
 	int8_t const *p;
 
@@ -53,7 +56,7 @@ void USER_LCD_Init( void )
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 
-	USER_TIM_Delay(TIM_2, TIM_PSC_50MS, TIM_CNT_50MS);	//	50 ms
+	USER_TIM_Delay( TIM_2, TIM_PSC_50MS, TIM_CNT_50MS );		//	50 ms
 
 	/* Special case of 'Function Set'	*/
 
@@ -63,7 +66,7 @@ void USER_LCD_Init( void )
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 
-	USER_TIM_Delay(TIM_2, TIM_PSC_5MS, TIM_CNT_5MS);	//	5 ms
+	USER_TIM_Delay( TIM_2, TIM_PSC_5MS, TIM_CNT_5MS );		//	5 ms
 
 	/* Special case of 'Function Set'	*/
 
@@ -73,7 +76,7 @@ void USER_LCD_Init( void )
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 
-	USER_TIM_Delay(TIM_2, TIM_PSC_100US, TIM_CNT_100US);	//	100 us
+	USER_TIM_Delay( TIM_2, TIM_PSC_100US, TIM_CNT_100US );		//	100 us
 
 	/* Special case of 'Function Set'	*/
 
@@ -128,7 +131,7 @@ void USER_LCD_Init( void )
 
 // Function that generates a strobe on the LCD
 
-void LCD_Out_Data4( uint8_t val )
+void LCD_Out_Data4(uint8_t val)
 {
 	if( ( val & 0x01U ) == 0x01U )				//	Bit[0]
 		GPIOC->BSRR	=	LCD_D4_PIN_HIGH;
@@ -153,7 +156,7 @@ void LCD_Out_Data4( uint8_t val )
 
 // Function that writes 1 byte of data to the LCD
 
-void LCD_Write_Byte( uint8_t val )
+void LCD_Write_Byte(uint8_t val)
 {
 	LCD_Out_Data4( ( val >> 4 ) & 0x0FU );
 	LCD_Pulse_EN( );
@@ -234,7 +237,7 @@ char LCD_Busy( void )
 	GPIOC->BSRR	 =	 LCD_RW_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_EN_PIN_HIGH;
 
-	USER_TIM_Delay(TIM_2, TIM_PSC_100US, TIM_CNT_100US);	//	100 us
+	USER_TIM_Delay( TIM_2, TIM_PSC_100US, TIM_CNT_100US );	//	100 us
 
 	if(( GPIOC->IDR	& LCD_D7_PIN_HIGH )) 			//	If D7 is set, then
 	{
@@ -268,15 +271,15 @@ void LCD_Pulse_EN( void )
 {
 	GPIOC->BSRR	=	LCD_EN_PIN_LOW;
 
-	USER_TIM_Delay(TIM_2, TIM_PSC_10US, TIM_CNT_10US);	//	10 us
+	USER_TIM_Delay( TIM_2, TIM_PSC_10US, TIM_CNT_10US );	//	10 us
 
 	GPIOC->BSRR	=	LCD_EN_PIN_HIGH;		//	Enable pin EN ON
 
-	USER_TIM_Delay(TIM_2, TIM_PSC_10US, TIM_CNT_10US);	//	10 us
+	USER_TIM_Delay( TIM_2, TIM_PSC_10US, TIM_CNT_10US );	//	10 us
 
 	GPIOC->BSRR	=	LCD_EN_PIN_LOW;			//	Enable pin EN OFF
 
-	USER_TIM_Delay(TIM_2, TIM_PSC_1MS, TIM_CNT_1MS);	//	1 ms
+	USER_TIM_Delay( TIM_2, TIM_PSC_1MS, TIM_CNT_1MS );	//	1 ms
 }
 
 /*

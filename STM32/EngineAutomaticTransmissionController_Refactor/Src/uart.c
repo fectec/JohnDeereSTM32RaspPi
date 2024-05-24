@@ -11,6 +11,9 @@
 
 void USER_USART_Init( uint8_t USART )
 {
+  /* Only USART1 is clocked with PCLK2 (72 MHz max). Other USARTs are clocked with
+  PCLK1 (36 MHz max) */
+
   if( USART == 0 )
   {
     RCC->APB2ENR |= RCC_APB2ENR_USART1EN; 		// Clock enable for USART1
@@ -19,7 +22,7 @@ void USER_USART_Init( uint8_t USART )
     USART1->CR1	|=	 USART_CR1_UE;			// Step 1 - USART enabled
     USART1->CR1	&=	~USART_CR1_M;			// Step 2 - 8 Data bits
     USART1->CR2	&=	~USART_CR2_STOP;		// Step 3 - 1 Stop bit
-    USART1->BRR	 =	 USARTDIV;			// Step 5 - Desired baud rate
+    USART1->BRR	 =	 USARTDIV_64MHZ;		// Step 5 - Desired baud rate
     USART1->CR1	|= 	 USART_CR1_TE;			// Step 6 - Transmitter enabled
   }
   else if( USART == 1 )
@@ -30,7 +33,7 @@ void USER_USART_Init( uint8_t USART )
     USART2->CR1	|=	 USART_CR1_UE;
     USART2->CR1	&=	~USART_CR1_M;
     USART2->CR2	&=	~USART_CR2_STOP;
-    USART2->BRR	 =	 USARTDIV;
+    USART2->BRR	 =	 USARTDIV_8MHZ;
     USART2->CR1	|= 	 USART_CR1_TE;
   }
   else if( USART == 2 )
@@ -41,7 +44,7 @@ void USER_USART_Init( uint8_t USART )
     USART3->CR1	|=	 USART_CR1_UE;
     USART3->CR1	&=	~USART_CR1_M;
     USART3->CR2	&=	~USART_CR2_STOP;
-    USART3->BRR	 =	 USARTDIV;
+    USART3->BRR	 =	 USARTDIV_8MHZ;
     USART3->CR1	|= 	 USART_CR1_TE;
   }
 }

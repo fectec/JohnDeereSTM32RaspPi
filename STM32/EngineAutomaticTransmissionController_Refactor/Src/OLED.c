@@ -424,33 +424,33 @@ void USER_OLED_Animation( uint8_t I2C, char screen_buffer[OLED_SCREEN_ROWS][OLED
   USER_OLED_Clear_Buffer( screen_buffer );
   USER_OLED_Update_Buffer( JOHN_DEERE_LOGO_PIC, 0, screen_buffer );
   USER_OLED_Print_Buffer( I2C, screen_buffer );
-  USER_SYSTICK_Delay_ms( 100 );
+  USER_SYSTICK_Delay_ms( 1000 );
 
   USER_OLED_Clear_Buffer( screen_buffer );
   USER_OLED_Update_Buffer( ITESM_LOGO_PIC, 0, screen_buffer );
   USER_OLED_Print_Buffer( I2C, screen_buffer );
-  USER_SYSTICK_Delay_ms( 100 );
+  USER_SYSTICK_Delay_ms( 1000 );
 
   USER_OLED_Clear_Buffer( screen_buffer );
   USER_OLED_Clear_Buffer( screen_buffer );
   USER_OLED_Update_Buffer( STM32_LOGO_PIC, 0, screen_buffer );
   USER_OLED_Print_Buffer( I2C, screen_buffer );
-  USER_SYSTICK_Delay_ms( 100 );
+  USER_SYSTICK_Delay_ms( 1000 );
 
   USER_OLED_Clear_Buffer( screen_buffer );
   USER_OLED_Update_Buffer( RASPBERRY_PI_LOGO_PIC, 0, screen_buffer );
   USER_OLED_Print_Buffer( I2C, screen_buffer );
-  USER_SYSTICK_Delay_ms( 100 );
+  USER_SYSTICK_Delay_ms( 1000 );
 
   USER_OLED_Clear_Buffer( screen_buffer );
   USER_OLED_Update_Buffer( LINUX_LOGO_PIC, 0, screen_buffer );
   USER_OLED_Print_Buffer( I2C, screen_buffer );
-  USER_SYSTICK_Delay_ms( 100 );
+  USER_SYSTICK_Delay_ms( 1000 );
 
   USER_OLED_Blank( I2C );
   USER_OLED_Message( I2C, "TRACTOR DRIVING", OLED_SCREEN_COLUMNS / 5, OLED_SCREEN_ROWS / 3 + TEXT_ROWS_OFFSET );
   USER_OLED_Message( I2C, "SIMULATOR", OLED_SCREEN_COLUMNS / 4 + TEXT_COLUMNS_OFFSET, OLED_SCREEN_ROWS / 2 );
-  USER_SYSTICK_Delay_ms( 200 );
+  USER_SYSTICK_Delay_ms( 2000 );
 
   for(i = 0; i < LOGO_DISPLACEMENT; i++)
   {
@@ -462,7 +462,7 @@ void USER_OLED_Animation( uint8_t I2C, char screen_buffer[OLED_SCREEN_ROWS][OLED
     USER_OLED_Print_Buffer( I2C, screen_buffer );
   }
 
-  USER_SYSTICK_Delay_ms( 200 );
+  USER_SYSTICK_Delay_ms( 1000 );
   USER_OLED_Clear_Buffer( screen_buffer );
   USER_OLED_Blank( I2C );
 }

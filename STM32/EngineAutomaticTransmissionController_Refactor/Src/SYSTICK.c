@@ -22,7 +22,7 @@ void USER_SYSTICK_Init( void )
 
 void USER_SYSTICK_Delay_Millis( void )
 {
-  SYSTICK->LOAD		=	0x11940;
+  SYSTICK->LOAD		=	SYSTICK_LOAD;
   SYSTICK->VAL		=	0;
   while(!(SYSTICK->CTRL & SYSTICK_CTRL_COUNTFLAG));	// Returns 1 if timer counted to 0 since last time this was read
 }

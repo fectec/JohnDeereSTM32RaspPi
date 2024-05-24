@@ -7,9 +7,9 @@
 #include "main.h"
 #include "GPIO.h"
 
-// PB10, PB6, PB5, PB7
+// PC5, PA12, PA11, PB12
 
-uint8_t R_POSITIONS[NUMBER_OF_ELEMENTS] = {10, 6, 5, 7};
+uint8_t R_POSITIONS[NUMBER_OF_ELEMENTS] = {5, 12, 11, 12};
 
 // PB1, PB15, PB14, PB13
 
@@ -27,25 +27,25 @@ char keys[NUMBER_OF_ELEMENTS][NUMBER_OF_ELEMENTS] =
 
 void USER_MATRIX_KEYPAD_Init( void )
 {
-  // Pin PB10 (Row 1) as general purpose output push-pull, max speed 50 MHz
+  // Pin PC5 (Row 1) as general purpose output push-pull, max speed 50 MHz
 
-  USER_GPIO_Define( PORTB, 10, OUT_50, OUT_GP_PP );
-  USER_GPIO_Write( PORTB, 10, 1 );
+  USER_GPIO_Define( PORTC, 5, OUT_50, OUT_GP_PP );
+  USER_GPIO_Write( PORTC, 5, 1 );
 
-  // Pin PB6 (Row 2) as general purpose output push-pull, max speed 50 MHz
+  // Pin PA12 (Row 2) as general purpose output push-pull, max speed 50 MHz
 
-  USER_GPIO_Define( PORTB, 6, OUT_50, OUT_GP_PP );
-  USER_GPIO_Write( PORTB, 6, 1 );
+  USER_GPIO_Define( PORTA, 12, OUT_50, OUT_GP_PP );
+  USER_GPIO_Write( PORTA, 12, 1 );
 
-  // Pin PB5 (Row 3) as general purpose output push-pull, max speed 50 MHz
+  // Pin PA11 (Row 3) as general purpose output push-pull, max speed 50 MHz
 
-  USER_GPIO_Define( PORTB, 5, OUT_50, OUT_GP_PP );
-  USER_GPIO_Write( PORTB, 5, 1 );
+  USER_GPIO_Define( PORTA, 11, OUT_50, OUT_GP_PP );
+  USER_GPIO_Write( PORTA, 11, 1 );
 
-  // Pin PB7 (Row 4) as general purpose output push-pull, max speed 50 MHz
+  // Pin PB12 (Row 4) as general purpose output push-pull, max speed 50 MHz
 
-  USER_GPIO_Define( PORTB, 7, OUT_50, OUT_GP_PP );
-  USER_GPIO_Write( PORTB, 7, 1 );
+  USER_GPIO_Define( PORTB, 12, OUT_50, OUT_GP_PP );
+  USER_GPIO_Write( PORTB, 12, 1 );
 
   // Pin PB1 (Col 1) as input pull up
 
@@ -76,17 +76,39 @@ char USER_MATRIX_KEYPAD_Read( void )
 
   for (uint8_t i = 0; i < NUMBER_OF_ELEMENTS; i++)
   {
-    GPIOB->BSRR = (1 << (R_POSITIONS[i] + 16));
+    if( i == 0 )
+    {
+       GPIOC->BSRR = (1 << (R_POSITIONS[i] + 16));
+    }
+    else if( i == 3 )
+    {
+       GPIOB->BSRR = (1 << (R_POSITIONS[i] + 16));
+    }
+    else
+    {
+       GPIOA->BSRR = (1 << (R_POSITIONS[i] + 16));
+    }
 
     for (uint8_t j = 0; j < NUMBER_OF_ELEMENTS; j++)
     {
-	if ((GPIOB->IDR & (1 << C_POSITIONS[j])) == 0)
-	{
-	    selectedKey = keys[i][j];
-	}
+      if ((GPIOB->IDR & (1 << C_POSITIONS[j])) == 0)
+      {
+	  selectedKey = keys[i][j];
+      }
     }
 
-    GPIOB->BSRR = (1 << R_POSITIONS[i]);
+    if( i == 0 )
+    {
+      GPIOC->BSRR = (1 << R_POSITIONS[i]);
+    }
+    else if( i == 3 )
+    {
+      GPIOB->BSRR = (1 << R_POSITIONS[i]);
+    }
+    else
+    {
+      GPIOA->BSRR = (1 << R_POSITIONS[i]);
+    }
   }
 
   return selectedKey;

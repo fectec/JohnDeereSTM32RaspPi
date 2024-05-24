@@ -30,7 +30,7 @@ float keyBrakeTorque = 0;
 // LCD
 
 uint8_t col = 16;
-char FirstLine_LCD_MSG[LCD_CHARS + 1] = "TEST_VALUE";
+char FirstLine_LCD_MSG[LCD_CHARS + 1];
 char SecondLine_LCD_MSG[LCD_CHARS + 1];
 
 // OLED
@@ -50,24 +50,18 @@ int main( void )
   USER_RCC_ClockEnable();
   USER_TIM_Init( TIM_2 );
   USER_ADC_Init( ADC_1 );
-  USER_USART_Init( USART_2 );
+  USER_USART_Init( USART_1 );
   USER_LCD_Init();
   USER_MATRIX_KEYPAD_Init();
   USER_SYSTICK_Init();
-  USER_OLED_Init_64( I2C_1 );
+  USER_OLED_Init_64( I2C_2 );
 
-  USER_OLED_Animation( I2C_1, oled_buffer );
+  USER_OLED_Animation( I2C_2, oled_buffer );
 
   /* Loop forever */
 
   for(;;)
   {
-    // Display values on the OLED (testing)
-
-    USER_OLED_Message( I2C_1, FirstLine_LCD_MSG, 0, 0 );
-    USER_SYSTICK_Delay_ms( 100 );
-    USER_OLED_Blank( I2C_1 );
-
     // ADC
 
     conversionData = USER_ADC_Convert( ADC_1 );
@@ -77,30 +71,30 @@ int main( void )
 
     selectedKey = USER_MATRIX_KEYPAD_Read();
 
-    // printf("%f_%c\n\r", voltageValue, selectedKey);			// Debug ADC and matrix keypad
+    printf("%f_%c\n\r", voltageValue, selectedKey);			// Debug ADC and matrix keypad
 
     if(selectedKey == '5')
     {
-	keyBrakeTorque = 100.0;
-	action = 'B';
+      keyBrakeTorque = 100.0;
+      action = 'B';
     }
     else if(selectedKey == '4' || selectedKey == '6')
     {
-	voltageValue -= 1;
+      voltageValue -= 1;
 
-	if(selectedKey == '4')
-	{
-	    action = 'L';
-	}
-	else
-	{
-	    action = 'R';
-	}
+      if(selectedKey == '4')
+      {
+	action = 'L';
+      }
+      else
+      {
+	action = 'R';
+      }
     }
     else
     {
-	keyBrakeTorque = 0.0;
-	action = 'F';
+      keyBrakeTorque = 0.0;
+      action = 'F';
     }
 
     normalizedVoltageValue = scaleVoltageValue( voltageValue, 0, 3.3 );
@@ -118,7 +112,7 @@ int main( void )
 
     // Send the output values
 
-    printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
+    // printf("%f,%f,%f\n\r", EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
 
     USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );		// 40 ms delay
 
@@ -140,9 +134,9 @@ int main( void )
     // Display values on the LCD
 
     LCD_Set_Cursor( 1, 1 );
-    LCD_Put_Str( FirstLine_LCD_MSG );
+    LCD_Put_Str( "a" );
     LCD_Set_Cursor( 2, 1 );
-    LCD_Put_Str( SecondLine_LCD_MSG );
+    LCD_Put_Str( "a" );
 
     USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );		// 200 ms delay
   }
@@ -152,7 +146,7 @@ int main( void )
 void USER_RCC_ClockEnable( void )
 {
   /* System Clock (SYSCLK) configuration for 64 MHz */
-  /*
+
   // Two wait states latency, if SYSCLK > 48 MHz
 
   FLASH->ACR	&=	~( 0x5UL << 0U );	
@@ -183,5 +177,4 @@ void USER_RCC_ClockEnable( void )
   // Wait until PLL is switched
 
   while( 0x8UL != ( RCC->CFGR & 0xCUL ));
-  */
 }
