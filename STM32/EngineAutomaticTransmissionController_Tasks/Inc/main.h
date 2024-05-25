@@ -243,18 +243,12 @@ typedef struct
 #define FLASH_BASE	0x40022000UL			// FLASH base address
 #define FLASH	(( FLASH_TypeDef *) FLASH_BASE )
 
-// Functions
+// Time measuring
 
-void TASK_1_ADC_Read_Init( void );
-void TASK_2_MATRIX_KEYPAD_Read_Init( void );
-void TASK_3_MODEL_Feed_Init( void );
-void TASK_4_USART_Send_Init( void );
-void TASK_5_LCD_Write_Init( void );
-
-void TASK_1_ADC_Read( void );
-void TASK_2_MATRIX_KEYPAD_Read( void );
-void TASK_3_MODEL_Feed( void );
-void TASK_4_USART_Send( void );
-void TASK_6_LCD_Write( void );
+#define SYSCLK             64000000
+#define T_HCLK             ( 1.0 / SYSCLK )
+#define TIM_TIME_1S        1.0
+#define TIM_PRESC_1S       ( ceil( TIM_TIME_1S / ( T_HCLK * (( 65535 + 1) - 0 ))) - 1 )
+#define TIM_INIT_COUNT_1S  (( 65535 + 1 ) - ( round( TIM_TIME_1S / ( T_HCLK * ( TIM_PRESC_1S + 1 )))))
 
 #endif /* MAIN_H_ */

@@ -37,45 +37,129 @@ char SecondLine_LCD_MSG[LCD_CHARS + 1];
 
 char oled_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS];
 
+// Time measuring
+
+float time;
+uint16_t start, end, total;
+
 /* Function prototypes */
 
 void USER_RCC_ClockEnable( void );
+void USER_TIM4_Init_Timer( void );
+
+void TASK_1_ADC_Read_Init( void );
+void TASK_2_MATRIX_KEYPAD_Read_Init( void );
+void TASK_3_MODEL_Feed_Init( void );
+void TASK_4_USART_Send_Init( void );
+void TASK_5_LCD_Write_Init( void );
+
+void TASK_1_ADC_Read( void );
+void TASK_2_MATRIX_KEYPAD_Read( void );
+void TASK_3_MODEL_Feed( void );
+void TASK_4_USART_Send( void );
+void TASK_5_LCD_Write( void );
 
 /* Main function */
 
 int main( void )
 {
-  TASK_1_ADC_Read_Init();
-  TASK_2_MATRIX_KEYPAD_Read_Init();
-  TASK_3_MODEL_Feed_Init();
-  TASK_4_USART_Send_Init();
-  TASK_5_LCD_Write_Init();
+  USER_TIM_Init( TIM_2 );
+  USER_TIM4_Init_Timer();
+  USER_USART_Init( USART_1 );
 
   /* Loop forever */
 
   for(;;)
   {
-    // ADC
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_1_ADC_Read_Init();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("ADC Init Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    TASK_1_ADC_Read();
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_1_ADC_Read();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("ADC Read Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    // Matrix keypad
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_2_MATRIX_KEYPAD_Read_Init();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("Matrix Init Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    TASK_2_MATRIX_KEYPAD_Read();
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_2_MATRIX_KEYPAD_Read();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("Matrix Read Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    // Update the values for the Throttle and Brake commands into the vehicle model
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_3_MODEL_Feed_Init();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("Model Init Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    TASK_3_MODEL_Feed();
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_3_MODEL_Feed();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("Model Feed Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    // Send the output values
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_4_USART_Send_Init();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("USART Init Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    TASK_4_USART_Send();
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_4_USART_Send();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("USART Send Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    /* Extract the whole and decimal parts for Engine Speed and Vehicle Speed, and cast them alongside Gear to integers
-    Write the messages to send to the LCD
-    Display values on the LCD */
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_5_LCD_Write_Init();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("LCD Init Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
-    TASK_6_LCD_Write();
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_5_LCD_Write();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("LCD Write Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
   }
 
 }
@@ -116,18 +200,12 @@ void USER_RCC_Init( void )
   while( 0x8UL != ( RCC->CFGR & 0xCUL ));
 }
 
-void TASK_1_MODEL_RCC_TIM_Init( void )
-{
-  EngTrModel_initialize();
-
-  return;
-}
-
 void TASK_1_ADC_Read_Init( void )
 {
   USER_RCC_Init();
   USER_TIM_Init( TIM_2 );
   USER_ADC_Init( ADC_1 );
+
   return;
 }
 
@@ -152,11 +230,6 @@ void TASK_4_USART_Send_Init( void )
 void TASK_5_LCD_Write_Init( void )
 {
   USER_LCD_Init();
-
-  USER_SYSTICK_Init();
-  USER_OLED_Init_64( I2C_2 );
-  USER_OLED_Animation( I2C_2, oled_buffer );
-
   return;
 }
 
@@ -208,8 +281,6 @@ void TASK_3_MODEL_Feed( void )
 
   EngTrModel_step();
 
-  USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );		// 40 ms delay
-
   return;
 }
 
@@ -220,7 +291,7 @@ void TASK_4_USART_Send( void )
   return;
 }
 
-void TASK_6_LCD_Write( void )
+void TASK_5_LCD_Write( void )
 {
   int EngineSpeedWhole = (int)( EngTrModel_Y.EngineSpeed );
   int EngineSpeedDecimal = (int)( ( EngTrModel_Y.EngineSpeed - EngineSpeedWhole ) * 100 );
@@ -238,7 +309,18 @@ void TASK_6_LCD_Write( void )
   LCD_Set_Cursor( 2, 1 );
   LCD_Put_Str( SecondLine_LCD_MSG );
 
-  USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );		// 200 ms delay
-
   return;
+}
+
+void USER_TIM4_Init_Timer( void ){
+    RCC->APB1ENR	|=	RCC_APB1ENR_TIM4EN;
+    TIM4->SMCR &=  ~( 0x7UL <<  0U );//   select internal clock
+    TIM4->CR1  &=  ~( 0x3UL <<  5U )//    edge-aligned mode
+               &   ~( 0x1UL <<  4U )//    upcounter
+               &   ~( 0x1UL <<  1U );//   update event (UEV) enabled
+    TIM4->PSC   =    0;   //
+    TIM4->EGR  |=   ( 0x1UL <<  0U );//   update the prescaler
+    TIM4->CNT   =    0;//                 clear count
+    TIM4->SR   &=  ~( 0x1UL <<  0U );//   clear TIM overflow-event flag
+    TIM4->CR1  |=   ( 0x1UL <<  0U );//   timer enabled
 }
