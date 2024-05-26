@@ -47,14 +47,14 @@ uint16_t start, end, total;
 void USER_RCC_ClockEnable( void );
 void USER_TIM4_Init_Timer( void );
 
-void TASK_1_ADC_Read_Init( void );
-void TASK_2_MATRIX_KEYPAD_Read_Init( void );
+void TASK_1_MATRIX_KEYPAD_Read_Init( void );
+void TASK_2_ADC_Read_Init( void );
 void TASK_3_MODEL_Feed_Init( void );
 void TASK_4_USART_Send_Init( void );
 void TASK_5_LCD_Write_Init( void );
 
-void TASK_1_ADC_Read( void );
-void TASK_2_MATRIX_KEYPAD_Read( void );
+void TASK_1_MATRIX_KEYPAD_Read( void );
+void TASK_2_ADC_Read( void );
 void TASK_3_MODEL_Feed( void );
 void TASK_4_USART_Send( void );
 void TASK_5_LCD_Write( void );
@@ -73,25 +73,7 @@ int main( void )
   {
       TIM4->CNT = 0;
       start = TIM4->CNT;
-      TASK_1_ADC_Read_Init();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("ADC Init Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
-      TASK_1_ADC_Read();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("ADC Read Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
-      TASK_2_MATRIX_KEYPAD_Read_Init();
+      TASK_1_MATRIX_KEYPAD_Read_Init();
       end = TIM4->CNT;
       total = end - start;
       time = T_HCLK * total * ( TIM4->PSC + 1);
@@ -100,11 +82,29 @@ int main( void )
 
       TIM4->CNT = 0;
       start = TIM4->CNT;
-      TASK_2_MATRIX_KEYPAD_Read();
+      TASK_1_MATRIX_KEYPAD_Read();
       end = TIM4->CNT;
       total = end - start;
       time = T_HCLK * total * ( TIM4->PSC + 1);
       printf("Matrix Read Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
+
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_2_ADC_Read_Init();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("ADC Init Time is: %f\r\n", time);
+      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
+
+      TIM4->CNT = 0;
+      start = TIM4->CNT;
+      TASK_2_ADC_Read();
+      end = TIM4->CNT;
+      total = end - start;
+      time = T_HCLK * total * ( TIM4->PSC + 1);
+      printf("ADC Read Time is: %f\r\n", time);
       USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
 
       TIM4->CNT = 0;
@@ -200,18 +200,31 @@ void USER_RCC_Init( void )
   while( 0x8UL != ( RCC->CFGR & 0xCUL ));
 }
 
-void TASK_1_ADC_Read_Init( void )
+void USER_TIM4_Init_Timer( void ){
+    RCC->APB1ENR	|=	RCC_APB1ENR_TIM4EN;
+    TIM4->SMCR &=  ~( 0x7UL <<  0U );
+    TIM4->CR1  &=  ~( 0x3UL <<  5U )
+               &   ~( 0x1UL <<  4U )
+               &   ~( 0x1UL <<  1U );
+    TIM4->PSC   =    0;
+    TIM4->EGR  |=   ( 0x1UL <<  0U );
+    TIM4->CNT   =    0;
+    TIM4->SR   &=  ~( 0x1UL <<  0U );
+    TIM4->CR1  |=   ( 0x1UL <<  0U );
+}
+
+void TASK_1_MATRIX_KEYPAD_Read_Init( void )
+{
+  USER_MATRIX_KEYPAD_Init();
+  return;
+}
+
+void TASK_2_ADC_Read_Init( void )
 {
   USER_RCC_Init();
   USER_TIM_Init( TIM_2 );
   USER_ADC_Init( ADC_1 );
 
-  return;
-}
-
-void TASK_2_MATRIX_KEYPAD_Read_Init( void )
-{
-  USER_MATRIX_KEYPAD_Init();
   return;
 }
 
@@ -233,17 +246,7 @@ void TASK_5_LCD_Write_Init( void )
   return;
 }
 
-void TASK_1_ADC_Read( void )
-{
-  conversionData = USER_ADC_Convert( ADC_1 );
-  voltageValue = 0.00080586 * conversionData;
-
-  normalizedVoltageValue = scaleVoltageValue( voltageValue, 0, 3.3 );
-
-  return;
-}
-
-void TASK_2_MATRIX_KEYPAD_Read( void )
+void TASK_1_MATRIX_KEYPAD_Read( void )
 {
   selectedKey = USER_MATRIX_KEYPAD_Read();
 
@@ -254,15 +257,15 @@ void TASK_2_MATRIX_KEYPAD_Read( void )
   }
   else if(selectedKey == '4' || selectedKey == '6')
   {
-    voltageValue -= 1;
+    keyBrakeTorque = 50.0;
 
     if(selectedKey == '4')
     {
-    action = 'L';
+	action = 'L';
     }
     else
     {
-    action = 'R';
+	action = 'R';
     }
   }
   else
@@ -270,6 +273,16 @@ void TASK_2_MATRIX_KEYPAD_Read( void )
     keyBrakeTorque = 0.0;
     action = 'F';
   }
+
+  return;
+}
+
+void TASK_2_ADC_Read( void )
+{
+  conversionData = USER_ADC_Convert( ADC_1 );
+  voltageValue = 0.00080586 * conversionData;
+
+  normalizedVoltageValue = scaleVoltageValue( voltageValue, 0, 3.3 );
 
   return;
 }
@@ -310,17 +323,4 @@ void TASK_5_LCD_Write( void )
   LCD_Put_Str( SecondLine_LCD_MSG );
 
   return;
-}
-
-void USER_TIM4_Init_Timer( void ){
-    RCC->APB1ENR	|=	RCC_APB1ENR_TIM4EN;
-    TIM4->SMCR &=  ~( 0x7UL <<  0U );//   select internal clock
-    TIM4->CR1  &=  ~( 0x3UL <<  5U )//    edge-aligned mode
-               &   ~( 0x1UL <<  4U )//    upcounter
-               &   ~( 0x1UL <<  1U );//   update event (UEV) enabled
-    TIM4->PSC   =    0;   //
-    TIM4->EGR  |=   ( 0x1UL <<  0U );//   update the prescaler
-    TIM4->CNT   =    0;//                 clear count
-    TIM4->SR   &=  ~( 0x1UL <<  0U );//   clear TIM overflow-event flag
-    TIM4->CR1  |=   ( 0x1UL <<  0U );//   timer enabled
 }
