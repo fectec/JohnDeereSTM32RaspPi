@@ -1,6 +1,6 @@
 # John Deere STM32 & Raspberry Pi
 
-Main project in collaboration with *John Deere* for the undergrad course “**System Design on Chip**”, which delves mainly into *SoCs*, *Computer Architecture and Organization*, *Bare Metal Programming* and *Embedded Linux*.
+Main project in collaboration with *John Deere* for the undergrad course “**System Design on Chip**”, which delves mainly into *SoCs*, *Computer Architecture and Organization*, *Bare Metal Programming*, *Real-Time Operating Systems* and *Embedded Linux*.
 
 <p align="center">
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/a2e3f5e0-a5d1-4a21-a7a1-1e9dee4edf54" alt = "NUCLEO-F103RB & Raspberry Pi 3 Model B"/>
