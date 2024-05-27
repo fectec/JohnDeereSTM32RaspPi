@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .comment      00000043  00000000  00000000  00020221  2**0
                   CONTENTS, READONLY
- 13 .debug_info   00003745  00000000  00000000  00020264  2**0
+ 13 .debug_info   000035ec  00000000  00000000  00020264  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00001202  00000000  00000000  000239a9  2**0
+ 14 .debug_abbrev 000011ff  00000000  00000000  00023850  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 000003d0  00000000  00000000  00024bb0  2**3
+ 15 .debug_aranges 000003c8  00000000  00000000  00024a50  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 0000029d  00000000  00000000  00024f80  2**0
+ 16 .debug_rnglists 00000297  00000000  00000000  00024e18  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  000040f9  00000000  00000000  0002521d  2**0
+ 17 .debug_macro  000040f9  00000000  00000000  000250af  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00005b07  00000000  00000000  00029316  2**0
+ 18 .debug_line   00005ad7  00000000  00000000  000291a8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    0000c38a  00000000  00000000  0002ee1d  2**0
+ 19 .debug_str    0000c369  00000000  00000000  0002ec7f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  000024f4  00000000  00000000  0003b1a8  2**2
+ 20 .debug_frame  000024d4  00000000  00000000  0003afe8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000092  00000000  00000000  0003d69c  2**0
+ 21 .debug_line_str 00000092  00000000  00000000  0003d4bc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -4689,7 +4689,7 @@ int main( void )
   TASK_1_MATRIX_KEYPAD_Read_Init();
  800287c:	f000 f85c 	bl	8002938 <TASK_1_MATRIX_KEYPAD_Read_Init>
   TASK_2_ADC_Read_Init();
- 8002880:	f000 f860 	bl	8002944 <TASK_2_ADC_Read_Init>
+ 8002880:	f000 f865 	bl	800294e <TASK_2_ADC_Read_Init>
   TASK_3_MODEL_Feed_Init();
  8002884:	f000 f86a 	bl	800295c <TASK_3_MODEL_Feed_Init>
   TASK_4_USART_Send_Init();
@@ -4814,32 +4814,29 @@ void USER_RCC_Init( void )
  8002934:	40021000 	.word	0x40021000
 
 08002938 <TASK_1_MATRIX_KEYPAD_Read_Init>:
-    TIM4->SR   &=  ~( 0x1UL <<  0U );
-    TIM4->CR1  |=   ( 0x1UL <<  0U );
-}
 
 void TASK_1_MATRIX_KEYPAD_Read_Init( void )
 {
  8002938:	b580      	push	{r7, lr}
  800293a:	af00      	add	r7, sp, #0
+  USER_RCC_Init();
+ 800293c:	f7ff ffb4 	bl	80028a8 <USER_RCC_Init>
+  USER_TIM_Init( TIM_2 );
+ 8002940:	2000      	movs	r0, #0
+ 8002942:	f000 fcd5 	bl	80032f0 <USER_TIM_Init>
   USER_MATRIX_KEYPAD_Init();
- 800293c:	f000 f96c 	bl	8002c18 <USER_MATRIX_KEYPAD_Init>
+ 8002946:	f000 f967 	bl	8002c18 <USER_MATRIX_KEYPAD_Init>
   return;
- 8002940:	bf00      	nop
+ 800294a:	bf00      	nop
 }
- 8002942:	bd80      	pop	{r7, pc}
+ 800294c:	bd80      	pop	{r7, pc}
 
-08002944 <TASK_2_ADC_Read_Init>:
+0800294e <TASK_2_ADC_Read_Init>:
 
 void TASK_2_ADC_Read_Init( void )
 {
- 8002944:	b580      	push	{r7, lr}
- 8002946:	af00      	add	r7, sp, #0
-  USER_RCC_Init();
- 8002948:	f7ff ffae 	bl	80028a8 <USER_RCC_Init>
-  USER_TIM_Init( TIM_2 );
- 800294c:	2000      	movs	r0, #0
- 800294e:	f000 fccf 	bl	80032f0 <USER_TIM_Init>
+ 800294e:	b580      	push	{r7, lr}
+ 8002950:	af00      	add	r7, sp, #0
   USER_ADC_Init( ADC_1 );
  8002952:	2000      	movs	r0, #0
  8002954:	f7fe fbae 	bl	80010b4 <USER_ADC_Init>

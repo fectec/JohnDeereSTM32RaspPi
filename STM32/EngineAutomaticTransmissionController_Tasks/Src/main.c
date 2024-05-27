@@ -37,15 +37,9 @@ char SecondLine_LCD_MSG[LCD_CHARS + 1];
 
 char oled_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS];
 
-// Time measuring
-
-float time;
-uint16_t start, end, total;
-
 /* Function prototypes */
 
-void USER_RCC_ClockEnable( void );
-void USER_TIM4_Init_Timer( void );
+void USER_RCC_Init( void );
 
 void TASK_1_MATRIX_KEYPAD_Read_Init( void );
 void TASK_2_ADC_Read_Init( void );
@@ -117,29 +111,16 @@ void USER_RCC_Init( void )
   while( 0x8UL != ( RCC->CFGR & 0xCUL ));
 }
 
-void USER_TIM4_Init_Timer( void ){
-    RCC->APB1ENR	|=	RCC_APB1ENR_TIM4EN;
-    TIM4->SMCR &=  ~( 0x7UL <<  0U );
-    TIM4->CR1  &=  ~( 0x3UL <<  5U )
-               &   ~( 0x1UL <<  4U )
-               &   ~( 0x1UL <<  1U );
-    TIM4->PSC   =    0;
-    TIM4->EGR  |=   ( 0x1UL <<  0U );
-    TIM4->CNT   =    0;
-    TIM4->SR   &=  ~( 0x1UL <<  0U );
-    TIM4->CR1  |=   ( 0x1UL <<  0U );
-}
-
 void TASK_1_MATRIX_KEYPAD_Read_Init( void )
 {
+  USER_RCC_Init();
+  USER_TIM_Init( TIM_2 );
   USER_MATRIX_KEYPAD_Init();
   return;
 }
 
 void TASK_2_ADC_Read_Init( void )
 {
-  USER_RCC_Init();
-  USER_TIM_Init( TIM_2 );
   USER_ADC_Init( ADC_1 );
 
   return;
