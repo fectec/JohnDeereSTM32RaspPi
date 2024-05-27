@@ -63,105 +63,22 @@ void TASK_5_LCD_Write( void );
 
 int main( void )
 {
-  USER_TIM_Init( TIM_2 );
-  USER_TIM4_Init_Timer();
-  USER_USART_Init( USART_1 );
+  TASK_1_MATRIX_KEYPAD_Read_Init();
+  TASK_2_ADC_Read_Init();
+  TASK_3_MODEL_Feed_Init();
+  TASK_4_USART_Send_Init();
+  TASK_5_LCD_Write_Init();
 
   /* Loop forever */
 
   for(;;)
   {
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
-      TASK_1_MATRIX_KEYPAD_Read_Init();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("Matrix Init Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
       TASK_1_MATRIX_KEYPAD_Read();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("Matrix Read Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
-      TASK_2_ADC_Read_Init();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("ADC Init Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
       TASK_2_ADC_Read();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("ADC Read Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
-      TASK_3_MODEL_Feed_Init();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("Model Init Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
       TASK_3_MODEL_Feed();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("Model Feed Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
-      TASK_4_USART_Send_Init();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("USART Init Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
       TASK_4_USART_Send();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("USART Send Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
-      TASK_5_LCD_Write_Init();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("LCD Init Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
-
-      TIM4->CNT = 0;
-      start = TIM4->CNT;
       TASK_5_LCD_Write();
-      end = TIM4->CNT;
-      total = end - start;
-      time = T_HCLK * total * ( TIM4->PSC + 1);
-      printf("LCD Write Time is: %f\r\n", time);
-      USER_TIM_Delay( TIM_2, TIM_PSC_1S, TIM_CNT_1S );
   }
-
 }
 
 void USER_RCC_Init( void )
@@ -294,6 +211,8 @@ void TASK_3_MODEL_Feed( void )
 
   EngTrModel_step();
 
+  USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );
+
   return;
 }
 
@@ -321,6 +240,8 @@ void TASK_5_LCD_Write( void )
   LCD_Put_Str( FirstLine_LCD_MSG );
   LCD_Set_Cursor( 2, 1 );
   LCD_Put_Str( SecondLine_LCD_MSG );
+
+  USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );
 
   return;
 }
