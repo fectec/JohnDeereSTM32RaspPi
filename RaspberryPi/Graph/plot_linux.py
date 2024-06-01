@@ -28,20 +28,23 @@ for i in range(plot_settings.NUMBER_OF_VARIABLES):
 for i in range(plot_settings.NUMBER_OF_VARIABLES):
   axes[i].set_xlim(0, plot_settings.X_RANGE)
 
-axes[0].set_ylabel('Engine Speed')
-axes[0].set_ylim(plot_settings.ENGINE_SPEED_BOUNDS[0] - plot_settings.ENGINE_SPEED_BOUNDS[0], plot_settings.ENGINE_SPEED_BOUNDS[1] + plot_settings.ENGINE_SPEED_BOUNDS[0])
+axes[0].set_ylabel('Throttle')
+axes[0].set_ylim(plot_settings.THROTTLE_BOUNDS[0] - plot_settings.THROTTLE_BOUNDS[0], plot_settings.THROTTLE_BOUNDS[1] + plot_settings.THROTTLE_BOUNDS[0])
 
-axes[1].set_ylabel('Vehicle Speed')
-axes[1].set_ylim(plot_settings.VEHICLE_SPEED_BOUNDS[0] - plot_settings.VEHICLE_SPEED_BOUNDS[0], plot_settings.VEHICLE_SPEED_BOUNDS[1] + plot_settings.VEHICLE_SPEED_BOUNDS[0])
+axes[1].set_ylabel('Engine Speed')
+axes[1].set_ylim(plot_settings.ENGINE_SPEED_BOUNDS[0] - plot_settings.ENGINE_SPEED_BOUNDS[0], plot_settings.ENGINE_SPEED_BOUNDS[1] + plot_settings.ENGINE_SPEED_BOUNDS[0])
 
-axes[2].set_ylabel('Gear')
-axes[2].set_ylim(plot_settings.GEAR_BOUNDS[0] - plot_settings.GEAR_BOUNDS[0], plot_settings.GEAR_BOUNDS[1] + plot_settings.GEAR_BOUNDS[0])
+axes[2].set_ylabel('Vehicle Speed')
+axes[2].set_ylim(plot_settings.VEHICLE_SPEED_BOUNDS[0] - plot_settings.VEHICLE_SPEED_BOUNDS[0], plot_settings.VEHICLE_SPEED_BOUNDS[1] + plot_settings.VEHICLE_SPEED_BOUNDS[0])
+
+axes[3].set_ylabel('Gear')
+axes[3].set_ylim(plot_settings.GEAR_BOUNDS[0] - plot_settings.GEAR_BOUNDS[0], plot_settings.GEAR_BOUNDS[1] + plot_settings.GEAR_BOUNDS[0])
 
 # Create CSV file
 
 with open(plot_settings.CSV_FILE_PATH, mode = 'w', newline = '') as file:
     writer = csv.writer(file)
-    writer.writerow(['Engine Speed', 'Vehicle Speed', 'Gear'])
+    writer.writerow(['Throttle', 'Engine Speed', 'Vehicle Speed', 'Gear'])
 
 # Instantiate Serial object
 
@@ -61,25 +64,26 @@ def run_plot(frame):
 
   # Check if all values are received
 
-  if len(values) == 3:
+  if len(values) == 4:
       
     print("Data received: ", rx_data)
 
     # Assign values to variables
 
-    engine_speed = float(values[0])
-    vehicle_speed = float(values[1])
-    gear = float(values[2])
+    throttle = float(values[0])
+    engine_speed = float(values[1])
+    vehicle_speed = float(values[2])
+    gear = float(values[3])
 
     # Write values to CSV
 
     with open(plot_settings.CSV_FILE_PATH, mode = 'a', newline = '') as file:
       writer = csv.writer(file)
-      writer.writerow([engine_speed, vehicle_speed, gear])
+      writer.writerow([throttle, engine_speed, vehicle_speed, gear])
 
     # Add new values to parameters values matrix
 
-    new_row = np.array([engine_speed, vehicle_speed, gear])
+    new_row = np.array([throttle, engine_speed, vehicle_speed, gear])
     parameters_values = np.vstack([parameters_values, new_row])
 
     # Limit parameters values matrix to set number of items
@@ -97,6 +101,7 @@ def run_plot(frame):
 
     print("Incomplete data received: ", rx_data)
 
+    throttle = 0
     engine_speed = 0
     vehicle_speed = 0
     gear = 0
