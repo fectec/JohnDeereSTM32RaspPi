@@ -1,13 +1,16 @@
-# Code divided into three threads, 
-# one reads the serial port,
-# the second writes to the CSV
-# and the other plots
-# The serial port reading thread
-# puts the data into a queue
-# The remaining threads retrieve
-# the data intanstaneoly to perform
-# their duty
-# Since tasks are 
+""" 
+Code divided into three threads, 
+one reads the serial port,
+the second writes to the CSV file
+and the other plots.
+The serial port reading thread
+puts the data into a queue.
+The remaining threads retrieve
+the data instantaneously to perform
+their duty.
+Since tasks are simultaneous, 
+they can't block each other.
+"""
 
 # Library imports
 
