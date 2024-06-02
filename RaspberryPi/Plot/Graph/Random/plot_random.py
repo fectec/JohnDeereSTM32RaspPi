@@ -105,3 +105,6 @@ def run_plot():
     frame += 1
 
     return fig
+
+if __name__ == "__main__":
+  run_plot()

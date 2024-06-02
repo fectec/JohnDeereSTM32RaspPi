@@ -64,23 +64,18 @@ def run_plot():
   # Check if all values are received
 
   if len(values) == 4:
-      
-    # Assign values to variables
 
-    throttle = float(values[0])
-    engine_speed = float(values[1])
-    vehicle_speed = float(values[2])
-    gear = float(values[3])
+    print("Data received: ", rx_data)
 
     # Write values to CSV
 
     with open(set.CSV_FILE_PATH, mode = 'a', newline = '') as file:
       writer = csv.writer(file)
-      writer.writerow([throttle, engine_speed, vehicle_speed, gear])
+      writer.writerow([float(value) for value in values])
 
     # Add new values to parameters values matrix
 
-    new_row = np.array([throttle, engine_speed, vehicle_speed, gear])
+    new_row = np.array([float(value) for value in values])
     parameters_values = np.vstack([parameters_values, new_row])
 
     # Limit parameters values matrix to set number of items
@@ -97,13 +92,8 @@ def run_plot():
     # Handle the case when all values are not received properly
 
     print("Incomplete data received: ", rx_data)
-    
-    throttle = 0
-    engine_speed = 0
-    vehicle_speed = 0
-    gear = 0
 
   return fig
 
 if __name__ == "__main__":
-    run_plot()
+  run_plot()
