@@ -1,3 +1,14 @@
+# Code divided into three threads, 
+# one reads the serial port,
+# the second writes to the CSV
+# and the other plots
+# The serial port reading thread
+# puts the data into a queue
+# The remaining threads retrieve
+# the data intanstaneoly to perform
+# their duty
+# Since tasks are 
+
 # Library imports
 
 import numpy as np
@@ -16,10 +27,6 @@ import plot_serial_settings as set
 
 import threading
 import queue
-
-# Added - Queue for communication between threads 
-
-data_queue = queue.Queue()
 
 # Added - Function for receiving data
   
@@ -118,7 +125,7 @@ def update_plot(frame):
     new_row = np.array([float(value) for value in values])
     parameters_values = np.vstack([parameters_values, new_row])
 
-      # Limit parameters values matrix to set number of items
+    # Limit parameters values matrix to set number of items
 
     parameters_values = parameters_values[-set.X_RANGE : , :]
 
@@ -162,6 +169,10 @@ axes[2].set_ylim(set.VEHICLE_SPEED_BOUNDS[0] - set.VEHICLE_SPEED_BOUNDS[0], set.
 axes[3].set_ylabel('Gear')
 axes[3].set_ylim(set.GEAR_BOUNDS[0] - set.GEAR_BOUNDS[0], set.GEAR_BOUNDS[1] + set.GEAR_BOUNDS[0])
 
+# Added - Queue for communication between threads 
+
+data_queue = queue.Queue()
+
 # Added - Start threads
 
 receive_thread = threading.Thread(target=receive_data)
@@ -174,5 +185,5 @@ receive_thread.start()
 store_csv_thread.start()
 
 if __name__ == "__main__":
-  ani = FuncAnimation(fig, update_plot, interval=50, blit=True)
+  ani = FuncAnimation(fig, update_plot, interval=50, blit=True, cache_frame_data=False)
   plt.show()
