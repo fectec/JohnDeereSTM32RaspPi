@@ -110,6 +110,23 @@ int main( void )
 
     EngTrModel_step();
 
+    // Sanitize the values
+
+    if(isnan(EngTrModel_Y.EngineSpeed) || EngTrModel_Y.EngineSpeed < 0)
+    {
+      EngTrModel_Y.EngineSpeed = 0.0;
+    }
+
+    if(isnan(EngTrModel_Y.VehicleSpeed) || EngTrModel_Y.VehicleSpeed < 0 || EngTrModel_Y.VehicleSpeed > 200)
+    {
+      EngTrModel_Y.VehicleSpeed = 0.0;
+    }
+
+    if(isnan(EngTrModel_Y.Gear) || EngTrModel_Y.Gear < 0)
+    {
+      EngTrModel_Y.Gear = 0.0;
+    }
+
     // Send the output values
 
     printf("%f,%f,%f,%f\n\r", normalizedVoltageValue, EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);

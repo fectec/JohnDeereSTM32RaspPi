@@ -33,7 +33,7 @@ void LCD_Data_Out4( uint8_t val );
 void LCD_Write_Byte( uint8_t val );
 void LCD_Write_Cmd( uint8_t val );
 void LCD_Put_Char( uint8_t c );
-void LCD_Init( void );
+void USER_LCD_Init( void );
 void LCD_Set_Cursor( uint8_t line, uint8_t column );
 void LCD_Put_Str( char * str );
 void LCD_Put_Num( int16_t num );
