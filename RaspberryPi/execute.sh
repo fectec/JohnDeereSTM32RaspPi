@@ -19,6 +19,6 @@ source "$HOME/.venv/bin/activate"                                               
 
 cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Graph/RPi         # Change directory to the location of the 'plot_RPi.py' Python script (modify if needed)
 
-python3 plot_RPi_optimized.py                                                   # Run the Python script named 'plot_RPi.py'
+python3 plot_RPi.py                                                             # Run the Python script named 'plot_RPi.py'
 
 deactivate                                                                      # Deactivate the virtual environment
