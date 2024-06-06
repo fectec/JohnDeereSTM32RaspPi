@@ -33,7 +33,7 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 </p>
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/08059766-1b59-4c4f-96af-64771a6bc9fc" alt = "Micro Servo Output" width="200" height="250"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/08059766-1b59-4c4f-96af-64771a6bc9fc" alt = "Micro Servo Output" width="200" height="210"/>
 </p>
 
 <p align="center">
@@ -84,4 +84,4 @@ The *I2C internal peripheral* was configured to communicate with a *128x64 OLED 
 
 ## Bonus - PWM for Micro Servo
 
-A *TIM internal peripheral* was used to generate a *PWM signal* and control a *Micro Servo*, simulating the movement of the steering wheel. 
+A *TIM internal peripheral* was used to generate a *PWM signal* and control a *Micro Servo*, simulating the movement of the tractor's steering wheel. 
