@@ -1,5 +1,5 @@
 /*
- * matrixkeyboard.h
+ * MATRIX_KEYPAD.h
  */
 
 #ifndef MATRIX_KEYPAD_H_

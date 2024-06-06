@@ -13,4 +13,4 @@
 ../Src/OLED.c:209:6:USER_OLED_Update_String_Buffer	40	static
 ../Src/OLED.c:245:6:USER_OLED_Print_Buffer	24	static
 ../Src/OLED.c:262:6:USER_OLED_Update_Buffer_Bit	72	static
-../Src/OLED.c:396:6:USER_OLED_Animation	1048	static
+../Src/OLED.c:396:6:USER_OLED_Animation	920	static

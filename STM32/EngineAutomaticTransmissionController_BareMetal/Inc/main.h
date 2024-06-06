@@ -5,11 +5,6 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-/* Model's header file */
-
-#include "EngTrModel.h"         
-#include "rtwtypes.h"
-
 /* Reset and Clock Control registers */
 
 typedef struct
@@ -144,12 +139,31 @@ typedef struct
   volatile uint32_t WRPR;
 } FLASH_TypeDef;
 
+/* Nested Vector Interrupt Controller registers */
+
+typedef struct
+{
+  volatile uint32_t ISER[3U];
+  volatile uint32_t RESERVED0[29U];
+  volatile uint32_t ICER[3U];
+  volatile uint32_t RESERVED1[29U];
+  volatile uint32_t ISPR[3U];
+  volatile uint32_t RESERVED2[29U];
+  volatile uint32_t ICPR[3U];
+  volatile uint32_t RESERVED3[29U];
+  volatile uint32_t IABR[3U];
+  volatile uint32_t RESERVED4[61U];
+  volatile uint32_t IPR[84U];
+  volatile uint32_t RESERVED5[683U];
+  volatile uint32_t STIR;
+} NVIC_TypeDef;
+
 // RCC
 
-#define RCC_BASE	0x40021000UL			// RCC base address
+#define RCC_BASE	0x40021000UL				// RCC base address
 #define RCC	(( RCC_TypeDef *) RCC_BASE)
 
-#define RCC_APB2ENR_IOPAEN	0x1UL << 2U		// GPIO Ports Clock Enable
+#define RCC_APB2ENR_IOPAEN	0x1UL << 2U			// GPIO Ports Clock Enable
 #define RCC_APB2ENR_IOPBEN	0x1UL << 3U
 #define RCC_APB2ENR_IOPCEN	0x1UL << 4U
 #define RCC_APB2ENR_IOPDEN	0x1UL << 5U
@@ -157,33 +171,33 @@ typedef struct
 #define RCC_APB2ENR_IOPFEN	0x1UL << 7U
 #define RCC_APB2ENR_IOPGEN	0x1UL << 8U
 
-#define RCC_APB1ENR_TIM2EN	0x1UL << 0U		// TIM Clock Enable
+#define RCC_APB1ENR_TIM2EN	0x1UL << 0U			// TIM Clock Enable
 #define RCC_APB1ENR_TIM3EN	0x1UL << 1U
 #define RCC_APB1ENR_TIM4EN	0x1UL << 2U
 #define RCC_APB1ENR_TIM5EN	0x1UL << 3U
 
-#define RCC_APB2ENR_ADC1EN	0x1UL << 9U		// ADC Clock Enable
+#define RCC_APB2ENR_ADC1EN	0x1UL << 9U			// ADC Clock Enable
 #define RCC_APB2ENR_ADC2EN	0x1UL << 10U
 #define RCC_APB2ENR_ADC3EN	0x1UL << 15U
 #define RCC_CFGR_ADCPRE		0x3UL << 14U
 
-#define RCC_APB2ENR_USART1EN	0x1UL << 14U		// USART Clock Enable
+#define RCC_APB2ENR_USART1EN	0x1UL << 14U			// USART Clock Enable
 #define RCC_APB1ENR_USART2EN	0x1UL << 17U
 #define RCC_APB1ENR_USART3EN	0x1UL << 18U
 
-#define RCC_APB1ENR_I2C1EN	0x1UL << 21U		// I2C Clock Enable
+#define RCC_APB1ENR_I2C1EN	0x1UL << 21U			// I2C Clock Enable
 #define RCC_APB1ENR_I2C2EN	0x1UL << 22U
 #define RCC_APB2ENR_AFIOEN	0x1UL << 0U
 
 // GPIO
 
-#define GPIOA_BASE	0x40010800UL			// GPIO Port A base address
-#define GPIOB_BASE	0x40010C00UL			// GPIO Port B base address
-#define GPIOC_BASE	0x40011000UL			// GPIO Port C base address
-#define GPIOD_BASE	0x40011400UL			// GPIO Port D base address
-#define GPIOE_BASE	0x40011800UL			// GPIO Port E base address
-#define GPIOF_BASE	0x40011C00UL			// GPIO Port F base address
-#define GPIOG_BASE	0x40012000UL			// GPIO Port G base address
+#define GPIOA_BASE	0x40010800UL				// GPIO Port A base address
+#define GPIOB_BASE	0x40010C00UL				// GPIO Port B base address
+#define GPIOC_BASE	0x40011000UL				// GPIO Port C base address
+#define GPIOD_BASE	0x40011400UL				// GPIO Port D base address
+#define GPIOE_BASE	0x40011800UL				// GPIO Port E base address
+#define GPIOF_BASE	0x40011C00UL				// GPIO Port F base address
+#define GPIOG_BASE	0x40012000UL				// GPIO Port G base address
 
 #define GPIOA	(( GPIO_TypeDef *) GPIOA_BASE)
 #define GPIOB	(( GPIO_TypeDef *) GPIOB_BASE)
@@ -195,10 +209,10 @@ typedef struct
 
 // TIM
 
-#define TIM2_BASE	0x40000000UL 			// TIM2 timer base address
-#define TIM3_BASE	0x40000400UL 			// TIM3 timer base address
-#define TIM4_BASE	0x40000800UL 			// TIM4 timer base address
-#define TIM5_BASE	0x40000C00UL 			// TIM5 timer base address
+#define TIM2_BASE	0x40000000UL 				// TIM2 timer base address
+#define TIM3_BASE	0x40000400UL 				// TIM3 timer base address
+#define TIM4_BASE	0x40000800UL 				// TIM4 timer base address
+#define TIM5_BASE	0x40000C00UL 				// TIM5 timer base address
 
 #define TIM2	(( TIM_TypeDef *) TIM2_BASE)
 #define TIM3	(( TIM_TypeDef *) TIM3_BASE)
@@ -207,14 +221,14 @@ typedef struct
 
 // SYSTICK
 
-#define SYSTICK_BASE	0xE000E010UL			// SysTick base address
-#define SYSTICK (( SYSTICK_TypeDef *) SYSTICK_BASE)
+#define SYSTICK_BASE	0xE000E010UL				// SysTick base address
+#define SYSTICK 	(( SYSTICK_TypeDef *) SYSTICK_BASE)
 
 // ADC
 
-#define ADC1_BASE	0x40012400UL			// ADC1 base address
-#define ADC2_BASE	0x40012800UL			// ADC2 base address
-#define ADC3_BASE	0x40013C00UL			// ADC3 base address
+#define ADC1_BASE	0x40012400UL				// ADC1 base address
+#define ADC2_BASE	0x40012800UL				// ADC2 base address
+#define ADC3_BASE	0x40013C00UL				// ADC3 base address
 
 #define ADC1	(( ADC_TypeDef *) ADC1_BASE)
 #define ADC2	(( ADC_TypeDef *) ADC2_BASE)
@@ -222,9 +236,9 @@ typedef struct
 
 // USART
 
-#define USART1_BASE	0x40013800UL 			// USART1 base address
-#define USART2_BASE	0x40004400UL 			// USART2 base address
-#define USART3_BASE	0x40004800UL 			// USART3 base address
+#define USART1_BASE	0x40013800UL 				// USART1 base address
+#define USART2_BASE	0x40004400UL 				// USART2 base address
+#define USART3_BASE	0x40004800UL 				// USART3 base address
 
 #define USART1	(( USART_TypeDef *) USART1_BASE)
 #define USART2	(( USART_TypeDef *) USART2_BASE)
@@ -232,19 +246,24 @@ typedef struct
 
 // I2C
 
-#define I2C1_BASE	0x40005400UL			// I2C1 base address
-#define I2C2_BASE	0x40005800UL			// I2C2 base address
+#define I2C1_BASE	0x40005400UL				// I2C1 base address
+#define I2C2_BASE	0x40005800UL				// I2C2 base address
 
 #define I2C1	(( I2C_TypeDef *) I2C1_BASE)
 #define I2C2	(( I2C_TypeDef *) I2C2_BASE)
 
 // FLASH
 
-#define FLASH_BASE	0x40022000UL			// FLASH base address
+#define FLASH_BASE	0x40022000UL				// FLASH base address
 #define FLASH	(( FLASH_TypeDef *) FLASH_BASE )
 
-// Functions
+// NVIC
 
-void USER_RCC_ClockEnable( void );
+#define NVIC_BASE	0xE000E100UL 				// NVIC base address
+#define NVIC	(( NVIC_TypeDef *) NVIC_BASE )
+
+// Function prototypes for main
+
+void USER_SYSCLK_Configuration( void );
 
 #endif /* MAIN_H_ */

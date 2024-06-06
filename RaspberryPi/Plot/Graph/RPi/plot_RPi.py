@@ -56,7 +56,7 @@ def receive_data():
 
           # Check if all values are received
 
-          if len(values) == 4:
+          if len(values) == 5:
 
             print("Data received: ", rx_data)
             data_queue.put(values)
@@ -98,7 +98,7 @@ def store_csv():
 
           if file.tell() == 0:
 
-            writer.writerow(['Throttle', 'Engine Speed', 'Vehicle Speed', 'Gear'])
+            writer.writerow(['Throttle', 'Brake', 'Engine Speed', 'Vehicle Speed', 'Gear'])
         
           # Write values to CSV
 
@@ -161,14 +161,17 @@ for i in range(set.NUMBER_OF_VARIABLES):
 axes[0].set_ylabel('Throttle')
 axes[0].set_ylim(set.THROTTLE_BOUNDS[0] - set.THROTTLE_BOUNDS[0], set.THROTTLE_BOUNDS[1] + set.THROTTLE_BOUNDS[0])
 
-axes[1].set_ylabel('Engine Speed')
-axes[1].set_ylim(set.ENGINE_SPEED_BOUNDS[0] - set.ENGINE_SPEED_BOUNDS[0], set.ENGINE_SPEED_BOUNDS[1] + set.ENGINE_SPEED_BOUNDS[0])
+axes[1].set_ylabel('Brake')
+axes[1].set_ylim(set.BRAKE_BOUNDS[0] - set.BRAKE_BOUNDS[0], set.BRAKE_BOUNDS[1] + set.BRAKE_BOUNDS[0])
 
 axes[2].set_ylabel('Vehicle Speed')
 axes[2].set_ylim(set.VEHICLE_SPEED_BOUNDS[0] - set.VEHICLE_SPEED_BOUNDS[0], set.VEHICLE_SPEED_BOUNDS[1] + set.VEHICLE_SPEED_BOUNDS[0])
 
-axes[3].set_ylabel('Gear')
-axes[3].set_ylim(set.GEAR_BOUNDS[0] - set.GEAR_BOUNDS[0], set.GEAR_BOUNDS[1] + set.GEAR_BOUNDS[0])
+axes[3].set_ylabel('Engine Speed')
+axes[3].set_ylim(set.ENGINE_SPEED_BOUNDS[0] - set.ENGINE_SPEED_BOUNDS[0], set.ENGINE_SPEED_BOUNDS[1] + set.ENGINE_SPEED_BOUNDS[0])
+
+axes[4].set_ylabel('Gear')
+axes[4].set_ylim(set.GEAR_BOUNDS[0] - set.GEAR_BOUNDS[0], set.GEAR_BOUNDS[1] + set.GEAR_BOUNDS[0])
 
 # Queue for communication between threads 
 

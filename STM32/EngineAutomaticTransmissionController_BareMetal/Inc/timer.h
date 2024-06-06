@@ -1,5 +1,5 @@
 /*
- * timer.h
+ * TIMER.h
  */
 
 #ifndef TIMER_H_
@@ -21,13 +21,12 @@
 #define TIM_SR_UIF	( 0x1UL << 0U )
 #define TIM_CR1_CEN	( 0x1UL << 0U )
 
+#define TIM_DIER_UIE	( 0x1UL << 0U )
+#define NVIC_ISER_29	( 0x1UL << 29U )
+#define NVIC_ISER_30	( 0x1UL << 30U )
+#define NVIC_ISER_50	( 0x1UL << 18U )
+
 // Prescaler / count register values
-
-#define TIM_PSC_5S	0X1312
-#define TIM_CNT_5S	0X3
-
-#define TIM_PSC_500MS	0X1E8
-#define TIM_CNT_500MS	0X60
 
 #define TIM_PSC_200MS	0xC3
 #define TIM_CNT_200MS	0xE6
@@ -37,6 +36,9 @@
 
 #define TIM_PSC_40MS	0X27
 #define TIM_CNT_40MS	0X600
+
+#define TIM_PSC_10MS	0X9
+#define TIM_CNT_10MS	0X600
 
 #define TIM_PSC_5MS	0X4
 #define TIM_CNT_5MS	0X600

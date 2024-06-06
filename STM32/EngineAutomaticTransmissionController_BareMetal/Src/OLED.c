@@ -415,12 +415,6 @@ void USER_OLED_Animation( uint8_t I2C, char screen_buffer[OLED_SCREEN_ROWS][OLED
   ImgType STM32_LOGO_PIC = { .height = STM32_LOGO_ROWS, .width = STM32_LOGO_COLS, .x_pos = OLED_SCREEN_COLUMNS / 4, .y_pos = 0, .bit_y_pos = 0 };
   STM32_LOGO_PIC.image[0] = STM32_LOGO;
 
-  ImgType TRACTOR_PIC = { .height = TRACTOR_ROWS, .width = TRACTOR_COLS, .x_pos = 0, .y_pos = 0, .bit_y_pos = 0 };
-  TRACTOR_PIC.image[0] = TRACTOR_1;
-  TRACTOR_PIC.image[1] = TRACTOR_2;
-  TRACTOR_PIC.image[2] = TRACTOR_3;
-  TRACTOR_PIC.image[3] = TRACTOR_4;
-
   USER_OLED_Clear_Buffer( screen_buffer );
   USER_OLED_Update_Buffer( JOHN_DEERE_LOGO_PIC, 0, screen_buffer );
   USER_OLED_Print_Buffer( I2C, screen_buffer );

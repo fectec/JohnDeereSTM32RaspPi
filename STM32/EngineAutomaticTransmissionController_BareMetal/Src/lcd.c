@@ -1,11 +1,11 @@
 /*
- * lcd.c
+ * LCD.c
  */
 
 #include "libraries.h"
-#include "lcd.h"
+#include "LCD.h"
 #include "main.h"
-#include "timer.h"
+#include "TIMER.h"
 
 // User-defined character to load into the CGRAM memory of the LCD
 

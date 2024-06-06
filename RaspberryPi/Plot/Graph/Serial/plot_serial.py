@@ -1,14 +1,129 @@
 # Library imports
 
-import matplotlib.pyplot as plt
-
+import numpy as np
 import csv
 import serial
-import numpy as np
+
+import matplotlib.pyplot as plt
 
 # Code imports
 
 import plot_serial_settings as set
+
+import threading
+import queue
+
+# Function for receiving data
+  
+def receive_data():
+
+  try:
+
+    # Open the serial port
+
+    ser = serial.Serial(set.SERIAL_PORT, set.BAUDRATE)
+    print("Serial port opened successfully.")
+
+    while True:
+
+      if ser.in_waiting > 0:
+
+        try:
+
+          # Read values, decode bytes to string and remove leading/trailing whitespaces
+
+          rx_data = ser.readline().decode('utf_8').strip()
+          
+          # Split the received string by commas
+        
+          values = rx_data.split(',')
+
+          # Check if all values are received
+
+          if len(values) == 5:
+
+            print("Data received: ", rx_data)
+            data_queue.put(values)
+
+          else:
+            
+            # Handle the case when all values are not received properly
+
+            print("Incomplete data received: ", rx_data)
+
+        except UnicodeDecodeError as e:
+
+          print("Error decoding data:", e)
+
+  except serial.SerialException as e:
+
+    print("Error:", e)
+
+  finally:
+      
+    # Close the serial port
+
+    if ser.is_open:
+
+        ser.close()
+        print("Serial port closed.")
+
+# Function for storing in CSV
+
+def store_csv():
+
+  try:
+      
+      while True:
+
+        with open(set.CSV_FILE_PATH, mode = 'a', newline = '') as file:
+            
+          writer = csv.writer(file)
+
+          if file.tell() == 0:
+
+            writer.writerow(['Throttle', 'Brake', 'Engine Speed', 'Vehicle Speed', 'Gear'])
+        
+          # Write values to CSV
+
+          values = data_queue.get()
+          writer.writerow([float(value) for value in values])
+
+        file.close()
+
+  except Exception as e:
+    
+    print("Error writing to CSV:", e)
+      
+# Function for updating the plot
+
+def run_plot():
+
+  global parameters_values
+
+  try:
+
+    values = data_queue.get()
+
+    # Add new values to parameters values matrix
+
+    new_row = np.array([float(value) for value in values])
+    parameters_values = np.vstack([parameters_values, new_row])
+
+    # Limit parameters values matrix to set number of items
+
+    parameters_values = parameters_values[-set.X_RANGE : , :]
+
+    # Update lines with new values
+
+    for j, scatter_plot in enumerate(scatter_plots):
+      scatter_plot.set_ydata(parameters_values[:, j])
+
+  except queue.Empty:
+
+    pass
+
+  return fig
 
 # List and matrix for live plotting
 
@@ -30,70 +145,32 @@ for i in range(set.NUMBER_OF_VARIABLES):
 axes[0].set_ylabel('Throttle')
 axes[0].set_ylim(set.THROTTLE_BOUNDS[0] - set.THROTTLE_BOUNDS[0], set.THROTTLE_BOUNDS[1] + set.THROTTLE_BOUNDS[0])
 
-axes[1].set_ylabel('Engine Speed')
-axes[1].set_ylim(set.ENGINE_SPEED_BOUNDS[0] - set.ENGINE_SPEED_BOUNDS[0], set.ENGINE_SPEED_BOUNDS[1] + set.ENGINE_SPEED_BOUNDS[0])
+axes[1].set_ylabel('Brake')
+axes[1].set_ylim(set.BRAKE_BOUNDS[0] - set.BRAKE_BOUNDS[0], set.BRAKE_BOUNDS[1] + set.BRAKE_BOUNDS[0])
 
 axes[2].set_ylabel('Vehicle Speed')
 axes[2].set_ylim(set.VEHICLE_SPEED_BOUNDS[0] - set.VEHICLE_SPEED_BOUNDS[0], set.VEHICLE_SPEED_BOUNDS[1] + set.VEHICLE_SPEED_BOUNDS[0])
 
-axes[3].set_ylabel('Gear')
-axes[3].set_ylim(set.GEAR_BOUNDS[0] - set.GEAR_BOUNDS[0], set.GEAR_BOUNDS[1] + set.GEAR_BOUNDS[0])
+axes[3].set_ylabel('Engine Speed')
+axes[3].set_ylim(set.ENGINE_SPEED_BOUNDS[0] - set.ENGINE_SPEED_BOUNDS[0], set.ENGINE_SPEED_BOUNDS[1] + set.ENGINE_SPEED_BOUNDS[0])
 
-# Create CSV file
+axes[4].set_ylabel('Gear')
+axes[4].set_ylim(set.GEAR_BOUNDS[0] - set.GEAR_BOUNDS[0], set.GEAR_BOUNDS[1] + set.GEAR_BOUNDS[0])
 
-with open(set.CSV_FILE_PATH, mode = 'w', newline = '') as file:
-    writer = csv.writer(file)
-    writer.writerow(['Throttle', 'Engine Speed', 'Vehicle Speed', 'Gear'])
+# Queue for communication between threads 
 
-# Instantiate Serial object
+data_queue = queue.Queue()
 
-ser = serial.Serial(set.SERIAL_PORT, set.BAUDRATE)
+# Start threads
 
-def run_plot():
+receive_thread = threading.Thread(target=receive_data)
+store_csv_thread = threading.Thread(target=store_csv)
 
-  global parameters_values, ser
+receive_thread.daemon = True
+store_csv_thread.daemon = True
 
-  # Read values, decode bytes to string and remove leading/trailing whitespaces
-
-  rx_data = ser.readline().decode('utf_8').strip()
-  
-  # Split the received string by commas
-
-  values = rx_data.split(',')
-
-  # Check if all values are received
-
-  if len(values) == 4:
-
-    print("Data received: ", rx_data)
-
-    # Write values to CSV
-
-    with open(set.CSV_FILE_PATH, mode = 'a', newline = '') as file:
-      writer = csv.writer(file)
-      writer.writerow([float(value) for value in values])
-
-    # Add new values to parameters values matrix
-
-    new_row = np.array([float(value) for value in values])
-    parameters_values = np.vstack([parameters_values, new_row])
-
-    # Limit parameters values matrix to set number of items
-
-    parameters_values = parameters_values[-set.X_RANGE : , :]
-
-    # Update lines with new values
-
-    for j, scatter_plot in enumerate(scatter_plots):
-      scatter_plot.set_ydata(parameters_values[:, j])
-
-  else:
-      
-    # Handle the case when all values are not received properly
-
-    print("Incomplete data received: ", rx_data)
-
-  return fig
+receive_thread.start()
+store_csv_thread.start()
 
 if __name__ == "__main__":
   run_plot()

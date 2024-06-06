@@ -1,10 +1,11 @@
 /*
- * timer.c
+ * TIMER.c
  */
 
 #include "libraries.h"
-#include "timer.h"
+#include "TIMER.h"
 #include "main.h"
+#include "GPIO.h"
 
 // Initialize TIM timer
 
@@ -29,6 +30,8 @@ void USER_TIM_Init( uint8_t TIM )
     TIM3->CR1		&=	~(TIM_CR1_DIR);
     TIM3->CR1		&=	~(TIM_CR1_CMS);
     TIM3->SR		&=	~(TIM_SR_UIF);
+    TIM3->DIER 		|=	TIM_DIER_UIE;		// Step 4 - Enable Update Interrupt
+    NVIC->ISER[0]	|=	NVIC_ISER_29;		// Step 5 - Enable interrupt
   }
   else if( TIM == 2 )
   {
@@ -39,6 +42,8 @@ void USER_TIM_Init( uint8_t TIM )
     TIM4->CR1		&=	~(TIM_CR1_DIR);
     TIM4->CR1		&=	~(TIM_CR1_CMS);
     TIM4->SR		&=	~(TIM_SR_UIF);
+    TIM4->DIER 		|=	TIM_DIER_UIE;
+    NVIC->ISER[0]	|=	NVIC_ISER_30;
   }
   else if( TIM == 3 )
   {
@@ -49,6 +54,8 @@ void USER_TIM_Init( uint8_t TIM )
     TIM5->CR1		&=	~(TIM_CR1_DIR);
     TIM5->CR1		&=	~(TIM_CR1_CMS);
     TIM5->SR		&=	~(TIM_SR_UIF);
+    TIM5->DIER 		|=	TIM_DIER_UIE;
+    NVIC->ISER[1]	|=	NVIC_ISER_50;
   }
 }
 
@@ -62,46 +69,72 @@ void USER_TIM_Delay( uint8_t TIM, uint16_t TIM_PSC, uint16_t TIM_CNT )
     TIM2->CNT	=	TIM_CNT;
 
     TIM2->CR1	|=	TIM_CR1_CEN;			// Enable TIM2 timer to start counting
-
-    while(!( TIM2->SR & TIM_SR_UIF ));			// Wait for UIF
-    TIM2->CR1	&=	~(TIM_CR1_CEN);			// Stop TIM2 timer
-
-    TIM2->SR	&=	~(TIM_SR_UIF);			// Clear UIF
   }
   else if( TIM == 1 )
   {
-    TIM3->PSC	=	TIM_PSC;
-    TIM3->CNT	=	TIM_CNT;
+    if( !( TIM3->CR1 & TIM_CR1_CEN ) && !( TIM3->SR & TIM_SR_UIF ) )
+    {
+      TIM3->PSC	=	TIM_PSC;
+      TIM3->CNT	=	TIM_CNT;
 
-    TIM3->CR1	|=	TIM_CR1_CEN;			// Enable TIM3 timer to start counting
-
-    while(!( TIM3->SR & TIM_SR_UIF ));
-    TIM3->CR1	&=	~(TIM_CR1_CEN);			// Stop TIM3 timer
-
-    TIM3->SR	&=	~(TIM_SR_UIF);
+      TIM3->CR1	|=	TIM_CR1_CEN;			// Enable TIM3 timer to start counting
+    }
   }
   else if( TIM == 2 )
   {
-    TIM4->PSC	=	TIM_PSC;
-    TIM4->CNT	=	TIM_CNT;
+    if( !( TIM4->CR1 & TIM_CR1_CEN ) && !( TIM4->SR & TIM_SR_UIF ) )
+    {
+      TIM4->PSC	=	TIM_PSC;
+      TIM4->CNT	=	TIM_CNT;
 
-    TIM4->CR1	|=	TIM_CR1_CEN;			// Enable TIM4 timer to start counting
-
-    while(!( TIM4->SR & TIM_SR_UIF ));
-    TIM4->CR1	&=	~(TIM_CR1_CEN);			// Stop TIM4 timer
-
-    TIM4->SR	&=	~(TIM_SR_UIF);
+      TIM4->CR1	|=	TIM_CR1_CEN;			// Enable TIM4 timer to start counting
+    }
   }
   else if( TIM == 3 )
   {
-    TIM5->PSC	=	TIM_PSC;
-    TIM5->CNT	=	TIM_CNT;
+    if( !( TIM5->CR1 & TIM_CR1_CEN ) && !( TIM5->SR & TIM_SR_UIF ) )
+    {
+      TIM5->PSC	=	TIM_PSC;
+      TIM5->CNT	=	TIM_CNT;
 
-    TIM5->CR1	|=	TIM_CR1_CEN;			// Enable TIM5 timer to start counting
+      TIM5->CR1	|=	TIM_CR1_CEN;			// Enable TIM5 timer to start counting
+    }
+  }
+}
 
-    while(!( TIM5->SR & TIM_SR_UIF ));
+void TIM3_IRQHandler( void )
+{
+  if( TIM3->SR & TIM_SR_UIF )      			// Wait for UIF
+  {
+    TIM3->CR1	&=	~(TIM_CR1_CEN);			// Stop TIM3 timer
+
+    USER_GPIO_Toggle( PORTC, 2 );
+    USER_GPIO_Toggle( PORTC, 3 );
+
+    TIM3->SR	&=	~(TIM_SR_UIF);			// Clear UIF
+  }
+}
+
+void TIM4_IRQHandler( void )
+{
+  if( TIM4->SR & TIM_SR_UIF )      			// Wait for UIF
+  {
+    TIM4->CR1	&=	~(TIM_CR1_CEN);			// Stop TIM4 timer
+
+    USER_GPIO_Toggle( PORTC, 2 );
+
+    TIM4->SR	&=	~(TIM_SR_UIF);			// Clear UIF
+  }
+}
+
+void TIM5_IRQHandler( void )
+{
+  if( TIM5->SR & TIM_SR_UIF )      			// Wait for UIF
+  {
     TIM5->CR1	&=	~(TIM_CR1_CEN);			// Stop TIM5 timer
 
-    TIM5->SR	&=	~(TIM_SR_UIF);
+    USER_GPIO_Toggle( PORTC, 3 );
+
+    TIM5->SR	&=	~(TIM_SR_UIF);			// Clear UIF
   }
 }

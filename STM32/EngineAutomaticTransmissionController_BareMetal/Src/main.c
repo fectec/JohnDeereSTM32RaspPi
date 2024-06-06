@@ -7,29 +7,33 @@
 #include "libraries.h"
 #include "main.h"
 #include "GPIO.h"
-#include "timer.h"
+#include "TIMER.h"
 #include "SYSTICK.h"
 #include "ADC.h"
-#include "uart.h"
+#include "UART.h"
 #include "I2C.h"
-#include "lcd.h"
-#include "matrix_keypad.h"
+#include "MATRIX_KEYPAD.h"
+#include "LCD.h"
+#include "LEDS.h"
 #include "OLED.h"
+
+/* Model's header file */
+
+#include "EngTrModel.h"
+#include "rtwtypes.h"
 
 // ADC
 
 uint16_t conversionData = 0;
-float voltageValue = 0, normalizedVoltageValue = 0;
+float voltageValue = 0.0, potentiometerThrottle = 0.0;
 
 // Matrix keypad
 
 char selectedKey = 'N';
-char action = 'F';
-float keyBrakeTorque = 0;
+float keyBrakeTorque = 0.0;
 
 // LCD
 
-uint8_t col = 16;
 char FirstLine_LCD_MSG[LCD_CHARS + 1];
 char SecondLine_LCD_MSG[LCD_CHARS + 1];
 
@@ -37,89 +41,94 @@ char SecondLine_LCD_MSG[LCD_CHARS + 1];
 
 char oled_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS];
 
-/* Function prototypes */
-
-void USER_RCC_ClockEnable( void );
-
 /* Main function */
 
 int main( void )
 {
-  EngTrModel_initialize();
+  USER_SYSCLK_Configuration();
 
-  USER_RCC_ClockEnable();
   USER_TIM_Init( TIM_2 );
+  USER_TIM_Init( TIM_3 );
+  USER_TIM_Init( TIM_4 );
+  USER_TIM_Init( TIM_5 );
+
+  USER_SYSTICK_Init();
   USER_ADC_Init( ADC_1 );
   USER_USART_Init( USART_1 );
-  USER_LCD_Init();
   USER_MATRIX_KEYPAD_Init();
-  USER_SYSTICK_Init();
-  USER_OLED_Init_64( I2C_2 );
+  USER_LEDS_Init();
+  //USER_LCD_Init();
 
-  USER_OLED_Animation( I2C_2, oled_buffer );
+  // USER_OLED_Init_64( I2C_2 );
+  // USER_OLED_Animation( I2C_2, oled_buffer );
+
+  EngTrModel_initialize();
 
   /* Loop forever */
 
   for(;;)
   {
-    // ADC
+    /* Read the ADC conversion, convert it to a voltage value,
+     * and normalize it to within the range accepted by the model.
+     */
 
     conversionData = USER_ADC_Convert( ADC_1 );
     voltageValue = 0.00080586 * conversionData;
+    potentiometerThrottle = scaleVoltageValue( voltageValue, 0, 3.3 );
 
-    // Matrix keypad
+    /* Read the matrix keyboard and
+     * adapt the brake value and LEDs states
+     * based on the selected key.
+     */
 
     selectedKey = USER_MATRIX_KEYPAD_Read();
-
-    // printf("%f_%c\n\r", voltageValue, selectedKey);			// Debug ADC and matrix keypad
 
     if(selectedKey == '5')
     {
       keyBrakeTorque = 100.0;
-      action = 'B';
+
+      USER_TIM_Delay( TIM_3, TIM_PSC_200MS, TIM_CNT_200MS );
     }
     else if(selectedKey == '4' || selectedKey == '6')
     {
-      voltageValue -= 1;
+      keyBrakeTorque = 50.0;
 
       if(selectedKey == '4')
       {
-	action = 'L';
+	 USER_TIM_Delay( TIM_4, TIM_PSC_200MS, TIM_CNT_200MS );
       }
       else
       {
-	action = 'R';
+	 USER_TIM_Delay( TIM_5, TIM_PSC_200MS, TIM_CNT_200MS );
       }
     }
     else
     {
       keyBrakeTorque = 0.0;
-      action = 'F';
+
+      USER_GPIO_Write( PORTC, 2, 0 );
+      USER_GPIO_Write( PORTC, 3, 0 );
     }
 
-    normalizedVoltageValue = scaleVoltageValue( voltageValue, 0, 3.3 );
 
-    // printf("%f_%f\n\r", normalizedVoltageValue, keyBrakeTorque);	// Debug normalizedVoltageValue and keyBrakeTorque
+    /* Feed the model with the normalized voltage
+     * or throttle value and the brake value, take a step and
+     * sanitize the output values.
+     */
 
-    // Update the values for the Throttle and Brake commands
-
-    EngTrModel_U.Throttle = normalizedVoltageValue;
+    EngTrModel_U.Throttle = potentiometerThrottle;
     EngTrModel_U.BrakeTorque = keyBrakeTorque;
 
-    // Update the values into the vehicle model
-
     EngTrModel_step();
-
-    // Sanitize the values
-
-    if(isnan(EngTrModel_Y.EngineSpeed) || EngTrModel_Y.EngineSpeed < 0)
-    {
-      EngTrModel_Y.EngineSpeed = 0.0;
-    }
 
     if(isnan(EngTrModel_Y.VehicleSpeed) || EngTrModel_Y.VehicleSpeed < 0 || EngTrModel_Y.VehicleSpeed > 200)
     {
       EngTrModel_Y.VehicleSpeed = 0.0;
+    }
+
+    if(isnan(EngTrModel_Y.EngineSpeed) || EngTrModel_Y.EngineSpeed < 0)
+    {
+      EngTrModel_Y.EngineSpeed = 0.0;
     }
 
     if(isnan(EngTrModel_Y.Gear) || EngTrModel_Y.Gear < 0)
@@ -127,13 +136,25 @@ int main( void )
       EngTrModel_Y.Gear = 0.0;
     }
 
-    // Send the output values
+    USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );
 
-    printf("%f,%f,%f,%f\n\r", normalizedVoltageValue, EngTrModel_Y.EngineSpeed, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.Gear);
+    /* Send via UART the output values of the model,
+     * subsequently received by the Raspberry Pi.
+     */
 
-    USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );		// 40 ms delay
+    printf("%f,%f,%f,%f,%f\n\r", potentiometerThrottle, keyBrakeTorque, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
 
-    // Extract the whole and decimal parts for Engine Speed and Vehicle Speed, and cast them alongside Gear to integers
+    /* Properly format the model output data
+     * and display it on the LCD.
+     */
+
+    /* Extract the whole and decimal parts for Throttle,
+     * Engine Speed and Vehicle Speed, and cast them
+     * alongside Brake and Gear to integers
+     */
+
+    int ThrottleWhole = (int) ( potentiometerThrottle );
+    int ThrottleDecimal = (int) ( ( potentiometerThrottle - ThrottleWhole ) * 100 );
 
     int EngineSpeedWhole = (int)( EngTrModel_Y.EngineSpeed );
     int EngineSpeedDecimal = (int)( ( EngTrModel_Y.EngineSpeed - EngineSpeedWhole ) * 100 );
@@ -141,26 +162,27 @@ int main( void )
     int VehicleSpeedWhole = (int)( EngTrModel_Y.VehicleSpeed );
     int VehicleSpeedDecimal = (int)( ( EngTrModel_Y.VehicleSpeed - VehicleSpeedWhole ) * 100 );
 
+    int BrakeWhole = (int) ( keyBrakeTorque );
     int GearWhole = (int) ( EngTrModel_Y.Gear );
 
     // Write the messages to send to the LCD
 
-    snprintf( FirstLine_LCD_MSG, sizeof(FirstLine_LCD_MSG), "E:%04d.%02d G:%01d  %c", EngineSpeedWhole, EngineSpeedDecimal, GearWhole, action );
-    snprintf( SecondLine_LCD_MSG, sizeof(SecondLine_LCD_MSG), "V:%03d.%02d        ", VehicleSpeedWhole, VehicleSpeedDecimal );
+    snprintf( FirstLine_LCD_MSG, sizeof(FirstLine_LCD_MSG), "%03d.%01d  %03d.%01d m/s", ThrottleWhole, ThrottleDecimal, VehicleSpeedWhole, VehicleSpeedDecimal );
+    snprintf( SecondLine_LCD_MSG, sizeof(SecondLine_LCD_MSG), "%03d %04d.%01d RPM %01d", BrakeWhole, EngineSpeedWhole, EngineSpeedDecimal, GearWhole );
 
     // Display values on the LCD
 
-    LCD_Set_Cursor( 1, 1 );
-    LCD_Put_Str( FirstLine_LCD_MSG );
-    LCD_Set_Cursor( 2, 1 );
-    LCD_Put_Str( SecondLine_LCD_MSG );
+    //LCD_Set_Cursor( 1, 1 );
+    //LCD_Put_Str( FirstLine_LCD_MSG );
+    //LCD_Set_Cursor( 2, 1 );
+    //LCD_Put_Str( SecondLine_LCD_MSG );
 
-    USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );		// 200 ms delay
+    //USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );
   }
 
 }
 
-void USER_RCC_ClockEnable( void )
+void USER_SYSCLK_Configuration( void )
 {
   /* System Clock (SYSCLK) configuration for 64 MHz */
 
@@ -172,15 +194,15 @@ void USER_RCC_ClockEnable( void )
   // PLL HSI clock /2 selected as PLL input clock
   
   RCC->CFGR	&=	~( 0x1UL << 16U )
-		&	~( 0x7UL << 11U )	// APB2 pre-scaler /1
-		&	~( 0x3UL << 8U )        // APB1 pre-scaler /2 (APB1 must not exceed 36 MHz)
-		&	~( 0xFUL << 4U );	// AHB pre-scaler /1
+		&	~( 0x7UL << 11U )		// APB2 pre-scaler /1
+		&	~( 0x3UL << 8U )        	// APB1 pre-scaler /2 (APB1 must not exceed 36 MHz)
+		&	~( 0xFUL << 4U );		// AHB pre-scaler /1
 
   // PLL input clock x 16 (PLLMUL bits)
 
   RCC->CFGR	|=	( 0xFUL << 18U )	
-		|	( 0X4UL << 8U );	// APB1 pre-scaler /2
-  RCC->CR	|=	( 0x1UL << 24U );	// PLL2 ON
+		|	( 0X4UL << 8U );		// APB1 pre-scaler /2
+  RCC->CR	|=	( 0x1UL << 24U );		// PLL2 ON
 
   // Wait until PLL is locked
 

@@ -1,9 +1,9 @@
 /*
- * matrixkeyboard.c
+ * MATRIX_KEYPAD.c
  */
 
 #include "libraries.h"
-#include "matrix_keypad.h"
+#include "MATRIX_KEYPAD.h"
 #include "main.h"
 #include "GPIO.h"
 
@@ -91,7 +91,7 @@ char USER_MATRIX_KEYPAD_Read( void )
 
     for (uint8_t j = 0; j < NUMBER_OF_ELEMENTS; j++)
     {
-      if ((GPIOB->IDR & (1 << C_POSITIONS[j])) == 0)
+      if ( !( GPIOB->IDR & (1 << C_POSITIONS[j]) ) )
       {
 	  selectedKey = keys[i][j];
       }

@@ -1,5 +1,5 @@
 /*
- * lcd.h
+ * LCD.h
  */
 
 #ifndef INC_LCD_H_

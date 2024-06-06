@@ -1,5 +1,5 @@
 /*
- * uart.h
+ * UART.h
  */
 
 #ifndef UART_H_
@@ -46,4 +46,3 @@ void USER_USART_Init( uint8_t );
 int _write( int, char*, int );
 
 #endif /* UART_H_ */
-

@@ -1,13 +1,6 @@
-Src/timer.o: ../Src/timer.c ../Inc/libraries.h ../Inc/timer.h \
- ../Inc/main.h ../Inc/EngTrModel.h ../Inc/rtwtypes.h \
- ../Inc/EngTrModel_types.h ../Inc/rtGetNaN.h ../Inc/rt_nonfinite.h \
- ../Inc/rtGetInf.h
+Src/TIMER.o: ../Src/TIMER.c ../Inc/libraries.h ../Inc/TIMER.h \
+ ../Inc/main.h ../Inc/GPIO.h
 ../Inc/libraries.h:
-../Inc/timer.h:
+../Inc/TIMER.h:
 ../Inc/main.h:
-../Inc/EngTrModel.h:
-../Inc/rtwtypes.h:
-../Inc/EngTrModel_types.h:
-../Inc/rtGetNaN.h:
-../Inc/rt_nonfinite.h:
-../Inc/rtGetInf.h:
+../Inc/GPIO.h:
