@@ -40,6 +40,7 @@ char SecondLine_LCD_MSG[LCD_CHARS + 1];
 // OLED
 
 char oled_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS];
+char OLED_MSGS[OLED_MSGS_NUMBER][OLED_SCREEN_COLUMNS];
 
 /* Main function */
 
@@ -59,8 +60,8 @@ int main( void )
   USER_LEDS_Init();
   //USER_LCD_Init();
 
-  // USER_OLED_Init_64( I2C_2 );
-  // USER_OLED_Animation( I2C_2, oled_buffer );
+  USER_OLED_Init_64( I2C_2 );
+  USER_OLED_Animation( I2C_2, oled_buffer );
 
   EngTrModel_initialize();
 
@@ -110,7 +111,6 @@ int main( void )
       USER_GPIO_Write( PORTC, 3, 0 );
     }
 
-
     /* Feed the model with the normalized voltage
      * or throttle value and the brake value, take a step and
      * sanitize the output values.
@@ -136,7 +136,6 @@ int main( void )
       EngTrModel_Y.Gear = 0.0;
     }
 
-    USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );
 
     /* Send via UART the output values of the model,
      * subsequently received by the Raspberry Pi.
@@ -177,9 +176,23 @@ int main( void )
     //LCD_Set_Cursor( 2, 1 );
     //LCD_Put_Str( SecondLine_LCD_MSG );
 
-    //USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );
-  }
+    /* Properly format the model output data
+     * and display it on the OLED screen.
+     */
 
+    snprintf(OLED_MSGS[0], sizeof(OLED_MSGS[0]), "THROTTLE: %03d.%01d", ThrottleWhole, ThrottleDecimal);
+    snprintf(OLED_MSGS[1], sizeof(OLED_MSGS[1]), "BRAKE: %03d", BrakeWhole);
+    snprintf(OLED_MSGS[2], sizeof(OLED_MSGS[2]), "VEHICLE SPEED: %03d.%01d m/s", VehicleSpeedWhole, VehicleSpeedDecimal);
+    snprintf(OLED_MSGS[3], sizeof(OLED_MSGS[3]), "ENGINE SPEED: %04d.%01d RPM", EngineSpeedWhole, EngineSpeedDecimal);
+    snprintf(OLED_MSGS[4], sizeof(OLED_MSGS[4]), "GEAR: %01d", GearWhole);
+
+    for (int i = 0; i < OLED_MSGS_NUMBER; ++i)
+    {
+	USER_OLED_Message( I2C_2, OLED_MSGS[i], 0, i );
+    }
+
+    USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );
+  }
 }
 
 void USER_SYSCLK_Configuration( void )
