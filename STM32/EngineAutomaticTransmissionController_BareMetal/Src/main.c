@@ -136,7 +136,6 @@ int main( void )
       EngTrModel_Y.Gear = 0.0;
     }
 
-
     /* Send via UART the output values of the model,
      * subsequently received by the Raspberry Pi.
      */
