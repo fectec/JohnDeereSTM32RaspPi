@@ -8,6 +8,12 @@ Main project in collaboration with *John Deere* for the undergrad course “**Sy
 
 It consists of a **John Deere tractor driving simulator**. The project uses SoCs to prototype the technologies integrated into a John Deere agricultural tractor. A *matrix keypad* represents the Steering and Braking of the vehicle, and a *potentiometer* represents the Throttle. The *NUCLEO-F103RB* development board with *STM32F103RB MCU* displays these values on an *LCD*. Also, through the *UART* protocol, they are sent to a *Raspberry Pi 3 Model B* (with *Raspberry Pi OS 64-bit*, *based on Debian*), which carries out its processing and graphing on a screen.
 
+### First Physical Test
+
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/53f0341c-1f7c-4d7f-8cf4-8736078b7f43" alt = "Physical Demo" width="600" height="350"/>
+</p>
+
 ## Schematic Diagram
 
 <p align="center">
@@ -50,6 +56,18 @@ The Raspberry Pi receives the output data from the model (engine speed, vehicle 
 
 To use the graphical interface, run **game.py**. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run **plot_RPi.py**, which uses serially read data. 
 
+### Graphical Interface with Random Data
+
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/9bc90f82-4e30-47a8-b825-0492acb042d1" alt = "Graphical Interface Random Data Demo" width="600" height="350"/>
+</p>
+
+### Graphical Interface with Serial Data
+
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/c96a14ab-8e65-4f09-b992-fef5bcf41a36" alt = "Graphical Interface Serial Data Demo" width="600" height="350"/>
+</p>
+
 In both serial interaction cases, modify **plot_serial_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *Data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_serial_settings.py, alongside the baud rate, which is by default 115200 to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
 
 Finally, a **bash script** was written to simplify the process of running the plotting file. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the plotting file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
@@ -60,26 +78,4 @@ The *I2C internal peripheral* was configured to communicate with a *128x64 OLED 
 
 ## Bonus - PWM for Micro Servo
 
-A *TIM internal peripheral* was used to generate a PWM signal and control a Micro Servo, simulating the movement of the steering wheel. 
-
-## Demos
-
-### Graphical Interface with Serial Data
-
-<p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/c96a14ab-8e65-4f09-b992-fef5bcf41a36" alt = "Graphical Interface Serial Data Demo" width="600" height="350"/>
-</p>
-
-### Graphical Interface with Random Data
-
-<p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/9bc90f82-4e30-47a8-b825-0492acb042d1" alt = "Graphical Interface Random Data Demo" width="600" height="350"/>
-</p>
-
-### First Physical Test
-
-<p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/53f0341c-1f7c-4d7f-8cf4-8736078b7f43" alt = "Physical Demo" width="600" height="350"/>
-</p>
-
-### OLED Screen
+A *TIM internal peripheral* was used to generate a *PWM signal* and control a *Micro Servo*, simulating the movement of the steering wheel. 
