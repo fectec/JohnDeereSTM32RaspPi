@@ -79,7 +79,8 @@ int main( void )
     potentiometerThrottle = scaleVoltageValue( voltageValue, 0, 3.3 );
 
     /* Read the matrix keyboard and
-     * adapt the brake value and LEDs states
+     * adapt the brake value, LEDs states and
+     * micro servo direction
      * based on the selected key.
      */
 

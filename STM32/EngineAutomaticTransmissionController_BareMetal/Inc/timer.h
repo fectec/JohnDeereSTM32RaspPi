@@ -67,5 +67,6 @@
 
 void USER_TIM_Init( uint8_t );
 void USER_TIM_Delay( uint8_t, uint16_t, uint16_t );
+void TIM3_IRQHandler( void );
 
 #endif /* TIMER_H_ */

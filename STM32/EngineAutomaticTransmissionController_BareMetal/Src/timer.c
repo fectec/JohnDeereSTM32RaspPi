@@ -47,6 +47,8 @@ void USER_TIM_Init( uint8_t TIM )
     TIM4->CCMR1		|=	TIM_CCMR1_OC1PE;	//	CCRx load in UEV event
     TIM4->CCMR1		&=	~(TIM_CCMR1_OC1M_0);	//	PWM mode 1
     TIM4->CCMR1		|=	TIM_CCMR1_OC1M_2_1;
+
+    TIM4->CR1		|=	TIM_CR1_CEN;			// Enable the Timer to start counting
   }
 }
 
@@ -60,6 +62,11 @@ void USER_TIM_Delay( uint8_t TIM, uint16_t TIM_PSC, uint16_t TIM_CNT )
     TIM2->CNT	=	TIM_CNT;
 
     TIM2->CR1	|=	TIM_CR1_CEN;			// Enable TIM2 timer to start counting
+
+    while( !( TIM2->SR & TIM_SR_UIF ) );		// Wait for UIF
+
+    TIM2->CR1	&=	~(TIM_CR1_CEN);			// Stop TIM2 timer
+    TIM2->SR	&=	~(TIM_SR_UIF);			// Clear UIF
   }
   else if( TIM == 1 )
   {
@@ -71,13 +78,6 @@ void USER_TIM_Delay( uint8_t TIM, uint16_t TIM_PSC, uint16_t TIM_CNT )
       TIM3->CR1	|=	TIM_CR1_CEN;			// Enable TIM3 timer to start counting
     }
   }
-  else if( TIM == 2 )
-  {
-    TIM4->PSC	=	TIM_PSC;
-    TIM4->CNT	=	TIM_CNT;
-
-    TIM4->CR1	|=	TIM_CR1_CEN;			// Enable TIM4 timer to start counting
-  }
 }
 
 void TIM3_IRQHandler( void )
@@ -85,10 +85,9 @@ void TIM3_IRQHandler( void )
   if( TIM3->SR & TIM_SR_UIF )      			// Wait for UIF
   {
     TIM3->CR1	&=	~(TIM_CR1_CEN);			// Stop TIM3 timer
+    TIM3->SR	&=	~(TIM_SR_UIF);			// Clear UIF
 
     USER_GPIO_Toggle( PORTC, 2 );
     USER_GPIO_Toggle( PORTC, 3 );
-
-    TIM3->SR	&=	~(TIM_SR_UIF);			// Clear UIF
   }
 }
