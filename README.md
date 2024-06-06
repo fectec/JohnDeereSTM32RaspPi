@@ -11,7 +11,7 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 ## Schematic Diagram
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/2c093969-b633-49ea-a714-b15d97b25be8" alt = "Boards"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/3cc95901-40ba-4452-8c17-eca8b851ed16" alt = "Boards"/>
 </p>
 
 <p align="center">
@@ -24,6 +24,10 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 
 <p align="center">
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/c7cc9924-c6d5-40a0-8bd2-2a930c9e2250" alt = "LEDs Output" width="200" height="250"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/08059766-1b59-4c4f-96af-64771a6bc9fc" alt = "Micro Servo Output" width="200" height="250"/>
 </p>
 
 <p align="center">
@@ -53,6 +57,10 @@ Finally, a **bash script** was written to simplify the process of running the pl
 ## Bonus - OLED Screen
 
 The *I2C internal peripheral* was configured to communicate with a *128x64 OLED screen* (although it is possible to use a 128x32 screen). Then, functions were developed so it would be possible to display images sending *commands* and *data* in the format of a *buffer*.
+
+## Bonus - PWM for Micro Servo
+
+A *TIM internal peripheral* was used to generate a PWM signal and control a Micro Servo, simulating the movement of the steering wheel. 
 
 ## Demos
 
