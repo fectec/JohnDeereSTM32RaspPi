@@ -149,7 +149,7 @@ int main( void )
 
     /* Extract the whole and decimal parts for Throttle,
      * Engine Speed and Vehicle Speed, and cast them
-     * alongside Brake and Gear to integers
+     * alongside Brake and Gear to integers.
      */
 
     int ThrottleWhole = (int) ( potentiometerThrottle );
