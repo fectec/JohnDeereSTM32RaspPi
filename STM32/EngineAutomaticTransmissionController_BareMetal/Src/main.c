@@ -99,12 +99,12 @@ int main( void )
       if(selectedKey == '4')
       {
 	  USER_GPIO_Write( PORTC, 2, 1 );
-	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_5 );
+	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_12_5 );
       }
       else
       {
 	  USER_GPIO_Write( PORTC, 3, 1 );
-	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_10 );
+	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_2_5 );
       }
     }
     else
