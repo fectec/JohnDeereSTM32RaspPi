@@ -55,6 +55,11 @@ void USER_GPIO_Define( uint8_t port, uint8_t pin, uint8_t direction, uint8_t opt
       CR = (volatile uint32_t *) (&GPIOG->CRL + offset);
   }
 
+  if( ( direction == 1 || direction == 2 || direction == 3 ) && ( option == 2 || option == 3 ) )
+  {
+      RCC->APB2ENR	|=	RCC_APB2ENR_AFIOEN;		// Alternate function I/O clock enable
+  }
+
   *CR	&=	~( 0xF << (actual_pin * 4) );			// Reset the target pin
   *CR	|=	( direction << (actual_pin * 4) )		// Set up the direction and the option for the pin
 	|	( option << (actual_pin * 4 + 2) );

@@ -16,6 +16,7 @@
 #include "LCD.h"
 #include "LEDS.h"
 #include "OLED.h"
+#include "PWM.h"
 
 /* Model's header file */
 
@@ -50,8 +51,6 @@ int main( void )
 
   USER_TIM_Init( TIM_2 );
   USER_TIM_Init( TIM_3 );
-  USER_TIM_Init( TIM_4 );
-  USER_TIM_Init( TIM_5 );
 
   USER_SYSTICK_Init();
   USER_ADC_Init( ADC_1 );
@@ -62,6 +61,8 @@ int main( void )
 
   USER_OLED_Init_64( I2C_2 );
   USER_OLED_Animation( I2C_2, oled_buffer );
+
+  USER_PWM_Init();
 
   EngTrModel_initialize();
 
@@ -96,11 +97,13 @@ int main( void )
 
       if(selectedKey == '4')
       {
-	 USER_TIM_Delay( TIM_4, TIM_PSC_200MS, TIM_CNT_200MS );
+	  USER_GPIO_Write( PORTC, 2, 1 );
+	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_5 );
       }
       else
       {
-	 USER_TIM_Delay( TIM_5, TIM_PSC_200MS, TIM_CNT_200MS );
+	  USER_GPIO_Write( PORTC, 3, 1 );
+	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_10 );
       }
     }
     else
@@ -109,6 +112,8 @@ int main( void )
 
       USER_GPIO_Write( PORTC, 2, 0 );
       USER_GPIO_Write( PORTC, 3, 0 );
+
+      USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_7_5 );
     }
 
     /* Feed the model with the normalized voltage

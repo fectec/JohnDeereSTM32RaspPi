@@ -11,8 +11,6 @@
 
 void USER_I2C_Init( uint8_t I2C, uint8_t speed_mode )
 {
-  RCC->APB2ENR		|=	RCC_APB2ENR_AFIOEN;	// Alternate function I/O clock enable
-
   if( I2C == 0 )
   {
       RCC->APB1ENR 	|=	RCC_APB1ENR_I2C1EN;	// I2C1 clock enable

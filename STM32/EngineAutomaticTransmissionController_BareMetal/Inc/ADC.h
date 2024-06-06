@@ -8,8 +8,6 @@
 // ADC selection
 
 #define ADC_1			0
-#define ADC_2			1
-#define ADC_3			2
 
 // ADC peripheral configuration bits
 

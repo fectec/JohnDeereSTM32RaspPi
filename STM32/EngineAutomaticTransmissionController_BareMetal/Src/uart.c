@@ -16,14 +16,14 @@ void USER_USART_Init( uint8_t USART )
 
   if( USART == 0 )
   {
-    RCC->APB2ENR |= RCC_APB2ENR_USART1EN; 		// Clock enable for USART1
-    USER_GPIO_Define(PORTA, 9, OUT_10, OUT_AF_PP);	// Pin PA9 (USART1_TX) as alternate function output push-pull, max speed 10 MHz
+    RCC->APB2ENR	|= 	RCC_APB2ENR_USART1EN; 		// Clock enable for USART1
+    USER_GPIO_Define(PORTA, 9, OUT_10, OUT_AF_PP);		// Pin PA9 (USART1_TX) as alternate function output push-pull, max speed 10 MHz
 
-    USART1->CR1	|=	 USART_CR1_UE;			// Step 1 - USART enabled
-    USART1->CR1	&=	~USART_CR1_M;			// Step 2 - 8 Data bits
-    USART1->CR2	&=	~USART_CR2_STOP;		// Step 3 - 1 Stop bit
-    USART1->BRR	 =	 USARTDIV_64MHZ;		// Step 5 - Desired baud rate
-    USART1->CR1	|= 	 USART_CR1_TE;			// Step 6 - Transmitter enabled
+    USART1->CR1		|=	 USART_CR1_UE;			// Step 1 - USART enabled
+    USART1->CR1		&=	~USART_CR1_M;			// Step 2 - 8 Data bits
+    USART1->CR2		&=	~USART_CR2_STOP;		// Step 3 - 1 Stop bit
+    USART1->BRR		=	 USARTDIV_64MHZ;		// Step 5 - Desired baud rate
+    USART1->CR1		|= 	 USART_CR1_TE;			// Step 6 - Transmitter enabled
   }
 }
 

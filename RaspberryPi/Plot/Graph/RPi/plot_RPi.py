@@ -154,8 +154,6 @@ scatter_plots = [ax.plot(x_values, parameters_values[:, i], 'g-')[0] for i, ax i
 
 for i in range(set.NUMBER_OF_VARIABLES):
   axes[i].set_xlabel('Samples')
-
-for i in range(set.NUMBER_OF_VARIABLES):
   axes[i].set_xlim(0, set.X_RANGE)
 
 axes[0].set_ylabel('Throttle')

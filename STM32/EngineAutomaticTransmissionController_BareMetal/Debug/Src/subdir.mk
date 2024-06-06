@@ -14,6 +14,7 @@ C_SRCS += \
 ../Src/LEDS.c \
 ../Src/MATRIX_KEYPAD.c \
 ../Src/OLED.c \
+../Src/PWM.c \
 ../Src/SYSTICK.c \
 ../Src/TIMER.c \
 ../Src/UART.c \
@@ -34,6 +35,7 @@ OBJS += \
 ./Src/LEDS.o \
 ./Src/MATRIX_KEYPAD.o \
 ./Src/OLED.o \
+./Src/PWM.o \
 ./Src/SYSTICK.o \
 ./Src/TIMER.o \
 ./Src/UART.o \
@@ -54,6 +56,7 @@ C_DEPS += \
 ./Src/LEDS.d \
 ./Src/MATRIX_KEYPAD.d \
 ./Src/OLED.d \
+./Src/PWM.d \
 ./Src/SYSTICK.d \
 ./Src/TIMER.d \
 ./Src/UART.d \
@@ -72,7 +75,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/ADC.cyclo ./Src/ADC.d ./Src/ADC.o ./Src/ADC.su ./Src/EngTrModel.cyclo ./Src/EngTrModel.d ./Src/EngTrModel.o ./Src/EngTrModel.su ./Src/EngTrModel_data.cyclo ./Src/EngTrModel_data.d ./Src/EngTrModel_data.o ./Src/EngTrModel_data.su ./Src/GPIO.cyclo ./Src/GPIO.d ./Src/GPIO.o ./Src/GPIO.su ./Src/I2C.cyclo ./Src/I2C.d ./Src/I2C.o ./Src/I2C.su ./Src/LCD.cyclo ./Src/LCD.d ./Src/LCD.o ./Src/LCD.su ./Src/LEDS.cyclo ./Src/LEDS.d ./Src/LEDS.o ./Src/LEDS.su ./Src/MATRIX_KEYPAD.cyclo ./Src/MATRIX_KEYPAD.d ./Src/MATRIX_KEYPAD.o ./Src/MATRIX_KEYPAD.su ./Src/OLED.cyclo ./Src/OLED.d ./Src/OLED.o ./Src/OLED.su ./Src/SYSTICK.cyclo ./Src/SYSTICK.d ./Src/SYSTICK.o ./Src/SYSTICK.su ./Src/TIMER.cyclo ./Src/TIMER.d ./Src/TIMER.o ./Src/TIMER.su ./Src/UART.cyclo ./Src/UART.d ./Src/UART.o ./Src/UART.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/rtGetInf.cyclo ./Src/rtGetInf.d ./Src/rtGetInf.o ./Src/rtGetInf.su ./Src/rtGetNaN.cyclo ./Src/rtGetNaN.d ./Src/rtGetNaN.o ./Src/rtGetNaN.su ./Src/rt_nonfinite.cyclo ./Src/rt_nonfinite.d ./Src/rt_nonfinite.o ./Src/rt_nonfinite.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/ADC.cyclo ./Src/ADC.d ./Src/ADC.o ./Src/ADC.su ./Src/EngTrModel.cyclo ./Src/EngTrModel.d ./Src/EngTrModel.o ./Src/EngTrModel.su ./Src/EngTrModel_data.cyclo ./Src/EngTrModel_data.d ./Src/EngTrModel_data.o ./Src/EngTrModel_data.su ./Src/GPIO.cyclo ./Src/GPIO.d ./Src/GPIO.o ./Src/GPIO.su ./Src/I2C.cyclo ./Src/I2C.d ./Src/I2C.o ./Src/I2C.su ./Src/LCD.cyclo ./Src/LCD.d ./Src/LCD.o ./Src/LCD.su ./Src/LEDS.cyclo ./Src/LEDS.d ./Src/LEDS.o ./Src/LEDS.su ./Src/MATRIX_KEYPAD.cyclo ./Src/MATRIX_KEYPAD.d ./Src/MATRIX_KEYPAD.o ./Src/MATRIX_KEYPAD.su ./Src/OLED.cyclo ./Src/OLED.d ./Src/OLED.o ./Src/OLED.su ./Src/PWM.cyclo ./Src/PWM.d ./Src/PWM.o ./Src/PWM.su ./Src/SYSTICK.cyclo ./Src/SYSTICK.d ./Src/SYSTICK.o ./Src/SYSTICK.su ./Src/TIMER.cyclo ./Src/TIMER.d ./Src/TIMER.o ./Src/TIMER.su ./Src/UART.cyclo ./Src/UART.d ./Src/UART.o ./Src/UART.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/rtGetInf.cyclo ./Src/rtGetInf.d ./Src/rtGetInf.o ./Src/rtGetInf.su ./Src/rtGetNaN.cyclo ./Src/rtGetNaN.d ./Src/rtGetNaN.o ./Src/rtGetNaN.su ./Src/rt_nonfinite.cyclo ./Src/rt_nonfinite.d ./Src/rt_nonfinite.o ./Src/rt_nonfinite.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 

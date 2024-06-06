@@ -24,21 +24,19 @@
 // USART selection
 
 #define	USART_1		 0
-#define	USART_2		 1
-#define	USART_3		 2
 
 // USART peripheral configuration bits and baud rate register value
 
-#define USART_CR1_UE     0x1UL << 13U
-#define USART_CR1_M      0x1UL << 12U
-#define USART_CR2_STOP   0x3UL << 12U
-#define USARTDIV_64MHZ   0x22B
-#define USARTDIV_8MHZ   0x22B
+#define USART_CR1_UE	0x1UL << 13U
+#define USART_CR1_M	0x1UL << 12U
+#define USART_CR2_STOP	0x3UL << 12U
+#define USARTDIV_64MHZ	0x22B
+#define USARTDIV_8MHZ	0x45
 
 // Transmitter bits
 
-#define USART_CR1_TE     0x1UL <<  3U
-#define USART_SR_TXE   	 0x1UL <<  7U
+#define USART_CR1_TE	0x1UL <<  3U
+#define USART_SR_TXE	0x1UL <<  7U
 
 // Function prototypes for USART
 

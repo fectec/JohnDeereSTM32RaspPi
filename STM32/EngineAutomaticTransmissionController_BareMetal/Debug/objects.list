@@ -7,6 +7,7 @@
 "./Src/LEDS.o"
 "./Src/MATRIX_KEYPAD.o"
 "./Src/OLED.o"
+"./Src/PWM.o"
 "./Src/SYSTICK.o"
 "./Src/TIMER.o"
 "./Src/UART.o"

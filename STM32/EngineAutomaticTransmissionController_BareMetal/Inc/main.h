@@ -174,7 +174,6 @@ typedef struct
 #define RCC_APB1ENR_TIM2EN	0x1UL << 0U			// TIM Clock Enable
 #define RCC_APB1ENR_TIM3EN	0x1UL << 1U
 #define RCC_APB1ENR_TIM4EN	0x1UL << 2U
-#define RCC_APB1ENR_TIM5EN	0x1UL << 3U
 
 #define RCC_APB2ENR_ADC1EN	0x1UL << 9U			// ADC Clock Enable
 #define RCC_APB2ENR_ADC2EN	0x1UL << 10U
