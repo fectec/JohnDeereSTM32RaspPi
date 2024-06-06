@@ -68,6 +68,12 @@ To use the graphical interface, run **game.py**. It is possible to select betwee
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/277b9cf4-1416-4760-bf3c-58a580699492" alt = "Graphical Interface Serial Data Demo" width="600" height="350"/>
 </p>
 
+### No Graphical Interface with Serial Data on Raspberry Pi
+
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/a5490211-3740-4516-842a-dcf02a86d198" alt = "Graphical Interface Serial Data Demo" width="600" height="350"/>
+</p>
+
 In both serial interaction cases, modify **plot_serial_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *Data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_serial_settings.py, alongside the baud rate, which is by default 115200 to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
 
 Finally, a **bash script** was written to simplify the process of running the plotting file. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the plotting file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
