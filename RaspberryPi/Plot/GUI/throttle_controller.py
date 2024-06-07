@@ -114,7 +114,7 @@ class ThrottleController(QWidget):
 
             # Transmit data (throttle value) over the serial port
 
-            self.ser.write(self.throttle_value.encode())
+            self.ser.write(str(self.throttle_value).encode('UTF-8'))
             print("Transmitted data:", self.throttle_value)
 
         except:

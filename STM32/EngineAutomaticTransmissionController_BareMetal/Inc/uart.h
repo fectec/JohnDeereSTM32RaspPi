@@ -38,9 +38,15 @@
 #define USART_CR1_TE	0x1UL <<  3U
 #define USART_SR_TXE	0x1UL <<  7U
 
+// Receiver bits
+
+#define USART_CR1_RE	0x1UL << 2U
+#define USART_SR_RXNE	0x1UL << 5U
+
 // Function prototypes for USART
 
 void USER_USART_Init( uint8_t );
 int _write( int, char*, int );
+uint8_t USER_USART_Receive( void );
 
 #endif /* UART_H_ */

@@ -57,7 +57,7 @@ int main( void )
   USER_USART_Init( USART_1 );
   USER_MATRIX_KEYPAD_Init();
   USER_LEDS_Init();
-  USER_LCD_Init();
+  //USER_LCD_Init();
 
   USER_OLED_Init_64( I2C_2 );
   USER_OLED_Animation( I2C_2, oled_buffer );
@@ -171,15 +171,15 @@ int main( void )
 
     // Write the messages to send to the LCD
 
-    snprintf( FirstLine_LCD_MSG, sizeof(FirstLine_LCD_MSG), "%03d.%01d  %03d.%01d m/s", ThrottleWhole, ThrottleDecimal, VehicleSpeedWhole, VehicleSpeedDecimal );
-    snprintf( SecondLine_LCD_MSG, sizeof(SecondLine_LCD_MSG), "%03d %04d.%01d RPM %01d", BrakeWhole, EngineSpeedWhole, EngineSpeedDecimal, GearWhole );
+    snprintf( FirstLine_LCD_MSG, sizeof(FirstLine_LCD_MSG), "%03d.%01d  %03d.%01d m/s", ThrottleWhole, ThrottleDecimal / 10, VehicleSpeedWhole, VehicleSpeedDecimal / 10 );
+    snprintf( SecondLine_LCD_MSG, sizeof(SecondLine_LCD_MSG), "%03d %01d %04d.%01d RPM", GearWhole, BrakeWhole, EngineSpeedWhole, EngineSpeedDecimal / 10 );
 
     // Display values on the LCD
 
-    LCD_Set_Cursor( 1, 1 );
-    LCD_Put_Str( FirstLine_LCD_MSG );
-    LCD_Set_Cursor( 2, 1 );
-    LCD_Put_Str( SecondLine_LCD_MSG );
+    //LCD_Set_Cursor( 1, 1 );
+    //LCD_Put_Str( FirstLine_LCD_MSG );
+    //LCD_Set_Cursor( 2, 1 );
+    //LCD_Put_Str( SecondLine_LCD_MSG );
 
     /* Properly format the model output data
      * and display it on the OLED screen.
