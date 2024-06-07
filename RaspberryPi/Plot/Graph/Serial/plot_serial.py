@@ -1,17 +1,10 @@
 # Library imports
 
-import numpy as np
-import csv
-import serial
-
-import matplotlib.pyplot as plt
+import numpy as np, csv, serial,matplotlib.pyplot as plt, threading, queue
 
 # Code imports
 
 import plot_serial_settings as set
-
-import threading
-import queue
 
 # Function for receiving data
   

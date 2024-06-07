@@ -1,7 +1,6 @@
 # Library imports
 
-import os
-import sys
+import os, sys
 
 # Code imports
 

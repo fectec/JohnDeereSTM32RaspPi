@@ -14,20 +14,12 @@ they can't block each other.
 
 # Library imports
 
-import numpy as np
-import csv
-import serial
-
-import matplotlib.pyplot as plt
+import numpy as np, csv, serial, matplotlib.pyplot as plt, threading, queue
 from matplotlib.animation import FuncAnimation
 
 # Code imports
 
-import plot_RPi_settings
-import plot_serial_settings as set
-
-import threading
-import queue
+import plot_RPi_settings, plot_serial_settings as set
 
 # Function for receiving data
   

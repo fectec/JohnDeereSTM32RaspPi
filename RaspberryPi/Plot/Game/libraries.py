@@ -1,5 +1,2 @@
-import os
-import sys
-import pygame as pg
-import types
+import os, sys, pygame as pg, types
 from matplotlib.backends.backend_agg import FigureCanvasAgg

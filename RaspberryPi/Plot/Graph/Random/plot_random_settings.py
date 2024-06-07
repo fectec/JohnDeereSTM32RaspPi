@@ -1,8 +1,6 @@
 # Library imports
 
-import os
-import sys
-import math
+import os, sys, math
 
 # Simulation constants
 

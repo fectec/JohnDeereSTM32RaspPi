@@ -4,8 +4,7 @@ from libraries import FigureCanvasAgg
 
 # Code imports
 
-import game_settings as set
-import game_instances as ins
+import game_settings as set, game_instances as ins
 
 from plot_serial import run_plot
 #from plot_random import run_plot    # Uncomment this and comment on the up line if you want to run with random data
