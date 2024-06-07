@@ -12,10 +12,16 @@ def receive_data():
 
   try:
 
-    # Open the serial port
+    try:
 
-    ser = serial.Serial(set.SERIAL_PORT, set.BAUDRATE)
-    print("Serial port opened successfully.")
+      # Open the serial port
+
+      ser = serial.Serial(set.SERIAL_PORT, set.BAUDRATE)
+      print("Serial port opened successfully.")
+
+    except:
+
+      print("Error opening the serial port.")
 
     while True:
 
@@ -48,18 +54,24 @@ def receive_data():
 
           print("Error decoding data:", e)
 
-  except serial.SerialException as e:
+  except:
 
-    print("Error:", e)
+    print("Error reading data from the serial port.")
 
   finally:
       
-    # Close the serial port
+      # Close the serial port
 
-    if ser.is_open:
+      try:
 
-        ser.close()
-        print("Serial port closed.")
+          if ser.is_open:
+
+              ser.close()
+              print("Serial port closed.")
+
+      except:
+
+          print("Error closing the serial port.")
 
 # Function for storing in CSV
 
@@ -84,9 +96,9 @@ def store_csv():
 
         file.close()
 
-  except Exception as e:
+  except:
     
-    print("Error writing to CSV:", e)
+    print("Error writing to the CSV file.")
       
 # Function for updating the plot
 

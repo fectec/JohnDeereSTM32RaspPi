@@ -10,10 +10,16 @@ from Graph.Serial.plot_serial_settings import SERIAL_PORT, BAUDRATE
 
 try:
     
-    # Open the serial port
-    
-    ser = serial.Serial(SERIAL_PORT, BAUDRATE)
-    print("Serial port opened successfully.")
+    try:
+
+        # Open the serial port
+        
+        ser = serial.Serial(SERIAL_PORT, BAUDRATE)
+        print("Serial port opened successfully.")
+
+    except:
+
+        print("Error opening the serial port.")
 
     # Read data from the serial port and print it to the console
     
@@ -32,15 +38,21 @@ try:
 
                 print("Error decoding data:", e)
 
-except serial.SerialException as e:
+except:
 
-    print("Error:", e)
+    print("Error reading data from the serial port.")
 
 finally:
     
     # Close the serial port
 
-    if ser.is_open:
+    try:
 
-        ser.close()
-        print("Serial port closed.")
+        if ser.is_open:
+
+            ser.close()
+            print("Serial port closed.")
+
+    except:
+
+        print("Error closing the serial port.")
