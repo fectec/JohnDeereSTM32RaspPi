@@ -16,6 +16,7 @@ source "$HOME/.venv/bin/activate"                                               
 #pip install matplotlib -U
 #pip install numpy -U
 #pip install pyserial -U
+#pip install PyQt5 -U
 
 cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Graph/RPi         # Change directory to the location of the 'plot_RPi.py' Python script (modify if needed)
 
