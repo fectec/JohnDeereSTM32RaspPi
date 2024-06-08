@@ -18,7 +18,7 @@
 #define TEXT_COLUMNS_OFFSET	8
 #define TEXT_ROWS_OFFSET	1
 #define LOGO_DISPLACEMENT	29
-#define OLED_MSGS_NUMBER	5
+#define OLED_MSGS_NUMBER	7
 
 // ImgType type
 

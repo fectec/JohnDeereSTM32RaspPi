@@ -30,7 +30,7 @@ SLIDER_BOUNDS = [0, 100]
 
 # Button
 
-BUTTON_TEXT_MODE = "Simulation"
+BUTTON_TEXT_MODE = "Press for SIMULATION"
 
 BUTTON_STYLE = "background-color: green; font-weight: bold;"
 

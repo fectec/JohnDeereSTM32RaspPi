@@ -43,6 +43,14 @@ char SecondLine_LCD_MSG[LCD_CHARS + 1];
 char oled_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS];
 char OLED_MSGS[OLED_MSGS_NUMBER][OLED_SCREEN_COLUMNS];
 
+// UART
+
+uint8_t receivedThrottle = 0;
+
+// Mode select
+
+uint8_t operationMode = 0;
+
 /* Main function */
 
 int main( void )
@@ -71,7 +79,8 @@ int main( void )
   for(;;)
   {
     /* Read the ADC conversion, convert it to a voltage value,
-     * and normalize it to within the range accepted by the model.
+     * and normalize it to within the range accepted by the model,
+     * this for manual mode.
      */
 
     conversionData = USER_ADC_Convert( ADC_1 );
@@ -79,8 +88,8 @@ int main( void )
     potentiometerThrottle = scaleVoltageValue( voltageValue, 0, 3.3 );
 
     /* Read the matrix keyboard and
-     * adapt the brake value, LEDs states and
-     * micro servo direction
+     * adapt the brake value, LEDs states,
+     * micro servo direction and operation mode
      * based on the selected key.
      */
 
@@ -107,6 +116,14 @@ int main( void )
 	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_2_5 );
       }
     }
+    else if(selectedKey == 'A')
+    {
+	operationMode = 0;
+    }
+    else if(selectedKey == 'B')
+    {
+	operationMode = 1;
+    }
     else
     {
       keyBrakeTorque = 0.0;
@@ -117,12 +134,29 @@ int main( void )
       USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_7_5 );
     }
 
-    /* Feed the model with the normalized voltage
-     * or throttle value and the brake value, take a step and
+    /* Read the throttle value sent via UART by the Raspeberry Pi
+     * for simulation mode.
+     */
+
+    if( USART1->SR & USART_SR_RXNE )			// If USART_DR is not empty
+    {
+	receivedThrottle = USART1->DR;			// Receive data and return it
+    }
+
+    /* Feed the model with the throttle value
+     * and the brake value, take a step and
      * sanitize the output values.
      */
 
-    EngTrModel_U.Throttle = potentiometerThrottle;
+    if(operationMode == 0)
+    {
+	EngTrModel_U.Throttle = potentiometerThrottle;
+    }
+    else
+    {
+      EngTrModel_U.Throttle = (float) receivedThrottle;
+    }
+
     EngTrModel_U.BrakeTorque = keyBrakeTorque;
 
     EngTrModel_step();
@@ -185,11 +219,21 @@ int main( void )
      * and display it on the OLED screen.
      */
 
-    snprintf(OLED_MSGS[0], sizeof(OLED_MSGS[0]), "THROTTLE: %03d.%01d", ThrottleWhole, ThrottleDecimal);
-    snprintf(OLED_MSGS[1], sizeof(OLED_MSGS[1]), "BRAKE: %03d", BrakeWhole);
-    snprintf(OLED_MSGS[2], sizeof(OLED_MSGS[2]), "VEHICLE SPEED: %03d.%01d m/s", VehicleSpeedWhole, VehicleSpeedDecimal);
-    snprintf(OLED_MSGS[3], sizeof(OLED_MSGS[3]), "ENGINE SPEED: %04d.%01d RPM", EngineSpeedWhole, EngineSpeedDecimal);
-    snprintf(OLED_MSGS[4], sizeof(OLED_MSGS[4]), "GEAR: %01d", GearWhole);
+    if(operationMode == 0)
+    {
+	snprintf(OLED_MSGS[0], sizeof(OLED_MSGS[0]), "MODE: Man");
+    }
+    else
+    {
+	snprintf(OLED_MSGS[0], sizeof(OLED_MSGS[0]), "MODE: Sim");
+    }
+
+    snprintf(OLED_MSGS[1], sizeof(OLED_MSGS[1]), "MANUAL THROTTLE: %03d.%02d", ThrottleWhole, ThrottleDecimal);
+    snprintf(OLED_MSGS[2], sizeof(OLED_MSGS[2]), "SIMULATION THROTTLE: %03d", receivedThrottle);
+    snprintf(OLED_MSGS[3], sizeof(OLED_MSGS[3]), "BRAKE: %03d", BrakeWhole);
+    snprintf(OLED_MSGS[4], sizeof(OLED_MSGS[4]), "VEHICLE SPEED: %03d.%02d m/s", VehicleSpeedWhole, VehicleSpeedDecimal);
+    snprintf(OLED_MSGS[5], sizeof(OLED_MSGS[5]), "ENGINE SPEED: %04d.%02d RPM", EngineSpeedWhole, EngineSpeedDecimal);
+    snprintf(OLED_MSGS[6], sizeof(OLED_MSGS[6]), "GEAR: %01d", GearWhole);
 
     for (int i = 0; i < OLED_MSGS_NUMBER; ++i)
     {

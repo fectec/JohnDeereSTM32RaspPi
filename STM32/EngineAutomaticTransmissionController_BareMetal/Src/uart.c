@@ -51,14 +51,3 @@ int _write( int file, char *ptr, int len )
 
   return len;
 }
-
-uint8_t USER_USART_Receive( void )
-{
-  // receiveData = 0;
-  while(!(USART1->SR & USART_SR_RXNE));
-
-	return USART1->DR;
-
-  //return receiveData;				// Receive data and return it
-}
-

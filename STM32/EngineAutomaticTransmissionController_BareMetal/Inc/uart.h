@@ -47,6 +47,5 @@
 
 void USER_USART_Init( uint8_t );
 int _write( int, char*, int );
-uint8_t USER_USART_Receive( void );
 
 #endif /* UART_H_ */

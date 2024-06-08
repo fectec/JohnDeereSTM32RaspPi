@@ -1,6 +1,6 @@
 # Library imports
 
-from libraries import QWidget, QVBoxLayout, QLabel, QSlider, Qt, QPushButton, QIcon, serial
+from libraries import QWidget, QVBoxLayout, QLabel, QSlider, Qt, QPushButton, QIcon, serial, time
 import gui_settings as set, plot_serial_settings as serial_set
 
 # Definition of the ThrottleController class
@@ -100,9 +100,9 @@ class ThrottleController(QWidget):
 
     def updateThrottle(self):
 
-        self.throttle_value = str(self.slider.value())
+        self.throttle_value = self.slider.value()
 
-        self.slider_label.setText(set.SLIDER_LABEL_TEXT + self.throttle_value)
+        self.slider_label.setText(set.SLIDER_LABEL_TEXT + str(self.throttle_value))
 
         if self.mode == 1:
 
@@ -114,8 +114,11 @@ class ThrottleController(QWidget):
 
             # Transmit data (throttle value) over the serial port
 
-            self.ser.write(str(self.throttle_value).encode('UTF-8'))
-            print("Transmitted data:", self.throttle_value)
+            self.ser.write(self.throttle_value.to_bytes())
+
+            time.sleep(0.1)
+            
+            print("Transmitted data:", str(self.throttle_value))
 
         except:
             
