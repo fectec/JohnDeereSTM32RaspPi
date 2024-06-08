@@ -28,6 +28,10 @@
 uint16_t conversionData = 0;
 float voltageValue = 0.0, potentiometerThrottle = 0.0;
 
+// UART
+
+uint8_t receivedThrottle = 0;
+
 // Matrix keypad
 
 char selectedKey = 'N';
@@ -42,10 +46,6 @@ char SecondLine_LCD_MSG[LCD_CHARS + 1];
 
 char oled_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS];
 char OLED_MSGS[OLED_MSGS_NUMBER][OLED_SCREEN_COLUMNS];
-
-// UART
-
-uint8_t receivedThrottle = 0;
 
 // Mode select
 
@@ -65,7 +65,7 @@ int main( void )
   USER_USART_Init( USART_1 );
   USER_MATRIX_KEYPAD_Init();
   USER_LEDS_Init();
-  //USER_LCD_Init();
+  USER_LCD_Init();
 
   USER_OLED_Init_64( I2C_2 );
   USER_OLED_Animation( I2C_2, oled_buffer );
@@ -95,52 +95,52 @@ int main( void )
 
     selectedKey = USER_MATRIX_KEYPAD_Read();
 
-    if(selectedKey == '5')
+    if(selectedKey == '5')							// Brake action
     {
-      keyBrakeTorque = 100.0;
+      keyBrakeTorque = 100.0;							// Full brake torque
 
-      USER_TIM_Delay( TIM_3, TIM_PSC_200MS, TIM_CNT_200MS );
+      USER_TIM_Delay( TIM_3, TIM_PSC_200MS, TIM_CNT_200MS );			// LEDs blinking
     }
-    else if(selectedKey == '4' || selectedKey == '6')
+    else if(selectedKey == '4' || selectedKey == '6')				// Left or right action
     {
-      keyBrakeTorque = 50.0;
+      keyBrakeTorque = 50.0;							// Half brake torque
 
-      if(selectedKey == '4')
+      if(selectedKey == '4')							// Left action
       {
-	  USER_GPIO_Write( PORTC, 2, 1 );
-	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_12_5 );
+	  USER_GPIO_Write( PORTC, 2, 1 );					// Left LED turned on
+	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_12_5 );	// The micro servo rotates to a 180° position
       }
-      else
+      else									// Right action
       {
-	  USER_GPIO_Write( PORTC, 3, 1 );
-	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_2_5 );
+	  USER_GPIO_Write( PORTC, 3, 1 );					// Right LED turned on
+	  USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_2_5 );	// The micro servo rotates to a 0° position
       }
     }
-    else if(selectedKey == 'A')
+    else if(selectedKey == 'A')							// Select manual mode action
     {
-	operationMode = 0;
+	operationMode = 0;							// Manual mode
     }
-    else if(selectedKey == 'B')
+    else if(selectedKey == 'B')							// Select simulation mode action
     {
-	operationMode = 1;
+	operationMode = 1;							// Simulation mode
     }
-    else
+    else									// No action
     {
-      keyBrakeTorque = 0.0;
+      keyBrakeTorque = 0.0;							// No brake torque
 
-      USER_GPIO_Write( PORTC, 2, 0 );
+      USER_GPIO_Write( PORTC, 2, 0 );						// LEDs turned off
       USER_GPIO_Write( PORTC, 3, 0 );
 
-      USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_7_5 );
+      USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_7_5 );		// The micro servo rotates to a 90° position
     }
 
     /* Read the throttle value sent via UART by the Raspeberry Pi
      * for simulation mode.
      */
 
-    if( USART1->SR & USART_SR_RXNE )			// If USART_DR is not empty
+    if( USART1->SR & USART_SR_RXNE )						// If USART_DR is not empty
     {
-	receivedThrottle = USART1->DR;			// Receive data and return it
+	receivedThrottle = USART1->DR;						// Receive data
     }
 
     /* Feed the model with the throttle value
@@ -148,18 +148,20 @@ int main( void )
      * sanitize the output values.
      */
 
-    if(operationMode == 0)
+    if(operationMode == 0)							// Manual mode
     {
-	EngTrModel_U.Throttle = potentiometerThrottle;
+	EngTrModel_U.Throttle = potentiometerThrottle;				// Model feed with potentiometer throttle value
     }
-    else
+    else									// Simulation mode
     {
-      EngTrModel_U.Throttle = (float) receivedThrottle;
+      EngTrModel_U.Throttle = (float) receivedThrottle;				// Model feed with received throttle value
     }
 
-    EngTrModel_U.BrakeTorque = keyBrakeTorque;
+    EngTrModel_U.BrakeTorque = keyBrakeTorque;					// Model feed with brake value
 
-    EngTrModel_step();
+    EngTrModel_step();								// Take a step
+
+    // Sanitize the output values
 
     if(isnan(EngTrModel_Y.VehicleSpeed) || EngTrModel_Y.VehicleSpeed < 0 || EngTrModel_Y.VehicleSpeed > 200)
     {
@@ -183,7 +185,7 @@ int main( void )
     printf("%f,%f,%f,%f,%f\n\r", potentiometerThrottle, keyBrakeTorque, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
 
     /* Properly format the model output data
-     * and display it on the LCD.
+     * and display it on the LCD
      */
 
     /* Extract the whole and decimal parts for Throttle,
@@ -194,11 +196,11 @@ int main( void )
     int ThrottleWhole = (int) ( potentiometerThrottle );
     int ThrottleDecimal = (int) ( ( potentiometerThrottle - ThrottleWhole ) * 100 );
 
-    int EngineSpeedWhole = (int)( EngTrModel_Y.EngineSpeed );
-    int EngineSpeedDecimal = (int)( ( EngTrModel_Y.EngineSpeed - EngineSpeedWhole ) * 100 );
-
     int VehicleSpeedWhole = (int)( EngTrModel_Y.VehicleSpeed );
     int VehicleSpeedDecimal = (int)( ( EngTrModel_Y.VehicleSpeed - VehicleSpeedWhole ) * 100 );
+
+    int EngineSpeedWhole = (int)( EngTrModel_Y.EngineSpeed );
+    int EngineSpeedDecimal = (int)( ( EngTrModel_Y.EngineSpeed - EngineSpeedWhole ) * 100 );
 
     int BrakeWhole = (int) ( keyBrakeTorque );
     int GearWhole = (int) ( EngTrModel_Y.Gear );
@@ -206,24 +208,26 @@ int main( void )
     // Write the messages to send to the LCD
 
     snprintf( FirstLine_LCD_MSG, sizeof(FirstLine_LCD_MSG), "%03d.%01d  %03d.%01d m/s", ThrottleWhole, ThrottleDecimal / 10, VehicleSpeedWhole, VehicleSpeedDecimal / 10 );
-    snprintf( SecondLine_LCD_MSG, sizeof(SecondLine_LCD_MSG), "%03d %01d %04d.%01d RPM", GearWhole, BrakeWhole, EngineSpeedWhole, EngineSpeedDecimal / 10 );
+    snprintf( SecondLine_LCD_MSG, sizeof(SecondLine_LCD_MSG), "%03d %01d %04d.%01d RPM", BrakeWhole, GearWhole, EngineSpeedWhole, EngineSpeedDecimal / 10 );
 
     // Display values on the LCD
 
-    //LCD_Set_Cursor( 1, 1 );
-    //LCD_Put_Str( FirstLine_LCD_MSG );
-    //LCD_Set_Cursor( 2, 1 );
-    //LCD_Put_Str( SecondLine_LCD_MSG );
+    LCD_Set_Cursor( 1, 1 );
+    LCD_Put_Str( FirstLine_LCD_MSG );
+    LCD_Set_Cursor( 2, 1 );
+    LCD_Put_Str( SecondLine_LCD_MSG );
 
-    /* Properly format the model output data
-     * and display it on the OLED screen.
+    /* Display the output model data
+     *  on the OLED screen.
      */
 
-    if(operationMode == 0)
+    // Write the messages to send to the OLED screen
+
+    if(operationMode == 0)							// Manuel mode
     {
 	snprintf(OLED_MSGS[0], sizeof(OLED_MSGS[0]), "MODE: Man");
     }
-    else
+    else									// Simulation mode
     {
 	snprintf(OLED_MSGS[0], sizeof(OLED_MSGS[0]), "MODE: Sim");
     }
@@ -235,12 +239,14 @@ int main( void )
     snprintf(OLED_MSGS[5], sizeof(OLED_MSGS[5]), "ENGINE SPEED: %04d.%02d RPM", EngineSpeedWhole, EngineSpeedDecimal);
     snprintf(OLED_MSGS[6], sizeof(OLED_MSGS[6]), "GEAR: %01d", GearWhole);
 
+    // Display values on the OLED screen
+
     for (int i = 0; i < OLED_MSGS_NUMBER; ++i)
     {
 	USER_OLED_Message( I2C_2, OLED_MSGS[i], 0, i );
     }
 
-    USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );
+    USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );
   }
 }
 
