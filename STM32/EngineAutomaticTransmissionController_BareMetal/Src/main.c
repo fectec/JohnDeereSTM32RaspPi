@@ -60,7 +60,7 @@ int main( void )
   USER_ADC_Init( ADC_1 );
   USER_USART_Init( USART_1 );
   USER_MATRIX_KEYPAD_Init();
-  USER_LCD_Init();
+  //USER_LCD_Init();
   USER_LEDS_Init();
   USER_OLED_Init_64( I2C_2 );
   USER_PWM_Init();
@@ -207,10 +207,10 @@ int main( void )
 
     // Display values on the LCD
 
-    LCD_Set_Cursor( 1, 1 );
-    LCD_Put_Str( FirstLine_LCD_MSG );
-    LCD_Set_Cursor( 2, 1 );
-    LCD_Put_Str( SecondLine_LCD_MSG );
+    //LCD_Set_Cursor( 1, 1 );
+    //LCD_Put_Str( FirstLine_LCD_MSG );
+    //LCD_Set_Cursor( 2, 1 );
+    //LCD_Put_Str( SecondLine_LCD_MSG );
 
     /* Display the output model data
      *  on the OLED screen.
@@ -241,7 +241,7 @@ int main( void )
 	USER_OLED_Message( I2C_2, OLED_MSGS[i], 0, i );
     }
 
-    USER_TIM_Delay( TIM_2, TIM_PSC_200MS, TIM_CNT_200MS );
+    USER_TIM_Delay( TIM_2, TIM_PSC_40MS, TIM_CNT_40MS );
   }
 }
 
