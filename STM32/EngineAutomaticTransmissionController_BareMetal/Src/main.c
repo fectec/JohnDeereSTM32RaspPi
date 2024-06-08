@@ -58,21 +58,18 @@ int main( void )
   USER_SYSCLK_Configuration();
 
   USER_TIM_Init( TIM_2 );
-  USER_TIM_Init( TIM_3 );
-
   USER_SYSTICK_Init();
   USER_ADC_Init( ADC_1 );
   USER_USART_Init( USART_1 );
   USER_MATRIX_KEYPAD_Init();
-  USER_LEDS_Init();
   USER_LCD_Init();
-
+  USER_LEDS_Init();
   USER_OLED_Init_64( I2C_2 );
-  USER_OLED_Animation( I2C_2, oled_buffer );
-
   USER_PWM_Init();
 
   EngTrModel_initialize();
+
+  USER_OLED_Animation( I2C_2, oled_buffer );
 
   /* Loop forever */
 

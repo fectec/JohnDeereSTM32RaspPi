@@ -6,6 +6,7 @@
 #include "LEDS.h"
 #include "main.h"
 #include "GPIO.h"
+#include "TIMER.h"
 
 void USER_LEDS_Init( void )
 {
@@ -18,4 +19,6 @@ void USER_LEDS_Init( void )
 
   USER_GPIO_Define( PORTC, 3, OUT_50, OUT_GP_PP );
   USER_GPIO_Write( PORTC, 3, 0 );
+
+  USER_TIM_Init( TIM_3 );
 }
