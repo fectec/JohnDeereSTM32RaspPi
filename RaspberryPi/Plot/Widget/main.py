@@ -1,4 +1,4 @@
-from libraries import QApplication, sys
+from libraries import sys, QApplication
 from throttle_controller import ThrottleController
 
 if __name__ == '__main__':

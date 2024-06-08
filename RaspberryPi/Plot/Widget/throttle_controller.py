@@ -1,7 +1,7 @@
 # Library imports
 
-from libraries import QWidget, QVBoxLayout, QLabel, QSlider, Qt, QPushButton, QIcon, serial, time
-import gui_settings as set, plot_serial_settings as serial_set
+from libraries import QWidget, QVBoxLayout, QSlider, QPushButton, QLabel, Qt, QIcon, serial, time  
+import widget_settings as set, plot_serial_settings as serial_set
 
 # Definition of the ThrottleController class
 
