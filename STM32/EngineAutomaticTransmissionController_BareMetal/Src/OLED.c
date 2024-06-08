@@ -395,6 +395,8 @@ void USER_OLED_Update_Buffer_Bit( ImgType img, uint8_t img_num, char screen_buff
 
 void USER_OLED_Animation( uint8_t I2C, char screen_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS] )
 {
+  USER_SYSTICK_Init();
+
   uint16_t i = 0;
 
   ImgType JOHN_DEERE_LOGO_PIC = { .height = JOHN_DEERE_LOGO_ROWS, .width = JOHN_DEERE_LOGO_COLS, .x_pos = 0, .y_pos = 0, .bit_y_pos = 0 };

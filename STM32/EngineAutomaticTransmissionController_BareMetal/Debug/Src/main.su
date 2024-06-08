@@ -1,2 +1,2 @@
-../Src/main.c:56:5:main	104	static
-../Src/main.c:250:6:USER_SYSCLK_Configuration	4	static
+../Src/main.c:55:5:main	104	static
+../Src/main.c:248:6:USER_SYSCLK_Configuration	4	static

@@ -8,7 +8,6 @@
 #include "main.h"
 #include "GPIO.h"
 #include "TIMER.h"
-#include "SYSTICK.h"
 #include "ADC.h"
 #include "UART.h"
 #include "I2C.h"
@@ -58,7 +57,6 @@ int main( void )
   USER_SYSCLK_Configuration();
 
   USER_TIM_Init( TIM_2 );
-  USER_SYSTICK_Init();
   USER_ADC_Init( ADC_1 );
   USER_USART_Init( USART_1 );
   USER_MATRIX_KEYPAD_Init();
