@@ -17,11 +17,12 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 ## Schematic Diagram
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/3cc95901-40ba-4452-8c17-eca8b851ed16" alt = "Boards"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/573a7be6-f87a-43f1-af35-1df0a863bf8f" alt = "Boards"/>
 </p>
 
+
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/24e47b09-ac57-4903-a343-ffd03eb09838" alt = "Inputs" width="500" height="450"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/bc0f1f22-7c72-4a60-821c-5134dfb968f2" alt = "Inputs" width="500" height="450"/>
 </p>
 
 <p align="center">
@@ -33,7 +34,7 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 </p>
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/08059766-1b59-4c4f-96af-64771a6bc9fc" alt = "Micro Servo Output" width="200" height="180"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/30aebab7-1cfb-4199-9e22-44d581f86ed1" alt = "Micro Servo Output" width="200" height="180"/>
 </p>
 
 <p align="center">
