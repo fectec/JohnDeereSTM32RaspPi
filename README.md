@@ -20,25 +20,24 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/573a7be6-f87a-43f1-af35-1df0a863bf8f" alt = "Boards"/>
 </p>
 
-
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/bc0f1f22-7c72-4a60-821c-5134dfb968f2" alt = "Inputs" width="500" height="450"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/a70a0e8e-5ac5-4a2c-acda-91c0dac7272c" alt = "Inputs" width="500" height="450"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/91148303-7e2e-4740-a791-cfd799e3a00f" alt = "Outputs" width="600" height="300"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/dc73c69d-eedd-4f88-a5e9-a8ea6115a675" alt = "Image outputs" width="600" height="300"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/c7cc9924-c6d5-40a0-8bd2-2a930c9e2250" alt = "LEDs Output" width="200" height="250"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/1fc19804-64f4-4ad0-a7f6-30c772a6479e" alt = "LEDs Output" width="200" height="250"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/30aebab7-1cfb-4199-9e22-44d581f86ed1" alt = "Micro Servo Output" width="200" height="180"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/c33448a6-4618-4868-a795-044317b1b2fc" alt = "Micro Servo Output" width="200" height="180"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/a3f06499-64ff-4d7e-99d5-d39f5a66b107" alt = "FTDI Output" width="500" height="200"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/4f9f59a5-d852-4bfa-bffa-76a47c9cc214" alt = "FTDI Output" width="500" height="200"/>
 </p>
 
 ## NUCLEO-F103RB Model Integration
