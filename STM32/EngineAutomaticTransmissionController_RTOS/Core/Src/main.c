@@ -51,6 +51,25 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+#define PERIOD_TASK_1	500
+#define PERIOD_TASK_2	500
+#define PERIOD_TASK_3	500
+#define PERIOD_TASK_4	500
+#define PERIOD_TASK_5	500
+#define PERIOD_TASK_6	500
+#define PERIOD_TASK_7	500
+#define PERIOD_TASK_8	500
+
+#define TICK_DIFF_TASK_1	(osKernelSysTick() - (PERIOD_TASK_1 * counter++))
+#define TICK_DIFF_TASK_2	(osKernelSysTick() - (PERIOD_TASK_2 * counter++))
+#define TICK_DIFF_TASK_3	(osKernelSysTick() - (PERIOD_TASK_3 * counter++))
+#define TICK_DIFF_TASK_4	(osKernelSysTick() - (PERIOD_TASK_4 * counter++))
+#define TICK_DIFF_TASK_5	(osKernelSysTick() - (PERIOD_TASK_5 * counter++))
+#define TICK_DIFF_TASK_6	(osKernelSysTick() - (PERIOD_TASK_6 * counter++))
+#define TICK_DIFF_TASK_7	(osKernelSysTick() - (PERIOD_TASK_7 * counter++))
+#define TICK_DIFF_TASK_8	(osKernelSysTick() - (PERIOD_TASK_8 * counter++))
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -63,6 +82,17 @@ UART_HandleTypeDef huart2;
 osThreadId defaultTaskHandle;
 
 /* USER CODE BEGIN PV */
+
+// RTOS
+
+osThreadId Task1Handle;
+osThreadId Task2Handle;
+osThreadId Task3Handle;
+osThreadId Task4Handle;
+osThreadId Task5Handle;
+osThreadId Task6Handle;
+osThreadId Task7Handle;
+osThreadId Task8Handle;
 
 // Matrix keypad
 
@@ -110,22 +140,22 @@ char OLED_MSGS[OLED_MSGS_NUMBER][OLED_SCREEN_COLUMNS];
 
 /* Private function prototypes -----------------------------------------------*/
 
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
-void StartDefaultTask(void const * argument);
+void SystemClock_Config( void );
+static void MX_GPIO_Init( void );
+static void MX_USART2_UART_Init( void );
+void StartDefaultTask( void const * argument );
 
 /* USER CODE BEGIN PFP */
 
 void USER_SYSCLK_Configuration( void );
-void TASK_1_MATRIX_KEYPAD_Read( void );
-void TASK_2_ADC_Read( void );
-void TASK_3_UART_Read( void );
-void TASK_4_MODEL_Step( void );
-void TASK_5_UART_Send( void );
-void TASK_6_DATA_Format( void );
-void TASK_7_LCD_Write( void );
-void TASK_8_OLED_Write( void );
+void TASK_1_MATRIX_KEYPAD_Read( void const * argument );
+void TASK_2_ADC_Read( void const * argument );
+void TASK_3_UART_Read( void const * argument );
+void TASK_4_MODEL_Step( void const * argument );
+void TASK_5_UART_Send( void const * argument );
+void TASK_6_DATA_Format( void const * argument );
+void TASK_7_LCD_Write( void const * argument );
+void TASK_8_OLED_Write( void const * argument );
 
 /* USER CODE END PFP */
 
@@ -156,7 +186,7 @@ int main(void)
 
   /* Configure the system clock */
 
-  SystemClock_Config();
+  //SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
 
@@ -164,8 +194,8 @@ int main(void)
 
   /* Initialize all configured peripherals */
 
-  MX_GPIO_Init();
-  MX_USART2_UART_Init();
+ // MX_GPIO_Init();
+  //MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
 
@@ -190,11 +220,35 @@ int main(void)
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
 
+  /* USER CODE BEGIN RTOS_THREADS */
+
   osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-  /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+  osThreadDef(Task2, TASK_2_ADC_Read, osPriorityNormal, 0, 384);
+  Task2Handle = osThreadCreate(osThread(Task2), NULL);
+
+  osThreadDef(Task4, TASK_4_MODEL_Step, osPriorityNormal, 0, 384);
+  Task4Handle = osThreadCreate(osThread(Task4), NULL);
+
+  osThreadDef(Task6, TASK_6_DATA_Format, osPriorityNormal, 0, 384);
+  Task6Handle = osThreadCreate(osThread(Task6), NULL);
+
+  osThreadDef(Task8, TASK_8_OLED_Write, osPriorityNormal, 0, 384);
+  Task8Handle = osThreadCreate(osThread(Task8), NULL);
+
+  osThreadDef(Task7, TASK_7_LCD_Write, osPriorityNormal, 0, 384);
+  Task7Handle = osThreadCreate(osThread(Task7), NULL);
+
+  osThreadDef(Task5, TASK_5_UART_Send, osPriorityNormal, 0, 384);
+  Task5Handle = osThreadCreate(osThread(Task5), NULL);
+
+  osThreadDef(Task3, TASK_3_UART_Read, osPriorityNormal, 0, 384);
+  Task3Handle = osThreadCreate(osThread(Task3), NULL);
+
+  osThreadDef(Task1, TASK_1_MATRIX_KEYPAD_Read, osPriorityNormal, 0, 384);
+  Task1Handle = osThreadCreate(osThread(Task1), NULL);
+
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
@@ -372,7 +426,7 @@ void USER_SYSCLK_Configuration( void )
  * based on the selected key.
  */
 
-void TASK_1_MATRIX_KEYPAD_Read( void )
+void TASK_1_MATRIX_KEYPAD_Read( void const * argument )
 {
   USER_SYSCLK_Configuration();
   USER_USART_Init( USART_1 );
@@ -381,6 +435,10 @@ void TASK_1_MATRIX_KEYPAD_Read( void )
   USER_MATRIX_KEYPAD_Init();
   USER_LEDS_Init();
   USER_PWM_Init();
+
+  uint32_t counter = 0;
+
+  /* Infinite loop */
 
   for(;;)
   {
@@ -424,6 +482,8 @@ void TASK_1_MATRIX_KEYPAD_Read( void )
 
       USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_7_5 );		// The micro servo rotates to a 90° position
     }
+
+    osDelay(PERIOD_TASK_1 - TICK_DIFF_TASK_1);
   }
 }
 
@@ -432,15 +492,21 @@ void TASK_1_MATRIX_KEYPAD_Read( void )
  * this for manual mode.
  */
 
-void TASK_2_ADC_Read( void )
+void TASK_2_ADC_Read( void const * argument )
 {
   USER_ADC_Init( ADC_1 );
+
+  uint32_t counter = 0;
+
+  /* Infinite loop */
 
   for(;;)
   {
     conversionData = USER_ADC_Convert( ADC_1 );
     voltageValue = 0.00080586 * conversionData;
     potentiometerThrottle = scaleVoltageValue( voltageValue, 0, 3.3 );
+
+    osDelay(PERIOD_TASK_2 - TICK_DIFF_TASK_2);
   }
 }
 
@@ -448,14 +514,20 @@ void TASK_2_ADC_Read( void )
  * for simulation mode.
  */
 
-void TASK_3_UART_Read( void )
+void TASK_3_UART_Read( void const * argument )
 {
+  uint32_t counter = 0;
+
+  /* Infinite loop */
+
   for(;;)
   {
     if( USART1->SR & USART_SR_RXNE )						// If USART_DR is not empty
     {
 	receivedThrottle = USART1->DR;						// Receive data
     }
+
+    osDelay(PERIOD_TASK_3 - TICK_DIFF_TASK_3);
   }
 }
 
@@ -464,8 +536,12 @@ void TASK_3_UART_Read( void )
  * sanitize the output values.
  */
 
-void TASK_4_MODEL_Step( void )
+void TASK_4_MODEL_Step( void const * argument )
 {
+  uint32_t counter = 0;
+
+  /* Infinite loop */
+
   for(;;)
   {
     if(operationMode == 0)							// Manual mode
@@ -497,6 +573,8 @@ void TASK_4_MODEL_Step( void )
     {
       EngTrModel_Y.Gear = 0.0;
     }
+
+    osDelay(PERIOD_TASK_4 - TICK_DIFF_TASK_4);
   }
 }
 
@@ -504,11 +582,17 @@ void TASK_4_MODEL_Step( void )
  * subsequently received by the Raspberry Pi.
  */
 
-void TASK_5_UART_Send( void )
+void TASK_5_UART_Send( void const * argument )
 {
+  uint32_t counter = 0;
+
+  /* Infinite loop */
+
   for(;;)
   {
     printf("%f,%f,%f,%f,%f\n\r", potentiometerThrottle, keyBrakeTorque, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
+
+    osDelay(PERIOD_TASK_5 - TICK_DIFF_TASK_5);
   }
 }
 
@@ -517,8 +601,12 @@ void TASK_5_UART_Send( void )
  * alongside Brake and Gear to integers.
  */
 
-void TASK_6_DATA_Format( void )
+void TASK_6_DATA_Format( void const * argument )
 {
+  uint32_t counter = 0;
+
+  /* Infinite loop */
+
   for(;;)
   {
     ThrottleWhole = (int) ( potentiometerThrottle );
@@ -532,6 +620,8 @@ void TASK_6_DATA_Format( void )
 
     BrakeWhole = (int) ( keyBrakeTorque );
     GearWhole = (int) ( EngTrModel_Y.Gear );
+
+    osDelay(PERIOD_TASK_6 - TICK_DIFF_TASK_6);
   }
 }
 
@@ -539,10 +629,14 @@ void TASK_6_DATA_Format( void )
  * and display it on the LCD
  */
 
-void TASK_7_LCD_Write( void )
+void TASK_7_LCD_Write( void const * argument )
 {
   USER_TIM_Init( TIM_2 );
   USER_LCD_Init();
+
+  uint32_t counter = 0;
+
+  /* Infinite loop */
 
   for(;;)
   {
@@ -557,6 +651,8 @@ void TASK_7_LCD_Write( void )
     LCD_Put_Str( FirstLine_LCD_MSG );
     LCD_Set_Cursor( 2, 1 );
     LCD_Put_Str( SecondLine_LCD_MSG );
+
+    osDelay(PERIOD_TASK_7 - TICK_DIFF_TASK_7);
   }
 }
 
@@ -564,9 +660,13 @@ void TASK_7_LCD_Write( void )
  *  on the OLED screen.
  */
 
-void TASK_8_OLED_Write( void )
+void TASK_8_OLED_Write( void const * argument )
 {
   USER_OLED_Init_64( I2C_2 );
+
+  uint32_t counter = 0;
+
+  /* Infinite loop */
 
   for(;;)
   {
@@ -594,6 +694,8 @@ void TASK_8_OLED_Write( void )
      {
        USER_OLED_Message( I2C_2, OLED_MSGS[i], 0, i );
      }
+
+     osDelay(PERIOD_TASK_8 - TICK_DIFF_TASK_8);
   }
 }
 
