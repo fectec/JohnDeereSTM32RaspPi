@@ -1,3 +1,0 @@
-../Src/SYSTICK.c:11:6:USER_SYSTICK_Init	1
-../Src/SYSTICK.c:23:6:USER_SYSTICK_Delay_Millis	2
-../Src/SYSTICK.c:32:6:USER_SYSTICK_Delay_ms	2
