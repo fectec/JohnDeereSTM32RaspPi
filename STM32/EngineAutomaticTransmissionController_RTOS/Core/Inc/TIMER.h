@@ -11,31 +11,9 @@
 #define TIM_3			1
 #define TIM_4			2
 
-// Timer peripheral configuration bits
+// Timer peripheral configuration bit for interruption
 
-#define TIM_SMCR_SMS		0x7UL << 0U
-#define TIM_CR1_UDIS		0x1UL << 1U
-#define TIM_CR1_DIR		0x1UL << 4U
-#define TIM_CR1_CMS		0x3UL << 5U
-#define TIM_SR_UIF		0x1UL << 0U
-#define TIM_CR1_CEN		0x1UL << 0U
-
-// For interruption
-
-#define TIM_DIER_UIE		0x1UL << 0U
 #define NVIC_ISER_29		0x1UL << 29U
-
-// For PWM
-
-#define TIM_CR1_URS		0x1UL << 2U
-#define TIM_CR1_ARPE		0x1UL << 7U
-#define TIM_CCMR1_CC1S		0x3UL << 0U
-#define TIM_CCMR1_OC1PE		0x1UL << 3U
-#define TIM_CCMR1_OC1M_0	0x1UL << 4U
-#define TIM_CCMR1_OC1M_2_1	0x3UL << 5U
-#define TIM_EGR_UG		0x1UL << 0U
-#define TIM_CCER_CC1E		0x1UL << 0U
-#define TIM_CCER_CC1P		0x1UL << 1U
 
 // Timer prescaler and count register values
 

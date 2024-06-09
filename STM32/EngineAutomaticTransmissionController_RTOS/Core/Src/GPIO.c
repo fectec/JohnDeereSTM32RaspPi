@@ -44,16 +44,6 @@ void USER_GPIO_Define( uint8_t port, uint8_t pin, uint8_t direction, uint8_t opt
       RCC->APB2ENR |= 	RCC_APB2ENR_IOPEEN;			// IO port E clock enable
       CR = (volatile uint32_t *) (&GPIOE->CRL + offset);
   }
-  else if( port == 5 )
-  {
-      RCC->APB2ENR |= 	RCC_APB2ENR_IOPFEN;			// IO port F clock enable
-      CR = (volatile uint32_t *) (&GPIOF->CRL + offset);
-  }
-  else if( port == 6 )
-  {
-      RCC->APB2ENR |= 	RCC_APB2ENR_IOPGEN;			// IO port G clock enable
-      CR = (volatile uint32_t *) (&GPIOG->CRL + offset);
-  }
 
   if( ( direction == 1 || direction == 2 || direction == 3 ) && ( option == 2 || option == 3 ) )
   {
@@ -92,14 +82,6 @@ uint8_t USER_GPIO_Read( uint8_t port, uint8_t pin )
   {
       IDR = (volatile uint32_t *) (&GPIOE->IDR);
   }
-  else if( port == 5 )
-  {
-      IDR = (volatile uint32_t *) (&GPIOF->IDR);
-  }
-  else if( port == 6 )
-  {
-      IDR = (volatile uint32_t *) (&GPIOG->IDR);
-  }
 
   state = ( ( *IDR & ( 1 << pin ) ) >> pin );
   return state;
@@ -129,14 +111,6 @@ void USER_GPIO_Write(uint8_t port, uint8_t pin, uint8_t state)
   else if( port == 4 )
   {
       ODR = (volatile uint32_t *) (&GPIOE->ODR);
-  }
-  else if( port == 5 )
-  {
-      ODR = (volatile uint32_t *) (&GPIOF->ODR);
-  }
-  else if( port == 6 )
-  {
-      ODR = (volatile uint32_t *) (&GPIOG->ODR);
   }
 
   state ? ( *ODR |= ( state << pin ) ) : ( *ODR &= ~( 1 << pin ) );

@@ -46,7 +46,8 @@ void USER_TIM_Init( uint8_t TIM )
     TIM4->CCMR1		&=	~(TIM_CCMR1_CC1S);	// Step 2 - CC1 channel as output
     TIM4->CCMR1		|=	TIM_CCMR1_OC1PE;	//	CCRx load in UEV event
     TIM4->CCMR1		&=	~(TIM_CCMR1_OC1M_0);	//	PWM mode 1
-    TIM4->CCMR1		|=	TIM_CCMR1_OC1M_2_1;
+    TIM4->CCMR1		|=	TIM_CCMR1_OC1M_2;
+    TIM4->CCMR1		|=	TIM_CCMR1_OC1M_1;
 
     TIM4->CR1		|=	TIM_CR1_CEN;			// Enable the Timer to start counting
   }

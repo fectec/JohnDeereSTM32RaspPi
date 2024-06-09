@@ -116,6 +116,17 @@ static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
+
+void USER_SYSCLK_Configuration( void );
+void TASK_1_MATRIX_KEYPAD_Read( void );
+void TASK_2_ADC_Read( void );
+void TASK_3_UART_Read( void );
+void TASK_4_MODEL_Step( void );
+void TASK_5_UART_Send( void );
+void TASK_6_DATA_Format( void );
+void TASK_7_LCD_Write( void );
+void TASK_8_OLED_Write( void );
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -561,7 +572,7 @@ void TASK_8_OLED_Write( void )
   {
     // Write the messages to send to the OLED screen
 
-     if(operationMode == 0)							// Manuel mode
+     if(operationMode == 0)								// Manuel mode
      {
        snprintf(OLED_MSGS[0], sizeof(OLED_MSGS[0]), "MODE: Man");
      }

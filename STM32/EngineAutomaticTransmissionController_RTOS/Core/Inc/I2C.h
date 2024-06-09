@@ -12,17 +12,8 @@
 
 // I2C peripheral configuration bits
 
-#define I2C_CR1_SWRST		0x1UL << 15U
-#define I2C_CR2_FREQ		0x8
 #define I2C_FM			0x2D
 #define I2C_SM			0xB4
-#define I2C_TRISE_TRISE		0x9
-#define	I2C_CR1_PE		0x1UL << 0U
-#define I2C_CR1_START		0x1UL << 8U
-#define I2C_SR1_SB		0x1UL << 0U
-#define I2C_SR1_ADDR		0x1UL << 1U
-#define I2C_SR1_TXE		0x1UL << 7U
-#define I2C_CR1_STOP		0x1UL << 9U
 
 // Function prototypes for I2C
 

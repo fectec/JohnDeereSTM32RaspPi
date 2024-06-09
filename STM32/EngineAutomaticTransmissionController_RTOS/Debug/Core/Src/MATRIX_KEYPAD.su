@@ -1,0 +1,2 @@
+../Core/Src/MATRIX_KEYPAD.c:28:6:USER_MATRIX_KEYPAD_Init	8	static
+../Core/Src/MATRIX_KEYPAD.c:73:6:USER_MATRIX_KEYPAD_Read	16	static
