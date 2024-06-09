@@ -50,11 +50,15 @@ Then, the button pressed is decoded into an action. The 5 sets the Brake value t
 
 Once the model has processed this information, the output data is sent via the *USART internal peripheral* to the *UART TX pin* of the NUCLEO-F103RB board, which, like it will be reviewed later, is connected to the *UART RX* pin of the Raspberry Pi. It is also string formatted and written to the LCD. It is important to note that the *TIM internal peripheral* is programmed to provide the required delays to both the model and the LCD.
 
+It should be noted that there are two modes of operation: *manual* and *simulation*. In the first one, the Throttle is determined by the potentiometer, and in the second one, with a value sent through the serial port by the Raspberry Pi. Button A on the matrix keyboard chooses the manual mode, while button B selects the simulation mode. In the latter, the input data is read via the *UART RX pin* of the NUCLEO-F103RB board which is connected to the *UART TX* pin of the Raspberry Pi. 
+
 ## Raspberry Pi 3 Model B Plotting
 
-The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the UART RX pin. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *Matplotlib* library. A graphical interface was also realized via the *Pygame* library, which receives the graphs from *Matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. At an earlier stage of the development, a plotting script using *randomly generated data* was created. This file is also provided. 
+The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the *UART RX pin*. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *Matplotlib* library. A graphical interface was also realized via the *Pygame* library, which receives the graphs from *Matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. At an earlier stage of the development, a plotting script using *randomly generated data* was created. This file is also provided. 
 
 To use the graphical interface, run **game.py**. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run **plot_RPi.py**, which uses serially read data. 
+
+In addition, a widget was created with the *PyQt5* library in which the user can stipulate a Throttle value by means of a slider. If the button corresponding to the simulation is pressed, the Throttle is transmitted over the *UART TX pin* with the help of the same library used to receive.
 
 ### Graphical Interface with Random Data
 
