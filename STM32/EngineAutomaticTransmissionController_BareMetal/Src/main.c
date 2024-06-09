@@ -22,6 +22,11 @@
 #include "EngTrModel.h"
 #include "rtwtypes.h"
 
+// Matrix keypad
+
+char selectedKey = 'N';
+float keyBrakeTorque = 0.0;
+
 // ADC
 
 uint16_t conversionData = 0;
@@ -31,10 +36,23 @@ float voltageValue = 0.0, potentiometerThrottle = 0.0;
 
 uint8_t receivedThrottle = 0;
 
-// Matrix keypad
+// Mode select
 
-char selectedKey = 'N';
-float keyBrakeTorque = 0.0;
+uint8_t operationMode = 0;
+
+// Data format
+
+int ThrottleWhole = 0;
+int ThrottleDecimal = 0;
+
+int VehicleSpeedWhole = 0;
+int VehicleSpeedDecimal = 0;
+
+int EngineSpeedWhole = 0;
+int EngineSpeedDecimal = 0;
+
+int BrakeWhole = 0;
+int GearWhole = 0;
 
 // LCD
 
@@ -45,10 +63,6 @@ char SecondLine_LCD_MSG[LCD_CHARS + 1];
 
 char oled_buffer[OLED_SCREEN_ROWS][OLED_SCREEN_COLUMNS];
 char OLED_MSGS[OLED_MSGS_NUMBER][OLED_SCREEN_COLUMNS];
-
-// Mode select
-
-uint8_t operationMode = 0;
 
 /* Main function */
 
@@ -73,15 +87,6 @@ int main( void )
 
   for(;;)
   {
-    /* Read the ADC conversion, convert it to a voltage value,
-     * and normalize it to within the range accepted by the model,
-     * this for manual mode.
-     */
-
-    conversionData = USER_ADC_Convert( ADC_1 );
-    voltageValue = 0.00080586 * conversionData;
-    potentiometerThrottle = scaleVoltageValue( voltageValue, 0, 3.3 );
-
     /* Read the matrix keyboard and
      * adapt the brake value, LEDs states,
      * micro servo direction and operation mode
@@ -128,6 +133,15 @@ int main( void )
 
       USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_7_5 );		// The micro servo rotates to a 90° position
     }
+
+    /* Read the ADC conversion, convert it to a voltage value,
+     * and normalize it to within the range accepted by the model,
+     * this for manual mode.
+     */
+
+    conversionData = USER_ADC_Convert( ADC_1 );
+    voltageValue = 0.00080586 * conversionData;
+    potentiometerThrottle = scaleVoltageValue( voltageValue, 0, 3.3 );
 
     /* Read the throttle value sent via UART by the Raspeberry Pi
      * for simulation mode.
@@ -179,26 +193,26 @@ int main( void )
 
     printf("%f,%f,%f,%f,%f\n\r", potentiometerThrottle, keyBrakeTorque, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
 
-    /* Properly format the model output data
-     * and display it on the LCD
-     */
-
     /* Extract the whole and decimal parts for Throttle,
      * Engine Speed and Vehicle Speed, and cast them
      * alongside Brake and Gear to integers.
      */
 
-    int ThrottleWhole = (int) ( potentiometerThrottle );
-    int ThrottleDecimal = (int) ( ( potentiometerThrottle - ThrottleWhole ) * 100 );
+    ThrottleWhole = (int) ( potentiometerThrottle );
+    ThrottleDecimal = (int) ( ( potentiometerThrottle - ThrottleWhole ) * 100 );
 
-    int VehicleSpeedWhole = (int)( EngTrModel_Y.VehicleSpeed );
-    int VehicleSpeedDecimal = (int)( ( EngTrModel_Y.VehicleSpeed - VehicleSpeedWhole ) * 100 );
+    VehicleSpeedWhole = (int)( EngTrModel_Y.VehicleSpeed );
+    VehicleSpeedDecimal = (int)( ( EngTrModel_Y.VehicleSpeed - VehicleSpeedWhole ) * 100 );
 
-    int EngineSpeedWhole = (int)( EngTrModel_Y.EngineSpeed );
-    int EngineSpeedDecimal = (int)( ( EngTrModel_Y.EngineSpeed - EngineSpeedWhole ) * 100 );
+    EngineSpeedWhole = (int)( EngTrModel_Y.EngineSpeed );
+    EngineSpeedDecimal = (int)( ( EngTrModel_Y.EngineSpeed - EngineSpeedWhole ) * 100 );
 
-    int BrakeWhole = (int) ( keyBrakeTorque );
-    int GearWhole = (int) ( EngTrModel_Y.Gear );
+    BrakeWhole = (int) ( keyBrakeTorque );
+    GearWhole = (int) ( EngTrModel_Y.Gear );
+
+    /* Properly format the model output data
+     * and display it on the LCD
+     */
 
     // Write the messages to send to the LCD
 
@@ -251,11 +265,11 @@ void USER_SYSCLK_Configuration( void )
 
   // Two wait states latency, if SYSCLK > 48 MHz
 
-  FLASH->ACR	&=	~( 0x5UL << 0U );	
-  FLASH->ACR	|=	( 0x2UL << 0U );	
-  
+  FLASH->ACR	&=	~( 0x5UL << 0U );
+  FLASH->ACR	|=	( 0x2UL << 0U );
+
   // PLL HSI clock /2 selected as PLL input clock
-  
+
   RCC->CFGR	&=	~( 0x1UL << 16U )
 		&	~( 0x7UL << 11U )		// APB2 pre-scaler /1
 		&	~( 0x3UL << 8U )        	// APB1 pre-scaler /2 (APB1 must not exceed 36 MHz)
@@ -263,7 +277,7 @@ void USER_SYSCLK_Configuration( void )
 
   // PLL input clock x 16 (PLLMUL bits)
 
-  RCC->CFGR	|=	( 0xFUL << 18U )	
+  RCC->CFGR	|=	( 0xFUL << 18U )
 		|	( 0X4UL << 8U );		// APB1 pre-scaler /2
   RCC->CR	|=	( 0x1UL << 24U );		// PLL2 ON
 
