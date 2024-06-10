@@ -1,6 +1,0 @@
-../Core/Src/I2C.c:12:6:USER_I2C_Init	3
-../Core/Src/I2C.c:53:6:USER_I2C_Start	5
-../Core/Src/I2C.c:71:6:USER_I2C_Address	9
-../Core/Src/I2C.c:112:6:USER_I2C_Data	7
-../Core/Src/I2C.c:132:6:USER_I2C_Stop	3
-../Core/Src/I2C.c:153:6:USER_I2C_Write	2

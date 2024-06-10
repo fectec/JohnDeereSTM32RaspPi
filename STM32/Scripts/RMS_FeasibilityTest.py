@@ -2,7 +2,7 @@
 
 from math import ceil
 
-tasks = [(1, 3), (1, 5), (1, 6), (2, 10)]                       # Task set: (execution_time, period)
+tasks = [(0.001, 1), (0.04, 3), (0.001, 1), (0.2, 21), (4.5, 12), (0.02, 3), (400, 861), (60, 474)]                       # Task set: (execution_time, period)
 n = len(tasks)                                                  # Number of tasks
 
 U = sum((task[0] / task[1]) for task in tasks)                  # Compute utilization U

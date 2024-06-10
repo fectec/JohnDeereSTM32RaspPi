@@ -1,3 +1,0 @@
-../Core/Src/TIMER.c:12:6:USER_TIM_Init	4
-../Core/Src/TIMER.c:58:6:USER_TIM_Delay	6
-../Core/Src/TIMER.c:84:6:TIM3_IRQHandler	2

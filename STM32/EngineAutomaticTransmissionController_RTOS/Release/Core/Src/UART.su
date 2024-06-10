@@ -1,2 +1,0 @@
-../Core/Src/UART.c:12:6:USER_USART_Init	8	static
-../Core/Src/UART.c:42:5:_write	8	static

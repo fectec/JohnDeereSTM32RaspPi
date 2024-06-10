@@ -1,4 +1,0 @@
-../Core/Src/GPIO.c:11:6:USER_GPIO_Define	9
-../Core/Src/GPIO.c:60:9:USER_GPIO_Read	2
-../Core/Src/GPIO.c:92:6:USER_GPIO_Write	3
-../Core/Src/GPIO.c:121:6:USER_GPIO_Toggle	2
