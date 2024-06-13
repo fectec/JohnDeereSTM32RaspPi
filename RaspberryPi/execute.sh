@@ -4,6 +4,7 @@
 
 set -e                                                                          # Exit immediately if any command fails
 
+sudo raspi-config nonint do_serial 2                                            # Enable serial port
 cd "$HOME"                                                                      # Change directory to the user's home directory
 sudo adduser "$USER" dialout                                                    # Add the current user to the 'dialout' group
 sudo chmod 666 /dev/ttyS0                                                       # Set r/w permissions for all users on the device /dev/ttyS0
@@ -17,10 +18,10 @@ source "$HOME/.venv/bin/activate"                                               
 #pip install numpy -U
 #pip install pyserial -U
 
-cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Graph/RPi        # Change directory to the location of the 'plot_RPi.py' Python script (modify if needed)
-python3 plot_RPi.py                                                            # Run the Python script named 'plot_RPi.py'
+#cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Graph/RPi        # Change directory to the location of the 'plot_RPi.py' Python script (modify if needed)
+#python3 plot_RPi.py                                                            # Run the Python script named 'plot_RPi.py'
 
-#cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Widget            # Change directory to the location of the 'main.py' Python script (modify if needed)
-#python3 main.py                                                                 # Run the Python script named 'main.py'
+cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Widget            # Change directory to the location of the 'main.py' Python script (modify if needed)
+python3 main.py                                                                 # Run the Python script named 'main.py'
 
 deactivate                                                                      # Deactivate the virtual environment

@@ -118,7 +118,7 @@ class ThrottleController(tk.Tk):
 
             time.sleep(0.1)
             
-            print("Transmitted data:", str(self.throttle_value.to_bytes()))
+            print("Transmitted data:", str(self.throttle_value))
 
         except:
             
