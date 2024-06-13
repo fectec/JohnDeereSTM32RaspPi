@@ -29,22 +29,14 @@ def receive_data():
 
     try:
 
-        # Check if the serial port is already open
+      # Open the serial port
 
-        if not hasattr('ser') or not ser.is_open:
-
-            # Open the serial port
-
-            ser = serial.Serial(set.SERIAL_PORT, set.BAUDRATE)
-            print("Serial port opened successfully.")
-
-        else:
-
-            print("Serial port is already open.")
+      ser = serial.Serial(set.SERIAL_PORT, set.BAUDRATE)
+      print("Serial port opened successfully.")
 
     except:
 
-        print("Error opening the serial port.")
+      print("Error opening the serial port.")
 
     while True:
 
