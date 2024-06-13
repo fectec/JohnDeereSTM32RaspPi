@@ -20,7 +20,6 @@ from matplotlib.animation import FuncAnimation
 # Code imports
 
 import plot_RPi_settings, plot_serial_settings as set
-from main import run_widget
 
 # Function for receiving data
   
