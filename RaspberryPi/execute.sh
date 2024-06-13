@@ -17,10 +17,10 @@ source "$HOME/.venv/bin/activate"                                               
 #pip install numpy -U
 #pip install pyserial -U
 
-#cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Graph/RPi        # Change directory to the location of the 'plot_RPi.py' Python script (modify if needed)
-#python3 plot_RPi.py                                                            # Run the Python script named 'plot_RPi.py'
+cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Graph/RPi        # Change directory to the location of the 'plot_RPi.py' Python script (modify if needed)
+python3 plot_RPi.py                                                            # Run the Python script named 'plot_RPi.py'
 
-cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Widget            # Change directory to the location of the 'main.py' Python script (modify if needed)
-python3 main.py                                                                 # Run the Python script named 'main.py'
+#cd ~/Downloads/Projects/JohnDeereSTM32RaspPi/RaspberryPi/Plot/Widget            # Change directory to the location of the 'main.py' Python script (modify if needed)
+#python3 main.py                                                                 # Run the Python script named 'main.py'
 
 deactivate                                                                      # Deactivate the virtual environment
