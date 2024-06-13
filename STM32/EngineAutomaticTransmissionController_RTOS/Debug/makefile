@@ -64,8 +64,8 @@ all: main-build
 main-build: EngineAutomaticTransmissionController_RTOS.elf secondary-outputs
 
 # Tool invocations
-EngineAutomaticTransmissionController_RTOS.elf EngineAutomaticTransmissionController_RTOS.map: $(OBJS) $(USER_OBJS) C:\Users\fecte\STM32CubeIDE\workspace_1.14.1\EngineAutomaticTransmissionController_RTOS\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "EngineAutomaticTransmissionController_RTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\fecte\STM32CubeIDE\workspace_1.14.1\EngineAutomaticTransmissionController_RTOS\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EngineAutomaticTransmissionController_RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+EngineAutomaticTransmissionController_RTOS.elf EngineAutomaticTransmissionController_RTOS.map: $(OBJS) $(USER_OBJS) C:\Users\fecte\Downloads\Projects\JohnDeereSTM32RaspPi\STM32\EngineAutomaticTransmissionController_RTOS\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "EngineAutomaticTransmissionController_RTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\fecte\Downloads\Projects\JohnDeereSTM32RaspPi\STM32\EngineAutomaticTransmissionController_RTOS\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EngineAutomaticTransmissionController_RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

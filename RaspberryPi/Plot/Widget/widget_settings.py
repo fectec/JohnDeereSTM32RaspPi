@@ -6,32 +6,28 @@ from libraries import os, sys
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 
-# Window
+# Window settings
 
 WINDOW_TITLE = 'Throttle Controller'
 WINDOW_GEOMETRY = [300, 100, 500, 100]
 
-# Background
+# Background style
 
-BACKGROUND_STYLE = "background-color: lightgreen;"
+BACKGROUND_STYLE = "#4BB213"
 
-# Icon
+# Icon path
 
 ICON_PATH = os.path.realpath(os.path.join(BASE_PATH, "Assets", "icon.png"))
 
-# Slider
+# Slider settings
 
 SLIDER_LABEL_TEXT = "Throttle: "
-SLIDER_LABEL_STYLE = "color: green; font-size: 15px; font-weight: bold;"
-
-SLIDER_HANDLE_STYLE = "QSlider::handle:horizontal { background-color: green; }"
-
 SLIDER_BOUNDS = [0, 100]
+SLIDER_BACKGROUND_COLOR = "#B5E549"
 
-# Button
+# Button settings
 
 BUTTON_TEXT_MODE = "Press for SIMULATION"
-
 BUTTON_STYLE = "background-color: green; font-weight: bold;"
 
 # Serial communication

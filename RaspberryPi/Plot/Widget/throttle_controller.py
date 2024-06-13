@@ -1,11 +1,11 @@
 # Library imports
 
-from libraries import QWidget, QVBoxLayout, QSlider, QPushButton, QLabel, Qt, QIcon, serial, time  
+from libraries import serial, time, tk, ttk
 import widget_settings as set, plot_serial_settings as serial_set
 
 # Definition of the ThrottleController class
 
-class ThrottleController(QWidget):
+class ThrottleController(tk.Tk):
 
     def __init__(self):
 
@@ -21,10 +21,15 @@ class ThrottleController(QWidget):
 
         # Init serial communication and GUI
 
-        self.initSerial()
-        self.initUI()
+        self.init_serial()
+        self.init_ui()
 
-    def initSerial(self):
+        # Bind keyboard events
+
+        self.bind("<Left>", self.move_slider_left)
+        self.bind("<Right>", self.move_slider_right)
+
+    def init_serial(self):
 
         try:
 
@@ -37,78 +42,73 @@ class ThrottleController(QWidget):
 
             print("Error opening the serial port.")
         
-    def initUI(self):
+    def init_ui(self):
+
+        self.title(set.WINDOW_TITLE)
+        self.geometry(f"{set.WINDOW_GEOMETRY[2]}x{set.WINDOW_GEOMETRY[3]}")
+        self.configure(bg=set.BACKGROUND_STYLE)
+
+        window_icon = tk.PhotoImage(file=set.ICON_PATH)
+        self.iconphoto(True, window_icon)
 
         # Create a vertical layout
 
-        layout = QVBoxLayout()
+        layout = ttk.Frame(self)
+
+        # Create a custom style for the slider
+        
+        style = ttk.Style()
+        style.configure("Custom.Horizontal.TScale", background=set.SLIDER_BACKGROUND_COLOR)
 
         # Create a slider
 
-        self.slider = QSlider(Qt.Horizontal, self)
-
-        self.slider.setMinimum(set.SLIDER_BOUNDS[0])
-        self.slider.setMaximum(set.SLIDER_BOUNDS[1])
-        self.slider.valueChanged.connect(self.updateThrottle)
-
-        self.slider.setStyleSheet(set.SLIDER_HANDLE_STYLE) 
+        self.slider = ttk.Scale(layout, from_=set.SLIDER_BOUNDS[0], to=set.SLIDER_BOUNDS[1], orient="horizontal", style="Custom.Horizontal.TScale")
+        self.slider.set(set.SLIDER_BOUNDS[0])
+        self.slider.bind("<ButtonRelease>", self.update_throttle)
+        self.slider.pack()
 
         # Create a label for the slider
 
-        self.slider_label = QLabel(set.SLIDER_LABEL_TEXT + str(self.slider.value()), self)
-
-        self.slider_label.setStyleSheet(set.SLIDER_LABEL_STYLE)
+        self.slider_label = ttk.Label(layout, text=set.SLIDER_LABEL_TEXT + str(self.slider.get()), style="Slider.TLabel")
+        self.slider_label.pack()
 
         # Create a button
 
-        self.mode_button = QPushButton(set.BUTTON_TEXT_MODE, self)
+        self.mode_button = ttk.Checkbutton(layout, text=set.BUTTON_TEXT_MODE, command=self.button_clicked, style="Custom.TButton")
+        self.mode_button.pack()
 
-        self.mode_button.setCheckable(True)
-        self.mode_button.clicked.connect(self.buttonClicked) 
-  
-        self.mode_button.setStyleSheet(set.BUTTON_STYLE)    
+        layout.pack()
 
-        # Add widgets to layout
+    def button_clicked(self):
 
-        layout.addWidget(self.slider_label)
-        layout.addWidget(self.slider)
-        layout.addWidget(self.mode_button)
+        # STM32 gets input values from the Throttle Controller or 
+        # from the physical dispositive
 
-        # Set the layout for the widget
+        self.mode = 1 if self.mode_button.instate(['selected']) else 0 
+    
+    def move_slider_left(self, event):
 
-        self.setLayout(layout)
+        value = max(self.slider.get() - 1, 0)
+        self.slider.set(value)
+        self.update_throttle()
 
-        # Set the window
+    def move_slider_right(self, event):
+        
+        value = min(self.slider.get() + 1, 100)
+        self.slider.set(value)
+        self.update_throttle()
 
-        self.setWindowTitle(set.WINDOW_TITLE)
-        self.setGeometry(set.WINDOW_GEOMETRY[0], set.WINDOW_GEOMETRY[1], set.WINDOW_GEOMETRY[2], set.WINDOW_GEOMETRY[3])  # set window geometry
-        self.setWindowIcon(QIcon(set.ICON_PATH))
+    def update_throttle(self):
+        
+        self.throttle_value = int(self.slider.get())
 
-        # Set the background color
-
-        self.setStyleSheet(set.BACKGROUND_STYLE)
-
-    def buttonClicked(self):
-
-        if self.mode_button.isChecked():
-
-            self.mode = 1                   # STM32 gets input values from the Throttle Controller
-            
-        else:       
-
-            self.mode = 0                   # STM32 gets input values from the physical dispositive
-
-    def updateThrottle(self):
-
-        self.throttle_value = self.slider.value()
-
-        self.slider_label.setText(set.SLIDER_LABEL_TEXT + str(self.throttle_value))
+        self.slider_label.config(text=set.SLIDER_LABEL_TEXT + str(self.throttle_value))
 
         if self.mode == 1:
+            
+            self.serial_transmit()
 
-            self.serialTransmit()
-
-    def serialTransmit(self):
+    def serial_transmit(self):
 
         try: 
 
