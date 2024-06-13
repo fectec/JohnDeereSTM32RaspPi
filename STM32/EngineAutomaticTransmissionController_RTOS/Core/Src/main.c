@@ -207,18 +207,18 @@ int main(void)
   /* USER CODE BEGIN RTOS_THREADS */
 
   osThreadDef(Task2, TASK_2_ADC_Read, osPriorityHigh, 0, 128);
-  Task1Handle = osThreadCreate(osThread(Task2), NULL);
+  Task2Handle = osThreadCreate(osThread(Task2), NULL);
 
   osThreadDef(Task4, TASK_4_UART_Use, osPriorityNormal, 0, 256);
-  Task1Handle = osThreadCreate(osThread(Task4), NULL);
+  Task4Handle = osThreadCreate(osThread(Task4), NULL);
 
   osThreadDef(Task5, TASK_5_LCD_Write, osPriorityBelowNormal, 0, 256);
-  Task1Handle = osThreadCreate(osThread(Task5), NULL);
+  Task5Handle = osThreadCreate(osThread(Task5), NULL);
 
   osThreadDef(Task3, TASK_3_MODEL_Step, osPriorityAboveNormal, 0, 128);
-  Task1Handle = osThreadCreate(osThread(Task3), NULL);
+  Task3Handle = osThreadCreate(osThread(Task3), NULL);
 
-  osThreadDef(Task1, TASK_1_MATRIX_KEYPAD_Read, osPriorityHigh, 0, 128);
+  osThreadDef(Task1, TASK_1_MATRIX_KEYPAD_Read, osPriorityRealtime, 0, 128);
   Task1Handle = osThreadCreate(osThread(Task1), NULL);
 
   /* USER CODE END RTOS_THREADS */
