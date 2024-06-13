@@ -33,10 +33,18 @@ class ThrottleController(tk.Tk):
 
         try:
 
-            # Open the serial port
+            # Check if the serial port is already open
 
-            self.ser = serial.Serial(serial_set.SERIAL_PORT, serial_set.BAUDRATE)
-            print("Serial port opened successfully.")
+            if not hasattr(self, 'ser') or not self.ser.is_open:
+
+                # Open the serial port
+
+                self.ser = serial.Serial(serial_set.SERIAL_PORT, serial_set.BAUDRATE)
+                print("Serial port opened successfully.")
+
+            else:
+
+                print("Serial port is already open.")
 
         except:
 
