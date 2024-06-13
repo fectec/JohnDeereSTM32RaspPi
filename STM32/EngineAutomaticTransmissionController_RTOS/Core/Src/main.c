@@ -389,11 +389,11 @@ void TASK_1_MATRIX_KEYPAD_Read( void const * argument )
 
       if(selectedKey == '4')							// Left action
       {
-	USER_GPIO_Write( PORTC, 2, 1 );						// Left LED turned on
+	USER_GPIO_Write( PORTC, 3, 1 );						// Left LED turned on
       }
       else									// Right action
       {
-	USER_GPIO_Write( PORTC, 3, 1 );						// Right LED turned on
+	USER_GPIO_Write( PORTC, 2, 1 );						// Right LED turned on
       }
     }
     else if(selectedKey == 'A')							// Select manual mode action

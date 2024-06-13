@@ -6013,9 +6013,9 @@ void TASK_1_MATRIX_KEYPAD_Read( void const * argument )
  800307a:	2b34      	cmp	r3, #52	; 0x34
  800307c:	d105      	bne.n	800308a <TASK_1_MATRIX_KEYPAD_Read+0x6e>
       {
-	USER_GPIO_Write( PORTC, 2, 1 );						// Left LED turned on
+	USER_GPIO_Write( PORTC, 3, 1 );						// Left LED turned on
  800307e:	2201      	movs	r2, #1
- 8003080:	2102      	movs	r1, #2
+ 8003080:	2103      	movs	r1, #3
  8003082:	2002      	movs	r0, #2
  8003084:	f7ff f916 	bl	80022b4 <USER_GPIO_Write>
       if(selectedKey == '4')							// Left action
@@ -6023,9 +6023,9 @@ void TASK_1_MATRIX_KEYPAD_Read( void const * argument )
       }
       else									// Right action
       {
-	USER_GPIO_Write( PORTC, 3, 1 );						// Right LED turned on
+	USER_GPIO_Write( PORTC, 2, 1 );						// Right LED turned on
  800308a:	2201      	movs	r2, #1
- 800308c:	2103      	movs	r1, #3
+ 800308c:	2102      	movs	r1, #2
  800308e:	2002      	movs	r0, #2
  8003090:	f7ff f910 	bl	80022b4 <USER_GPIO_Write>
       if(selectedKey == '4')							// Left action
