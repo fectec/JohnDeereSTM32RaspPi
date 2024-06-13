@@ -9,13 +9,9 @@ C_SRCS += \
 ../Core/Src/EngTrModel.c \
 ../Core/Src/EngTrModel_data.c \
 ../Core/Src/GPIO.c \
-../Core/Src/I2C.c \
 ../Core/Src/LCD.c \
 ../Core/Src/LEDS.c \
 ../Core/Src/MATRIX_KEYPAD.c \
-../Core/Src/OLED.c \
-../Core/Src/PWM.c \
-../Core/Src/SYSTICK.c \
 ../Core/Src/TIMER.c \
 ../Core/Src/UART.c \
 ../Core/Src/freertos.c \
@@ -35,13 +31,9 @@ OBJS += \
 ./Core/Src/EngTrModel.o \
 ./Core/Src/EngTrModel_data.o \
 ./Core/Src/GPIO.o \
-./Core/Src/I2C.o \
 ./Core/Src/LCD.o \
 ./Core/Src/LEDS.o \
 ./Core/Src/MATRIX_KEYPAD.o \
-./Core/Src/OLED.o \
-./Core/Src/PWM.o \
-./Core/Src/SYSTICK.o \
 ./Core/Src/TIMER.o \
 ./Core/Src/UART.o \
 ./Core/Src/freertos.o \
@@ -61,13 +53,9 @@ C_DEPS += \
 ./Core/Src/EngTrModel.d \
 ./Core/Src/EngTrModel_data.d \
 ./Core/Src/GPIO.d \
-./Core/Src/I2C.d \
 ./Core/Src/LCD.d \
 ./Core/Src/LEDS.d \
 ./Core/Src/MATRIX_KEYPAD.d \
-./Core/Src/OLED.d \
-./Core/Src/PWM.d \
-./Core/Src/SYSTICK.d \
 ./Core/Src/TIMER.d \
 ./Core/Src/UART.d \
 ./Core/Src/freertos.d \
@@ -90,7 +78,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/ADC.cyclo ./Core/Src/ADC.d ./Core/Src/ADC.o ./Core/Src/ADC.su ./Core/Src/EngTrModel.cyclo ./Core/Src/EngTrModel.d ./Core/Src/EngTrModel.o ./Core/Src/EngTrModel.su ./Core/Src/EngTrModel_data.cyclo ./Core/Src/EngTrModel_data.d ./Core/Src/EngTrModel_data.o ./Core/Src/EngTrModel_data.su ./Core/Src/GPIO.cyclo ./Core/Src/GPIO.d ./Core/Src/GPIO.o ./Core/Src/GPIO.su ./Core/Src/I2C.cyclo ./Core/Src/I2C.d ./Core/Src/I2C.o ./Core/Src/I2C.su ./Core/Src/LCD.cyclo ./Core/Src/LCD.d ./Core/Src/LCD.o ./Core/Src/LCD.su ./Core/Src/LEDS.cyclo ./Core/Src/LEDS.d ./Core/Src/LEDS.o ./Core/Src/LEDS.su ./Core/Src/MATRIX_KEYPAD.cyclo ./Core/Src/MATRIX_KEYPAD.d ./Core/Src/MATRIX_KEYPAD.o ./Core/Src/MATRIX_KEYPAD.su ./Core/Src/OLED.cyclo ./Core/Src/OLED.d ./Core/Src/OLED.o ./Core/Src/OLED.su ./Core/Src/PWM.cyclo ./Core/Src/PWM.d ./Core/Src/PWM.o ./Core/Src/PWM.su ./Core/Src/SYSTICK.cyclo ./Core/Src/SYSTICK.d ./Core/Src/SYSTICK.o ./Core/Src/SYSTICK.su ./Core/Src/TIMER.cyclo ./Core/Src/TIMER.d ./Core/Src/TIMER.o ./Core/Src/TIMER.su ./Core/Src/UART.cyclo ./Core/Src/UART.d ./Core/Src/UART.o ./Core/Src/UART.su ./Core/Src/freertos.cyclo ./Core/Src/freertos.d ./Core/Src/freertos.o ./Core/Src/freertos.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/rtGetInf.cyclo ./Core/Src/rtGetInf.d ./Core/Src/rtGetInf.o ./Core/Src/rtGetInf.su ./Core/Src/rtGetNaN.cyclo ./Core/Src/rtGetNaN.d ./Core/Src/rtGetNaN.o ./Core/Src/rtGetNaN.su ./Core/Src/rt_nonfinite.cyclo ./Core/Src/rt_nonfinite.d ./Core/Src/rt_nonfinite.o ./Core/Src/rt_nonfinite.su ./Core/Src/stm32f1xx_hal_msp.cyclo ./Core/Src/stm32f1xx_hal_msp.d ./Core/Src/stm32f1xx_hal_msp.o ./Core/Src/stm32f1xx_hal_msp.su ./Core/Src/stm32f1xx_hal_timebase_tim.cyclo ./Core/Src/stm32f1xx_hal_timebase_tim.d ./Core/Src/stm32f1xx_hal_timebase_tim.o ./Core/Src/stm32f1xx_hal_timebase_tim.su ./Core/Src/stm32f1xx_it.cyclo ./Core/Src/stm32f1xx_it.d ./Core/Src/stm32f1xx_it.o ./Core/Src/stm32f1xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f1xx.cyclo ./Core/Src/system_stm32f1xx.d ./Core/Src/system_stm32f1xx.o ./Core/Src/system_stm32f1xx.su
+	-$(RM) ./Core/Src/ADC.cyclo ./Core/Src/ADC.d ./Core/Src/ADC.o ./Core/Src/ADC.su ./Core/Src/EngTrModel.cyclo ./Core/Src/EngTrModel.d ./Core/Src/EngTrModel.o ./Core/Src/EngTrModel.su ./Core/Src/EngTrModel_data.cyclo ./Core/Src/EngTrModel_data.d ./Core/Src/EngTrModel_data.o ./Core/Src/EngTrModel_data.su ./Core/Src/GPIO.cyclo ./Core/Src/GPIO.d ./Core/Src/GPIO.o ./Core/Src/GPIO.su ./Core/Src/LCD.cyclo ./Core/Src/LCD.d ./Core/Src/LCD.o ./Core/Src/LCD.su ./Core/Src/LEDS.cyclo ./Core/Src/LEDS.d ./Core/Src/LEDS.o ./Core/Src/LEDS.su ./Core/Src/MATRIX_KEYPAD.cyclo ./Core/Src/MATRIX_KEYPAD.d ./Core/Src/MATRIX_KEYPAD.o ./Core/Src/MATRIX_KEYPAD.su ./Core/Src/TIMER.cyclo ./Core/Src/TIMER.d ./Core/Src/TIMER.o ./Core/Src/TIMER.su ./Core/Src/UART.cyclo ./Core/Src/UART.d ./Core/Src/UART.o ./Core/Src/UART.su ./Core/Src/freertos.cyclo ./Core/Src/freertos.d ./Core/Src/freertos.o ./Core/Src/freertos.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/rtGetInf.cyclo ./Core/Src/rtGetInf.d ./Core/Src/rtGetInf.o ./Core/Src/rtGetInf.su ./Core/Src/rtGetNaN.cyclo ./Core/Src/rtGetNaN.d ./Core/Src/rtGetNaN.o ./Core/Src/rtGetNaN.su ./Core/Src/rt_nonfinite.cyclo ./Core/Src/rt_nonfinite.d ./Core/Src/rt_nonfinite.o ./Core/Src/rt_nonfinite.su ./Core/Src/stm32f1xx_hal_msp.cyclo ./Core/Src/stm32f1xx_hal_msp.d ./Core/Src/stm32f1xx_hal_msp.o ./Core/Src/stm32f1xx_hal_msp.su ./Core/Src/stm32f1xx_hal_timebase_tim.cyclo ./Core/Src/stm32f1xx_hal_timebase_tim.d ./Core/Src/stm32f1xx_hal_timebase_tim.o ./Core/Src/stm32f1xx_hal_timebase_tim.su ./Core/Src/stm32f1xx_it.cyclo ./Core/Src/stm32f1xx_it.d ./Core/Src/stm32f1xx_it.o ./Core/Src/stm32f1xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f1xx.cyclo ./Core/Src/system_stm32f1xx.d ./Core/Src/system_stm32f1xx.o ./Core/Src/system_stm32f1xx.su
 
 .PHONY: clean-Core-2f-Src
 

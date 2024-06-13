@@ -1,3 +1,0 @@
-../Core/Src/SYSTICK.c:11:6:USER_SYSTICK_Init	4	static
-../Core/Src/SYSTICK.c:23:6:USER_SYSTICK_Delay_Millis	4	static
-../Core/Src/SYSTICK.c:32:6:USER_SYSTICK_Delay_ms	16	static

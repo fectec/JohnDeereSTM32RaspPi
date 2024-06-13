@@ -42,9 +42,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/Inc/libraries.h ../Core/Inc/GPIO.h ../Core/Inc/TIMER.h \
- ../Core/Inc/ADC.h ../Core/Inc/UART.h ../Core/Inc/I2C.h \
- ../Core/Inc/MATRIX_KEYPAD.h ../Core/Inc/LCD.h ../Core/Inc/LEDS.h \
- ../Core/Inc/OLED.h ../Core/Inc/PWM.h ../Core/Inc/EngTrModel.h \
+ ../Core/Inc/ADC.h ../Core/Inc/UART.h ../Core/Inc/MATRIX_KEYPAD.h \
+ ../Core/Inc/LCD.h ../Core/Inc/LEDS.h ../Core/Inc/EngTrModel.h \
  ../Core/Inc/rtwtypes.h ../Core/Inc/EngTrModel_types.h \
  ../Core/Inc/rtGetNaN.h ../Core/Inc/rt_nonfinite.h ../Core/Inc/rtGetInf.h \
  ../Core/Inc/rtwtypes.h
@@ -96,12 +95,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/TIMER.h:
 ../Core/Inc/ADC.h:
 ../Core/Inc/UART.h:
-../Core/Inc/I2C.h:
 ../Core/Inc/MATRIX_KEYPAD.h:
 ../Core/Inc/LCD.h:
 ../Core/Inc/LEDS.h:
-../Core/Inc/OLED.h:
-../Core/Inc/PWM.h:
 ../Core/Inc/EngTrModel.h:
 ../Core/Inc/rtwtypes.h:
 ../Core/Inc/EngTrModel_types.h:
