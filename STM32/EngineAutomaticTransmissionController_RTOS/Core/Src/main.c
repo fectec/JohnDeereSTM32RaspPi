@@ -50,11 +50,11 @@
 
 #define STACK_SIZE	128
 
-#define PERIOD_TASK_1	3
-#define PERIOD_TASK_2	6
-#define PERIOD_TASK_3	12
-#define PERIOD_TASK_4	21
-#define PERIOD_TASK_5	500
+#define PERIOD_TASK_1	2
+#define PERIOD_TASK_2	8
+#define PERIOD_TASK_3	10
+#define PERIOD_TASK_4	12
+#define PERIOD_TASK_5	600
 
 #define TICK_DIFF_TASK_1	(osKernelSysTick() - (PERIOD_TASK_1 * counter++))
 #define TICK_DIFF_TASK_2	(osKernelSysTick() - (PERIOD_TASK_2 * counter++))
@@ -212,7 +212,7 @@ int main(void)
   osThreadDef(Task4, TASK_4_UART_Use, osPriorityNormal, 0, 256);
   Task4Handle = osThreadCreate(osThread(Task4), NULL);
 
-  osThreadDef(Task5, TASK_5_LCD_Write, osPriorityBelowNormal, 0, 256);
+  osThreadDef(Task5, TASK_5_LCD_Write, osPriorityBelowNormal, 0, 128);
   Task5Handle = osThreadCreate(osThread(Task5), NULL);
 
   osThreadDef(Task3, TASK_3_MODEL_Step, osPriorityAboveNormal, 0, 128);
@@ -375,8 +375,6 @@ void TASK_1_MATRIX_KEYPAD_Read( void const * argument )
 
   for(;;)
   {
-    printf("T1 DEBUG\r\n");
-
     selectedKey = USER_MATRIX_KEYPAD_Read();
 
     if(selectedKey == '5')							// Brake action
@@ -433,8 +431,6 @@ void TASK_2_ADC_Read( void const * argument )
 
   for(;;)
   {
-    printf("T2\r\n");
-
     conversionData = USER_ADC_Convert( ADC_1 );
     voltageValue = 0.00080586 * conversionData;
     potentiometerThrottle = scaleVoltageValue( voltageValue, 0, 3.3 );
@@ -456,8 +452,6 @@ void TASK_3_MODEL_Step( void const * argument )
 
   for(;;)
   {
-    printf("T3\r\n");
-
     if(operationMode == 0)							// Manual mode
     {
       EngTrModel_U.Throttle = potentiometerThrottle;				// Model feed with potentiometer throttle value
@@ -506,8 +500,6 @@ void TASK_4_UART_Use( void const * argument )
 
   for(;;)
   {
-    printf("T4\r\n");
-
     printf("%f,%f,%f,%f,%f\n\r", potentiometerThrottle, keyBrakeTorque, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
 
     if( USART1->SR & USART_SR_RXNE )						// If USART_DR is not empty
@@ -534,8 +526,6 @@ void TASK_5_LCD_Write( void const * argument )
 
   for(;;)
   {
-    printf("T5\r\n");
-
     /* Extract the whole and decimal parts for Throttle,
      * Engine Speed and Vehicle Speed, and cast them
      * alongside Brake and Gear to integers.

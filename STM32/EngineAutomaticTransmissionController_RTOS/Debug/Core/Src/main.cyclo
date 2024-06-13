@@ -3,9 +3,9 @@
 ../Core/Src/main.c:285:13:MX_USART2_UART_Init	2
 ../Core/Src/main.c:318:13:MX_GPIO_Init	1
 ../Core/Src/main.c:364:6:TASK_1_MATRIX_KEYPAD_Read	7
-../Core/Src/main.c:426:6:TASK_2_ADC_Read	1
-../Core/Src/main.c:451:6:TASK_3_MODEL_Step	9
-../Core/Src/main.c:501:6:TASK_4_UART_Use	2
-../Core/Src/main.c:526:6:TASK_5_LCD_Write	1
-../Core/Src/main.c:582:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:599:6:Error_Handler	1
+../Core/Src/main.c:424:6:TASK_2_ADC_Read	1
+../Core/Src/main.c:447:6:TASK_3_MODEL_Step	9
+../Core/Src/main.c:495:6:TASK_4_UART_Use	2
+../Core/Src/main.c:518:6:TASK_5_LCD_Write	1
+../Core/Src/main.c:572:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:589:6:Error_Handler	1
