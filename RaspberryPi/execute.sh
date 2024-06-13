@@ -4,7 +4,7 @@
 
 set -e                                                                          # Exit immediately if any command fails
 
-sudo raspi-config nonint do_serial 2                                            # Enable the serial port
+#sudo raspi-config nonint do_serial 2                                           # Enable the serial port if needed
 cd "$HOME"                                                                      # Change directory to the user's home directory
 sudo adduser "$USER" dialout                                                    # Add the current user to the 'dialout' group
 sudo chmod 666 /dev/ttyS0                                                       # Set r/w permissions for all users on the device /dev/ttyS0
