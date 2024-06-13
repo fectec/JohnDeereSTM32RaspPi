@@ -30,5 +30,5 @@ void USER_PWM_Generate( uint16_t PSC, uint16_t ARR, uint16_t CCR1 )
   TIM4->CCER	|=	TIM_CCER_CC1E;			// Enable the PWM signal output and set the polarity
   TIM4->CCER	&=	~(TIM_CCER_CC1P);
 
-  while( !( TIM4->SR & TIM_SR_UIF ) );			// Wait for UIF
+  //while( !( TIM4->SR & TIM_SR_UIF ) );		// Wait for UIF
 }

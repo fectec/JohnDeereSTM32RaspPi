@@ -53,18 +53,18 @@
 
 #define STACK_SIZE	128
 
-#define PERIOD_TASK_1	1
-#define PERIOD_TASK_2	3
-#define PERIOD_TASK_3	1
-#define PERIOD_TASK_4	21
-#define PERIOD_TASK_5	12
-#define PERIOD_TASK_6	3
-#define PERIOD_TASK_7	861
-#define PERIOD_TASK_8	474
+#define PERIOD_TASK_1	12
+#define PERIOD_TASK_2	9
+#define PERIOD_TASK_3	3
+#define PERIOD_TASK_4	6
+#define PERIOD_TASK_5	1
+#define PERIOD_TASK_6	1
+#define PERIOD_TASK_7	1
+#define PERIOD_TASK_8	1
 
 #define TICK_DIFF_TASK_1	(osKernelSysTick() - (PERIOD_TASK_1 * counter++))
 #define TICK_DIFF_TASK_2	(osKernelSysTick() - (PERIOD_TASK_2 * counter++))
-#define TICK_DIFF_TASK_3	(osKernelSysTick() - (PERIOD_TASK_3 * counter++))
+#define TICK_DIFF_TASK_3	(osKernelSysTick() - (PERIOD_TASK_2 * counter++))
 #define TICK_DIFF_TASK_4	(osKernelSysTick() - (PERIOD_TASK_4 * counter++))
 #define TICK_DIFF_TASK_5	(osKernelSysTick() - (PERIOD_TASK_5 * counter++))
 #define TICK_DIFF_TASK_6	(osKernelSysTick() - (PERIOD_TASK_6 * counter++))
@@ -201,7 +201,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   USER_OLED_Init_64( I2C_2 );
-  USER_OLED_Animation( I2C_2, oled_buffer );
+  //USER_OLED_Animation( I2C_2, oled_buffer );
 
   /* USER CODE END 2 */
 
@@ -229,28 +229,16 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
 
-  //osThreadDef(Task3, TASK_3_UART_Read, osPriorityRealtime, 0, STACK_SIZE);
-  //Task3Handle = osThreadCreate(osThread(Task3), NULL);
-
-  osThreadDef(Task6, TASK_6_DATA_Format, osPriorityHigh, 0, STACK_SIZE);
-  Task6Handle = osThreadCreate(osThread(Task6), NULL);
+  osThreadDef(Task2, TASK_2_ADC_Read, osPriorityAboveNormal, 0, STACK_SIZE);
+  Task2Handle = osThreadCreate(osThread(Task2), NULL);
 
   osThreadDef(Task4, TASK_4_MODEL_Step, osPriorityNormal, 0, STACK_SIZE);
   Task4Handle = osThreadCreate(osThread(Task4), NULL);
 
-  osThreadDef(Task7, TASK_7_LCD_Write, osPriorityLow, 0, STACK_SIZE);
-  Task7Handle = osThreadCreate(osThread(Task7), NULL);
+  osThreadDef(Task3, TASK_3_UART_Read, osPriorityRealtime, 0, STACK_SIZE);
+  Task3Handle = osThreadCreate(osThread(Task3), NULL);
 
-  //osThreadDef(Task8, TASK_8_OLED_Write, osPriorityBelowNormal, 0, STACK_SIZE);
-  //Task8Handle = osThreadCreate(osThread(Task8), NULL);
-
-  //osThreadDef(Task5, TASK_5_UART_Send, osPriorityAboveNormal, 0, STACK_SIZE);
-  //Task5Handle = osThreadCreate(osThread(Task5), NULL);
-
-  osThreadDef(Task2, TASK_2_ADC_Read, osPriorityHigh, 0, STACK_SIZE);
-  Task2Handle = osThreadCreate(osThread(Task2), NULL);
-
-  osThreadDef(Task1, TASK_1_MATRIX_KEYPAD_Read, osPriorityRealtime, 0, STACK_SIZE);
+  osThreadDef(Task1, TASK_1_MATRIX_KEYPAD_Read, osPriorityBelowNormal, 0, STACK_SIZE);
   Task1Handle = osThreadCreate(osThread(Task1), NULL);
 
   /* USER CODE END RTOS_THREADS */
@@ -447,8 +435,6 @@ void TASK_1_MATRIX_KEYPAD_Read( void const * argument )
 
       USER_GPIO_Write( PORTC, 2, 0 );						// LEDs turned off
       USER_GPIO_Write( PORTC, 3, 0 );
-
-      USER_PWM_Generate( PWM_PSC_20MS, PWM_ARR_20MS, PWM_CCRX_7_5 );		// The micro servo rotates to a 90° position
     }
 
     osDelay(PERIOD_TASK_1 - TICK_DIFF_TASK_1);
