@@ -6,6 +6,7 @@ import numpy as np, csv, serial,matplotlib.pyplot as plt, threading, queue
 
 import plot_serial_settings as set
 
+
 # Function for receiving data
   
 def receive_data():
@@ -176,4 +177,5 @@ receive_thread.start()
 store_csv_thread.start()
 
 if __name__ == "__main__":
+  
   run_plot()

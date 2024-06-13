@@ -20,6 +20,7 @@ from matplotlib.animation import FuncAnimation
 # Code imports
 
 import plot_RPi_settings, plot_serial_settings as set
+from main import run_widget
 
 # Function for receiving data
   
@@ -29,14 +30,22 @@ def receive_data():
 
     try:
 
-      # Open the serial port
+        # Check if the serial port is already open
 
-      ser = serial.Serial(set.SERIAL_PORT, set.BAUDRATE)
-      print("Serial port opened successfully.")
+        if not hasattr('ser') or not ser.is_open:
+
+            # Open the serial port
+
+            ser = serial.Serial(set.SERIAL_PORT, set.BAUDRATE)
+            print("Serial port opened successfully.")
+
+        else:
+
+            print("Serial port is already open.")
 
     except:
 
-      print("Error opening the serial port.")
+        print("Error opening the serial port.")
 
     while True:
 

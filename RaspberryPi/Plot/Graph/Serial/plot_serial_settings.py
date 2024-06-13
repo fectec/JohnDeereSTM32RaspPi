@@ -21,6 +21,7 @@ X_RANGE = 20
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 ROOT_PATH = os.path.realpath(os.path.join(BASE_PATH, '../..'))
+
 sys.path.append(ROOT_PATH)
 
 CSV_FILE_PATH = os.path.join(ROOT_PATH, "Data", "tractor_data.csv")
