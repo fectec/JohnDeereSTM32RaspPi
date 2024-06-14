@@ -58,7 +58,7 @@ The Raspberry Pi receives the output data from the model (engine speed, vehicle 
 
 To use the graphical interface, run **game.py**. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run **plot_RPi.py**, which uses serially read data. 
 
-In addition, a widget was created with the *PyQt5* library in which the user can stipulate a Throttle value by means of a slider. If the button corresponding to the simulation is pressed, the Throttle is transmitted over the *UART TX pin* with the help of the same library used to receive.
+In addition, a widget was created with the *Tkinter* library in which the user can stipulate a Throttle value by means of a slider. If the button corresponding to the simulation is pressed, the Throttle is transmitted over the *UART TX pin* with the help of the same library used to receive.
 
 ### Graphical Interface with Random Data
 
@@ -76,6 +76,12 @@ In addition, a widget was created with the *PyQt5* library in which the user can
 
 <p align="center">
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/98e5ec46-dd77-45ab-bebe-3e1e409a786b" alt = "No Graphical Interface Serial Data Demo" width="600" height="350"/>
+</p>
+
+### Throttle Controller Widget
+
+<p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3RkZms3Y2VrOGczenN5bjBsaDI2YXVvaXNjNHNobnEzdHN6MnN5dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ls4L0EhP44p2PO8R8i/giphy-downsized-large.gif" alt = "Throttle Controller Widget Demo" width="600" height="350"/>
 </p>
 
 In both serial interaction cases, modify **plot_serial_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *Data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_serial_settings.py, alongside the baud rate, which is by default 115200 to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
