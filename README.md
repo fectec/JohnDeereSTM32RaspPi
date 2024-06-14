@@ -21,7 +21,7 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 </p>
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/64ca71c1-2e68-4dab-9e44-fdb17787f7c2" alt = "Final Physical Demo" width="600" height="350"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/a644a367-a875-43f3-819b-d386ed473c15" alt = "Final Physical Demo" width="600" height="350"/>
 </p>
 
 ## Schematic Diagram
