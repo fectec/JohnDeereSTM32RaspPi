@@ -58,7 +58,7 @@ The Raspberry Pi receives the output data from the model (engine speed, vehicle 
 
 To use the graphical interface, run **game.py**. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run **plot_RPi.py**, which uses serially read data. 
 
-In addition, a widget was created with the *Tkinter* library in which the user can stipulate a Throttle value by means of a slider. If the button corresponding to the simulation is pressed, the Throttle is transmitted over the *UART TX pin* with the help of the same library used to receive.
+In addition, a widget was created with the *Tkinter* library in which the user can stipulate a Throttle value by means of a slider. If the button corresponding to the simulation is pressed, the Throttle is transmitted over the *UART TX pin* with the help of the same library used to receive. To use it run **widget.py**.
 
 ### Graphical Interface with Random Data
 
