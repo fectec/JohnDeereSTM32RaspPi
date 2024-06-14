@@ -37,7 +37,7 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 </p>
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/4f9f59a5-d852-4bfa-bffa-76a47c9cc214" alt = "FTDI Output" width="500" height="200"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/59e5efac-e0c5-403f-a1a3-363c7e69a983" alt = "FTDI Output" width="500" height="200"/>
 </p>
 
 ## NUCLEO-F103RB Model Integration
