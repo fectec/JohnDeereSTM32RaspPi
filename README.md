@@ -81,7 +81,7 @@ In addition, a widget was created with the *Tkinter* library in which the user c
 ### Throttle Controller Widget
 
 <p align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3RkZms3Y2VrOGczenN5bjBsaDI2YXVvaXNjNHNobnEzdHN6MnN5dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ls4L0EhP44p2PO8R8i/giphy-downsized-large.gif" alt = "Throttle Controller Widget Demo" width="600" height="350"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/acb6facc-3afd-4e62-b664-717f83fbbfff" alt = "Throttle Controller Widget Demo" width="600" height="350"/>
 </p>
 
 In all serial interaction cases, modify **plot_serial_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *Data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_serial_settings.py, alongside the baud rate, which is by default 115200 to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
