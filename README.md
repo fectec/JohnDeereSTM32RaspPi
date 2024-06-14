@@ -11,13 +11,13 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 ### First Physical Test
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/53f0341c-1f7c-4d7f-8cf4-8736078b7f43" alt = "Physical Demo" width="600" height="350"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/53f0341c-1f7c-4d7f-8cf4-8736078b7f43" alt = "First Physical Demo" width="600" height="350"/>
 </p>
 
 ### Final Physical Test
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/8f712f2e-be62-41b0-96c5-b83a94b2bdbf" alt = "First Physical Demo" width="400" height="300"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/8f712f2e-be62-41b0-96c5-b83a94b2bdbf" alt = "Final Physical Demo" width="400" height="300"/>
 </p>
 
 ## Schematic Diagram
@@ -97,6 +97,10 @@ Finally, a **bash script** was written to simplify the process of running the pl
 ## Bonus - OLED Screen
 
 The *I2C internal peripheral* was configured to communicate with a *128x64 OLED screen* (although it is possible to use a 128x32 screen). Then, functions were developed so it would be possible to display images sending *commands* and *data* in the format of a *buffer*.
+
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/e12e0cb1-62c1-4d93-9d94-f2e031be2def" alt = "OLED Screen" width="600" height="350"/>
+</p>
 
 ## Bonus - PWM for Micro Servo
 
