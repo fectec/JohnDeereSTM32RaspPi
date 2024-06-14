@@ -99,7 +99,7 @@ Finally, a **bash script** was written to simplify the process of running the pl
 The *I2C internal peripheral* was configured to communicate with a *128x64 OLED screen* (although it is possible to use a 128x32 screen). Then, functions were developed so it would be possible to display images sending *commands* and *data* in the format of a *buffer*.
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/e12e0cb1-62c1-4d93-9d94-f2e031be2def" alt = "OLED Screen" width="600" height="350"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/e12e0cb1-62c1-4d93-9d94-f2e031be2def" alt = "OLED Screen" width="200" height="180"/>
 </p>
 
 ## Bonus - PWM for Micro Servo
