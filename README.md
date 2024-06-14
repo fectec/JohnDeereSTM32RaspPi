@@ -94,6 +94,10 @@ In addition, a widget was created with the *Tkinter* library in which the user c
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/acb6facc-3afd-4e62-b664-717f83fbbfff" alt = "Throttle Controller Widget Demo" width="600" height="350"/>
 </p>
 
+<p align="center">
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/d5de1e53-4cac-4171-8ef8-ad6a89c8ff17" alt = "Throttle Controller Widget Physical Demo" width="210" height="120"/>
+</p>
+
 In all serial interaction cases, modify **plot_serial_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *Data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_serial_settings.py, alongside the baud rate, which is by default 115200 to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
 
 Finally, a **bash script** was written to simplify the process of running the plotting file. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the plotting file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
