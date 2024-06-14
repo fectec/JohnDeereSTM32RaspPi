@@ -107,6 +107,6 @@ The *I2C internal peripheral* was configured to communicate with a *128x64 OLED 
 A *TIM internal peripheral* was used to generate a *PWM signal* and control a *Micro Servo*, simulating the movement of the tractor's steering wheel.
 
 <p align="center">
-  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/12a16a60-edd1-4898-ae6e-e8e391942ccf" alt = "Micro Servo" width="600" height="350"/>
+  <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/12a16a60-edd1-4898-ae6e-e8e391942ccf" alt = "Micro Servo" width="300" height="175"/>
 </p>
 
