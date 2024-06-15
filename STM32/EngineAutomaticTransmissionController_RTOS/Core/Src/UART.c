@@ -45,8 +45,8 @@ int _write( int file, char *ptr, int len )
 
   for( DataIdx = 0 ; DataIdx < len; DataIdx++ )
   {
-    while(!( USART2->SR & USART_SR_TXE ));		// Wait until USART_DR is empty
-    USART2->DR = *ptr++;				// Transmit data
+    while(!( USART1->SR & USART_SR_TXE ));		// Wait until USART_DR is empty
+    USART1->DR = *ptr++;				// Transmit data
   }
 
   return len;

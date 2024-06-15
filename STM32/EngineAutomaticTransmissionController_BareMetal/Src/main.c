@@ -198,8 +198,16 @@ int main( void )
      * alongside Brake and Gear to integers.
      */
 
-    ThrottleWhole = (int) ( potentiometerThrottle );
-    ThrottleDecimal = (int) ( ( potentiometerThrottle - ThrottleWhole ) * 100 );
+    if(operationMode == 0)
+    {
+      ThrottleWhole = (int) ( potentiometerThrottle );
+      ThrottleDecimal = (int) ( ( potentiometerThrottle - ThrottleWhole ) * 100 );
+    }
+    else
+    {
+      ThrottleWhole = (int) ( receivedThrottle );
+      ThrottleDecimal = 0;
+    }
 
     VehicleSpeedWhole = (int)( EngTrModel_Y.VehicleSpeed );
     VehicleSpeedDecimal = (int)( ( EngTrModel_Y.VehicleSpeed - VehicleSpeedWhole ) * 100 );

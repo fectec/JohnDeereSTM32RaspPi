@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to run plot and widget (Tested on: Raspberry Pi 3 Model B - Raspberry Pi OS 64-bit, based on Debian)
+# Script to run plot (Tested on: Raspberry Pi 3 Model B - Raspberry Pi OS 64-bit, based on Debian)
 
 set -e                                                                          # Exit immediately if any command fails
 

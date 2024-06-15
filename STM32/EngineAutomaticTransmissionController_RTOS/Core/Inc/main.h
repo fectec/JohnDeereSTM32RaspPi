@@ -47,6 +47,10 @@ typedef struct
   volatile uint32_t CALIB;
 } SYSTICK_TypeDef;
 
+typedef struct {
+	float potentiometerThrottle;
+} Queue_Struct;
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
