@@ -98,9 +98,9 @@ In all serial interaction cases, modify **plot_serial_settings.py** to specify t
 
 Finally, **bash scripts** were written to simplify the process of running the plotting and widget files. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
 
-## Real-time Operating System
+## Real-Time Operating System
 
-To conclude the project, the Bare Metal code was refactored to add a Real-time Operating System (RTOS), in this case, using the CMSIS_V1 API for FreeRTOS. The program was divided into tasks, for which an approximate execution time was measured. Then, based on the rate-monotonic scheduling (RMS) priority assignment algorithm, the priority of each task was determined and a feasibility analysis for such selection was performed.
+To conclude the project, the Bare Metal code was refactored to add a Real-Time Operating System (RTOS), in this case, using the CMSIS_V1 API for FreeRTOS. The program was divided into tasks, for which an approximate execution time was measured. Then, based on the rate-monotonic scheduling (RMS) priority assignment algorithm, the priority of each task was determined and a feasibility analysis for such selection was performed.
 
 ## Bonus - OLED Screen
 
