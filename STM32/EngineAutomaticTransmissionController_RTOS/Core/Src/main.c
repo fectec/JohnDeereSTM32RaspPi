@@ -71,23 +71,16 @@
 /* Private variables ---------------------------------------------------------*/
 
 UART_HandleTypeDef huart2;
-osThreadId defaultTaskHandle;
 
 /* USER CODE BEGIN PV */
 
-// RTOS
+// Tasks
 
 osThreadId Task1Handle;
 osThreadId Task2Handle;
 osThreadId Task3Handle;
 osThreadId Task4Handle;
 osThreadId Task5Handle;
-
-osMessageQId Queue1Handle;
-osMessageQId Queue2Handle;
-osMessageQId Queue3Handle;
-
-osMutexId MutexModelHandle;
 
 // Matrix keypad
 
@@ -97,7 +90,7 @@ float keyBrakeTorque = 0.0;
 // ADC
 
 uint16_t conversionData = 0;
-float voltageValue = 0.0;
+float voltageValue = 0.0, potentiometerThrottle = 0.0;
 
 // UART
 
@@ -188,9 +181,6 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_MUTEX */
 
-  osMutexDef(Mutex_M);
-  MutexModelHandle = osMutexCreate(osMutex(Mutex_M));
-
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
@@ -202,14 +192,6 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-
-  osMessageQDef(Queue1, 30, Queue_Struct);
-  Queue1Handle = osMessageCreate(osMessageQ(Queue1), 1);
-  osMessageQDef(Queue2, 30, Queue_Struct);
-  Queue2Handle = osMessageCreate(osMessageQ(Queue2), 1);
-  osMessageQDef(Queue3, 30, Queue_Struct);
-  Queue3Handle = osMessageCreate(osMessageQ(Queue3), 1);
-
 
   /* USER CODE END RTOS_QUEUES */
 
@@ -437,13 +419,7 @@ void TASK_2_ADC_Read( void const * argument )
 {
   USER_ADC_Init( ADC_1 );
 
-  float potentiometerThrottle;
-
   uint32_t counter = 0;
-
-  Queue_Struct messageT3;
-  Queue_Struct messageT4;
-  Queue_Struct messageT5;
 
   /* Infinite loop */
 
@@ -452,16 +428,6 @@ void TASK_2_ADC_Read( void const * argument )
     conversionData = USER_ADC_Convert( ADC_1 );
     voltageValue = 0.00080586 * conversionData;
     potentiometerThrottle = scaleVoltageValue( voltageValue, 0, 3.3 );
-
-    messageT3.potentiometerThrottle = potentiometerThrottle;
-    messageT4.potentiometerThrottle = potentiometerThrottle;
-    messageT5.potentiometerThrottle = potentiometerThrottle;
-
-    // Put throttle's value and the received data from the RPi in a queue
-
-    osMessagePut(Queue1Handle, &messageT3, 1);
-    osMessagePut(Queue1Handle, &messageT4, 1);
-    osMessagePut(Queue1Handle, &messageT5, 1);
 
     osDelay(PERIOD_TASK_2 - TICK_DIFF_TASK_2);
   }
@@ -476,19 +442,10 @@ void TASK_3_MODEL_Step( void const * argument )
 {
   uint32_t counter = 0;
 
-  osEvent messageRecive;
-  float potentiometerThrottle;
-
   /* Infinite loop */
 
   for(;;)
   {
-    osMutexWait(MutexModelHandle, osWaitForever);
-
-    messageRecive = osMessageGet(Queue1Handle, 200);
-
-    potentiometerThrottle =((Queue_Struct*)messageRecive.value.p)->potentiometerThrottle;
-
     if(operationMode == 0)							// Manual mode
     {
       EngTrModel_U.Throttle = potentiometerThrottle;				// Model feed with potentiometer throttle value
@@ -519,8 +476,6 @@ void TASK_3_MODEL_Step( void const * argument )
       EngTrModel_Y.Gear = 0.0;
     }
 
-    osMutexRelease(MutexModelHandle);
-
     osDelay(PERIOD_TASK_3 - TICK_DIFF_TASK_3);
   }
 }
@@ -535,26 +490,16 @@ void TASK_4_UART_Use( void const * argument )
 {
   uint32_t counter = 0;
 
-  osEvent messageRecive;
-  float potentiometerThrottle;
-
   /* Infinite loop */
 
   for(;;)
   {
-    osMutexWait(MutexModelHandle, osWaitForever);
-
-    messageRecive = osMessageGet(Queue2Handle, 200);
-    potentiometerThrottle =((Queue_Struct*)messageRecive.value.p)->potentiometerThrottle;
-
     printf("%f,%f,%f,%f,%f\n\r", potentiometerThrottle, keyBrakeTorque, EngTrModel_Y.VehicleSpeed, EngTrModel_Y.EngineSpeed, EngTrModel_Y.Gear);
 
     if( USART1->SR & USART_SR_RXNE )						// If USART_DR is not empty
     {
       receivedThrottle = USART1->DR;						// Receive data
     }
-
-    osMutexRelease(MutexModelHandle);
 
     osDelay(PERIOD_TASK_4 - TICK_DIFF_TASK_4);
   }
@@ -571,9 +516,6 @@ void TASK_5_LCD_Write( void const * argument )
 
   uint32_t counter = 0;
 
-  osEvent messageRecive;
-  float potentiometerThrottle;
-
   /* Infinite loop */
 
   for(;;)
@@ -582,11 +524,6 @@ void TASK_5_LCD_Write( void const * argument )
      * Engine Speed and Vehicle Speed, and cast them
      * alongside Brake and Gear to integers.
      */
-
-    osMutexWait(MutexModelHandle, osWaitForever);
-
-    messageRecive = osMessageGet(Queue3Handle, 200);
-    potentiometerThrottle =((Queue_Struct*)messageRecive.value.p)->potentiometerThrottle;
 
     if(operationMode == 0)
     {
@@ -619,8 +556,6 @@ void TASK_5_LCD_Write( void const * argument )
     LCD_Put_Str( FirstLine_LCD_MSG );
     LCD_Set_Cursor( 2, 1 );
     LCD_Put_Str( SecondLine_LCD_MSG );
-
-    osMutexRelease(MutexModelHandle);
 
     osDelay(PERIOD_TASK_5 - TICK_DIFF_TASK_5);
   }
