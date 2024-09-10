@@ -1,3 +1,0 @@
-../Core/Src/ADC.c:12:6:USER_ADC_Init	3
-../Core/Src/ADC.c:41:10:USER_ADC_Convert	3
-../Core/Src/ADC.c:54:7:scaleVoltageValue	1
