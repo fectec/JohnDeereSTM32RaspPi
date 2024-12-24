@@ -1,12 +1,12 @@
 # John Deere STM32 & Raspberry Pi
 
-Main project in collaboration with *John Deere* for the undergrad course “**System Design on Chip**”, which delves mainly into *SoCs*, *Computer Architecture and Organization*, *Bare Metal Programming*, *Real-Time Operating Systems*, and *Embedded Linux*.
+<p align="justify">Main project in collaboration with <b>John Deere</b> for the undergrad course "<b>System Design on Chip</b>", which delves mainly into <i>SoCs</i>, <i>Computer Architecture and Organization</i>, <i>Bare Metal Programming</i>, <i>Real-Time Operating Systems</i>, and <i>Embedded Linux</i>.</p>
 
 <p align="center">
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/a2e3f5e0-a5d1-4a21-a7a1-1e9dee4edf54" alt = "NUCLEO-F103RB & Raspberry Pi 3 Model B width="200" height="150"/>
 </p>
 
-It consists of a **John Deere tractor driving simulator**. The project uses SoCs to prototype the technologies integrated into a John Deere agricultural tractor. A *matrix keypad* represents the Steering and Braking of the vehicle, and a *potentiometer* represents the Throttle. The *NUCLEO-F103RB* development board with *STM32F103RB MCU* operates those values with a *tractor engine automatic transmission controller* model and displays the output on an *LCD*. Also, through the *UART* protocol, it is sent to a *Raspberry Pi 3 Model B* (with *Raspberry Pi OS 64-bit*, *based on Debian*), which carries out its graphing on a screen.
+<p align="justify">It consists of a <b>John Deere tractor driving simulator</b>. The project uses SoCs to prototype the technologies integrated into a John Deere agricultural tractor. A <i>matrix keypad</i> represents the Steering and Braking of the vehicle, and a <i>potentiometer</i> represents the Throttle. The <b>NUCLEO-F103RB</b> development board with <b>STM32F103RB MCU</b> operates those values with a <i>tractor engine automatic transmission controller</i> model and displays the output on an <i>LCD</i>. Also, through the <i>UART</i> protocol, it is sent to a <b>Raspberry Pi 3 Model B</b> (with <i>Raspberry Pi OS 64-bit</i>, <i>based on Debian</i>), which carries out its graphing on a screen.</p>
 
 ### First Physical Test
 
@@ -52,23 +52,21 @@ It consists of a **John Deere tractor driving simulator**. The project uses SoCs
 
 ## NUCLEO-F103RB Model Integration
 
-John Deere provided the files for a model of a **tractor engine automatic transmission controller**. This receives two input values, vehicle Throttle and Brake, and returns three output values, *Engine speed*, *Vehicle Speed* and *Gear*. Since a potentiometer represents the Throttle, the *ADC* on the NUCLEO-F103RB board is used to sense a variable voltage value which is then normalized to a range of 0 to 100 and fed to the model. 
+<p align="justify">John Deere provided the files for a model of a <b>tractor engine automatic transmission controller</b>. This receives two input values, vehicle Throttle and Brake, and returns three output values, <i>Engine speed</i>, <i>Vehicle Speed</i> and <i>Gear</i>. Since a potentiometer represents the Throttle, the <i>ADC</i> on the NUCLEO-F103RB board is used to sense a variable voltage value which is then normalized to a range of 0 to 100 and fed to the model.</p>
 
-On the other hand, the *matrix keypad* is read by declaring the *rows* pins as *outputs* and the *columns* pins as *pull-up inputs*. Then, the row to be read is selected by setting the corresponding pin to ground and turning on the remaining pins. Thus, if a button in this row is pressed, an input will detect a logic 0 while the others remain at logic 1, so it is necessary to detect which of these has such a value to determine the column, and thus, the pressed button. If the pressed button is not found in such a row, then the procedure is repeated with the next row. In other words, it is a constant process of sweeping through rows and columns.
+<p align="justify">On the other hand, the <i>matrix keypad</i> is read by declaring the <i>rows</i> pins as <i>outputs</i> and the <i>columns</i> pins as <i>pull-up inputs</i>. Then, the row to be read is selected by setting the corresponding pin to ground and turning on the remaining pins. Thus, if a button in this row is pressed, an input will detect a logic 0 while the others remain at logic 1, so it is necessary to detect which of these has such a value to determine the column, and thus, the pressed button. If the pressed button is not found in such a row, then the procedure is repeated with the next row. In other words, it is a constant process of sweeping through rows and columns.</p>
 
-Then, the button pressed is decoded into an action. The 5 sets the Brake value to 100. Meanwhile, 4 and 6 are treated as left and right, their effect being to decrease by one the value of the voltage read (before normalization, i.e., in the range of 0 to 3.3V), in order to simulate a slowdown during a turn in a curve. Again, the Brake value is fed to the model. 
+<p align="justify">Once the model has processed this information, the output data is sent via the <i>USART internal peripheral</i> to the <i>UART TX pin</i> of the NUCLEO-F103RB board, which, like it will be reviewed later, is connected to the <i>UART RX</i> pin of the Raspberry Pi. It is also string formatted and written to the LCD. It is important to note that the <i>TIM internal peripheral</i> is programmed to provide the required delays to both the model and the LCD.</p>
 
-Once the model has processed this information, the output data is sent via the *USART internal peripheral* to the *UART TX pin* of the NUCLEO-F103RB board, which, like it will be reviewed later, is connected to the *UART RX* pin of the Raspberry Pi. It is also string formatted and written to the LCD. It is important to note that the *TIM internal peripheral* is programmed to provide the required delays to both the model and the LCD.
-
-It should be noted that there are two modes of operation: *manual* and *simulation*. In the first one, the Throttle is determined by the potentiometer, and in the second one, with a value sent through the serial port by the Raspberry Pi. Button A on the matrix keyboard chooses the manual mode, while button B selects the simulation mode. In the latter, the input data is read via the *UART RX pin* of the NUCLEO-F103RB board which is connected to the *UART TX* pin of the Raspberry Pi. 
+<p align="justify">It should be noted that there are two modes of operation: <i>manual</i> and <i>simulation</i>. In the first one, the Throttle is determined by the potentiometer, and in the second one, with a value sent through the serial port by the Raspberry Pi. Button A on the matrix keyboard chooses the manual mode, while button B selects the simulation mode. In the latter, the input data is read via the <i>UART RX pin</i> of the NUCLEO-F103RB board which is connected to the <i>UART TX</i> pin of the Raspberry Pi.</p>
 
 ## Raspberry Pi 3 Model B Plotting
 
-The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the *UART RX pin*. Thus, using the *serial* library, the serial port containing the real-time values is read. These are written to a CSV file with the *csv* library and plotted with the *Matplotlib* library. A graphical interface was also realized via the *Pygame* library, which receives the graphs from *Matplotlib* in raw data format, converts them to surfaces, and can then draw them within the same game window. At an earlier stage of the development, a plotting script using *randomly generated data* was created. This file is also provided. 
+<p align="justify">The Raspberry Pi receives the output data from the model (engine speed, vehicle speed and gear) through the <i>UART RX pin</i>. Thus, using the <i>serial</i> library, the serial port containing the real-time values is read. These are written to a CSV file with the <i>csv</i> library and plotted with the <i>Matplotlib</i> library. A graphical interface was also realized via the <i>Pygame</i> library, which receives the graphs from <i>Matplotlib</i> in raw data format, converts them to surfaces, and can then draw them within the same game window.</p>
 
-To use the graphical interface, run **game.py**. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run **plot_RPi.py**, which uses serially read data. 
+<p align="justify">To use the graphical interface, run <b>game.py</b>. It is possible to select between randomly generated or serially read data by uncommenting the desired functionality line and commenting the remaining one at the top of the file in the code imports section. To plot without a Pygame graphical interface, run <b>plot_RPi.py</b>, which uses serially read data.</p>
 
-In addition, a widget was created with the *Tkinter* library in which the user can stipulate a Throttle value by means of a slider. If the button corresponding to the simulation is pressed, the Throttle is transmitted over the *UART TX pin* with the help of the same library used to receive. To use it run **widget.py**.
+<p align="justify">In addition, a widget was created with the <i>Tkinter</i> library in which the user can stipulate a Throttle value by means of a slider. If the button corresponding to the simulation is pressed, the Throttle is transmitted over the <i>UART TX pin</i> with the help of the same library used to receive. To use it run <b>widget.py</b>.</p>
 
 ### Graphical Interface with Random Data
 
@@ -94,17 +92,17 @@ In addition, a widget was created with the *Tkinter* library in which the user c
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/acb6facc-3afd-4e62-b664-717f83fbbfff" alt = "Throttle Controller Widget Demo" width="600" height="350"/>
 </p>
 
-In all serial interaction cases, modify **plot_serial_settings.py** to specify the serial port depending on your test environment, i.e, *COMX* for Windows or */dev/ttySX* for Linux. The CSV files with the data (random or serial) will be stored in the *Data* folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_serial_settings.py, alongside the baud rate, which is by default 115200 to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate. 
+<p align="justify">In all serial interaction cases, modify <b>plot_serial_settings.py</b> to specify the serial port depending on your test environment, i.e, <i>COMX</i> for Windows or <i>/dev/ttySX</i> for Linux. The CSV files with the data (random or serial) will be stored in the <i>Data</i> folder. A script for testing a serial connection is uploaded. Once more, the serial port is modifiable within the plot_serial_settings.py, alongside the baud rate, which is by default 115200 to ensure compatibility with the NUCLEO-F103RB intern USART peripheral which operates at the same rate.</p>
 
-Finally, **bash scripts** were written to simplify the process of running the plotting and widget files. It ensures the current user has *access* to the *serial interface and port*, creates and activates a *Python virtual environment*, installs (if necessary) the required *packages* (Pygame, Matplotlib, Numpy, Pyserial), *changes the directory* to the location of the file, *executes* it and *deactivates* the virtual environment. Don't forget to run **sudo raspi-config** to enable the serial port. 
+<p align="justify">Finally, <b>bash scripts</b> were written to simplify the process of running the plotting and widget files. It ensures the current user has <i>access</i> to the <i>serial interface and port</i>, creates and activates a <i>Python virtual environment</i>, installs (if necessary) the required <i>packages</i> (Pygame, Matplotlib, Numpy, Pyserial), <i>changes the directory</i> to the location of the file, <i>executes</i> it and <i>deactivates</i> the virtual environment. Don't forget to run <i>sudo raspi-config</i> to enable the serial port.</p>
 
 ## Real-Time Operating System
 
-To conclude the project, the Bare Metal code was refactored to add a **Real-Time Operating System** (RTOS), in this case, using the *CMSIS_V1 API* for *FreeRTOS*. The program was divided into tasks, for which an approximate execution time was measured. Then, based on the *rate-monotonic scheduling* (RMS) priority assignment algorithm, the priority of each task was determined and a feasibility analysis for such selection was performed.
+<p align="justify">To conclude the project, the Bare Metal code was refactored to add a <b>Real-Time Operating System</b> (RTOS), in this case, using the <i>CMSIS_V1 API</i> for <i>FreeRTOS</i>. The program was divided into tasks, for which an approximate execution time was measured. Then, based on the <i>rate-monotonic scheduling</i> (RMS) priority assignment algorithm, the priority of each task was determined and a feasibility analysis for such selection was performed.</p>
 
 ## Bonus - OLED Screen
 
-The *I2C internal peripheral* was configured to communicate with a *128x64 OLED screen* (although it is possible to use a 128x32 screen). Then, functions were developed so it would be possible to display images sending *commands* and *data* in the format of a *buffer*.
+<p align="justify">The <i>I2C internal peripheral</i> was configured to communicate with a <i>128x64 OLED screen</i> (although it is possible to use a 128x32 screen). Then, functions were developed so it would be possible to display images sending <i>commands</i> and <i>data</i> in the format of a <i>buffer</i>.</p>
 
 <p align="center">
   <img src="https://github.com/fectec/JohnDeereSTM32RaspPi/assets/127822858/e12e0cb1-62c1-4d93-9d94-f2e031be2def" alt = "OLED Screen" width="210" height="120"/>
@@ -112,4 +110,4 @@ The *I2C internal peripheral* was configured to communicate with a *128x64 OLED 
 
 ## Bonus - PWM for Micro Servo
 
-A *TIM internal peripheral* was used to generate a *PWM signal* and control a *Micro Servo*, simulating the movement of the tractor's steering wheel.
+<p align="justify">A <i>TIM internal peripheral</i> was used to generate a <i>PWM signal</i> and control a <i>Micro Servo</i>, simulating the movement of the tractor's steering wheel.</p>
